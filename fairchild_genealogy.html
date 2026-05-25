@@ -6,568 +6,221 @@
 <title>The Fairchild Genealogy: Six Generations of Silicon Valley</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #0a0e1a;
-    --surface: #111827;
-    --surface2: #1a2236;
-    --border: rgba(255,255,255,0.08);
-    --text: #e8eaf0;
-    --text-muted: #8892a4;
-    --text-dim: #4a5568;
-    --gold: #d4a843;
-    --gold-dim: rgba(212,168,67,0.15);
-    --blue: #3b82f6;
-    --blue-dark: #1e3a5f;
-    --green: #10b981;
-    --green-dark: #064e3b;
-    --coral: #f97316;
-    --coral-dark: #7c2d12;
-    --purple: #8b5cf6;
-    --purple-dark: #3b1f6e;
-    --gray: #6b7280;
-    --gray-dark: #1f2937;
-    --red: #ef4444;
-    --red-dark: #7f1d1d;
-  }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 15px;
-    line-height: 1.6;
-    min-height: 100vh;
-  }
-
-  /* Subtle grid background */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(59,130,246,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(59,130,246,0.03) 1px, transparent 1px);
-    background-size: 60px 60px;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .page {
-    position: relative;
-    z-index: 1;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 60px 32px 80px;
-  }
-
-  /* ── Header ── */
-  .masthead {
-    margin-bottom: 52px;
-  }
-  .masthead-kicker {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 16px;
-  }
-  .masthead h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(28px, 5vw, 54px);
-    font-weight: 700;
-    line-height: 1.1;
-    color: #fff;
-    margin-bottom: 10px;
-  }
-  .masthead h1 span { color: var(--gold); }
-  .masthead-sub {
-    font-size: 16px;
-    color: var(--text-muted);
-    max-width: 640px;
-    margin-bottom: 24px;
-  }
-  .masthead-rule {
-    height: 1px;
-    background: linear-gradient(90deg, var(--gold), transparent);
-    margin-bottom: 24px;
-  }
-
-  /* ── Legend ── */
-  .legend {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px 24px;
-    margin-bottom: 36px;
-    font-size: 12px;
-    color: var(--text-muted);
-  }
-  .lchip { display: inline-flex; align-items: center; gap: 6px; }
-  .ldot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
-
-  /* ── Tree wrapper ── */
-  .tree-scroll { width: 100%; overflow-x: auto; }
-  svg.tree { display: block; overflow: visible; }
-
-  /* SVG node styles via JS classes applied to g elements */
-  .node-g { cursor: pointer; }
-  .node-g rect { transition: filter 0.15s; }
-  .node-g:hover rect { filter: brightness(1.25); }
-  .gen-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.1em; fill: #4a5568; text-transform: uppercase; }
-  .node-title { font-family: 'IBM Plex Sans', sans-serif; font-size: 11.5px; font-weight: 600; text-anchor: middle; dominant-baseline: central; }
-  .node-sub { font-family: 'IBM Plex Sans', sans-serif; font-size: 9.5px; font-weight: 400; text-anchor: middle; dominant-baseline: central; }
-  .connector { fill: none; }
-
-  /* ── Non-compete callout ── */
-  .nc-box {
-    margin-top: 32px;
-    border-left: 3px solid var(--gold);
-    background: var(--gold-dim);
-    border-radius: 0 8px 8px 0;
-    padding: 16px 20px;
-    font-size: 13px;
-    color: var(--text-muted);
-    line-height: 1.7;
-  }
-  .nc-box strong { color: var(--text); font-weight: 600; }
-
-  /* ── Modal panel ── */
-  .modal-backdrop {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.7);
-    z-index: 50;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-  }
-  .modal-backdrop.open { display: flex; }
-  .modal {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 28px;
-    max-width: 460px;
-    width: 100%;
-    max-height: 85vh;
-    overflow-y: auto;
-    position: relative;
-  }
-  .modal-close {
-    position: absolute;
-    top: 14px; right: 16px;
-    background: none; border: none;
-    font-size: 20px; cursor: pointer;
-    color: var(--text-muted);
-    line-height: 1;
-    font-family: 'IBM Plex Sans', sans-serif;
-  }
-  .modal-close:hover { color: var(--text); }
-  .modal-era {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 8px;
-  }
-  .modal-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 20px;
-    font-weight: 700;
-    color: #fff;
-    margin-bottom: 4px;
-    line-height: 1.25;
-  }
-  .modal-year { font-size: 12px; color: var(--text-muted); margin-bottom: 14px; }
-  .modal-founders { font-size: 12.5px; color: var(--text-muted); margin-bottom: 12px; line-height: 1.6; }
-  .modal-desc { font-size: 13.5px; color: var(--text); line-height: 1.7; margin-bottom: 16px; }
-  .modal-impact {
-    background: var(--surface2);
-    border-radius: 8px;
-    padding: 12px 16px;
-    font-size: 12.5px;
-    color: var(--text-muted);
-    line-height: 1.65;
-  }
-  .modal-impact strong { color: var(--text); font-weight: 600; }
-
-  /* ── Footer ── */
-  .footer {
-    margin-top: 60px;
-    padding-top: 28px;
-    border-top: 1px solid var(--border);
-    font-size: 12px;
-    color: var(--text-dim);
-    line-height: 1.7;
-  }
-  .footer strong { color: var(--text-muted); font-weight: 500; }
-  .footer a {
-    color: var(--gold);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  .footer a:hover {
-    color: #f5d881;
-    text-decoration: underline;
-  }
-  .back-link {
-    display: inline-block;
-    margin-top: 16px;
-    padding: 8px 16px;
-    background: rgba(212,168,67,0.1);
-    border: 1px solid rgba(212,168,67,0.3);
-    border-radius: 6px;
-    color: var(--gold);
-    text-decoration: none;
-    font-size: 13px;
-    transition: all 0.2s;
-  }
-  .back-link:hover {
-    background: rgba(212,168,67,0.2);
-    border-color: rgba(212,168,67,0.5);
-  }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f9f7f4;--surface:#fff;--surface2:#f2f0ed;
+  --border:rgba(0,0,0,.10);--border-med:rgba(0,0,0,.18);
+  --text:#1a1917;--text-sec:#6b6860;--text-muted:#9c9a96;
+  --gold:#b8860b;--gold-light:#f5e9c0;
+  --blue-dk:#0c447c;--blue-md:#185fa5;
+  --green-dk:#0f6e56;--coral-dk:#993c1d;
+  --purple-dk:#3c3489;--radius:10px;--radius-sm:6px;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.site-header{background:var(--blue-dk);color:#fff;padding:3rem 2rem 2.5rem;position:relative;overflow:hidden}
+.site-header::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 40px,rgba(255,255,255,.025) 40px,rgba(255,255,255,.025) 41px)}
+.header-inner{max-width:1100px;margin:0 auto;position:relative}
+.kicker{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#85b7eb;margin-bottom:12px}
+.h-title{font-family:'DM Serif Display',serif;font-size:clamp(2rem,5vw,3.4rem);line-height:1.1;color:#fff;margin-bottom:10px}
+.h-sub{font-size:clamp(.95rem,2vw,1.2rem);color:#b5d4f4;font-weight:300;margin-bottom:1.5rem;max-width:700px}
+.stat-row{display:flex;flex-wrap:wrap;gap:1rem;margin-top:1.5rem}
+.pill{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:100px;padding:7px 16px;font-size:13px;color:#e6f1fb}
+.pill strong{color:#fff;font-weight:600}
+.page-body{max-width:1100px;margin:0 auto;padding:2rem 1.5rem 4rem}
+.intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem}
+@media(max-width:640px){.intro-grid{grid-template-columns:1fr}}
+.icard{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem 1.5rem}
+.icard h3{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:8px}
+.icard p{font-size:14px;line-height:1.65;color:var(--text-sec)}
+.callout{background:var(--gold-light);border-left:4px solid var(--gold);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:1rem 1.25rem;margin-bottom:2rem;font-size:14px;line-height:1.65;color:#5a4500}
+.callout strong{color:#3a2d00}
+.legend{display:flex;flex-wrap:wrap;gap:10px 24px;margin-bottom:1.25rem;font-size:12px;color:var(--text-sec)}
+.lchip{display:inline-flex;align-items:center;gap:6px}
+.ldot{width:10px;height:10px;border-radius:50%;flex-shrink:0;display:inline-block}
+.tree-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem 1rem 1rem;overflow-x:auto;margin-bottom:2rem}
+.tree-box h2{font-size:15px;font-weight:600;color:var(--text);margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--border)}
+svg.tree{display:block}
+.gen-label{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;fill:#9c9a96;letter-spacing:.08em;text-transform:uppercase}
+.ng{cursor:pointer}
+.ng rect{transition:filter .15s}
+.ng:hover rect{filter:brightness(1.08)}
+.nt{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;text-anchor:middle;dominant-baseline:central}
+.ns{font-family:'DM Sans',sans-serif;font-size:10px;text-anchor:middle;dominant-baseline:central}
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:2rem}
+.sc{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem 1.5rem;text-align:center}
+.sn{font-family:'DM Serif Display',serif;font-size:2.2rem;color:var(--blue-dk);line-height:1;margin-bottom:6px}
+.sl{font-size:12px;color:var(--text-sec);line-height:1.4}
+.overlay{position:fixed;inset:0;z-index:200;background:rgba(15,10,5,.55);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s;padding:1rem}
+.overlay.open{opacity:1;pointer-events:auto}
+.modal{background:var(--surface);border-radius:var(--radius);border:1px solid var(--border-med);max-width:480px;width:100%;max-height:85vh;overflow-y:auto;padding:1.75rem;position:relative;box-shadow:0 24px 64px rgba(0,0,0,.22)}
+.mc{position:absolute;top:14px;right:16px;background:none;border:none;font-size:22px;cursor:pointer;color:var(--text-muted);line-height:1}
+.mc:hover{color:var(--text)}
+.m-era{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px}
+.m-name{font-family:'DM Serif Display',serif;font-size:1.4rem;color:var(--text);margin-bottom:4px;line-height:1.2;padding-right:2rem}
+.m-year{font-size:13px;color:var(--text-muted);margin-bottom:14px}
+.m-div{height:1px;background:var(--border);margin:1rem 0}
+.m-founders{font-size:13px;color:var(--text-sec);margin-bottom:12px;line-height:1.55;font-style:italic}
+.m-desc{font-size:14px;color:var(--text);line-height:1.65;margin-bottom:14px}
+.m-impact{background:var(--surface2);border-radius:var(--radius-sm);padding:10px 14px;font-size:13px;color:var(--text-sec);line-height:1.55}
+.m-impact strong{color:var(--text);font-weight:600}
+footer{border-top:1px solid var(--border);padding:1.5rem 2rem;max-width:1100px;margin:0 auto;font-size:12px;color:var(--text-muted);line-height:1.6}
 </style>
 </head>
 <body>
-<div class="page">
-
-  <div class="masthead">
-    <div class="masthead-kicker">Research Brief · Non-Compete Agreements &amp; Innovation</div>
-    <h1>The <span>Fairchild</span> Genealogy</h1>
-    <div class="masthead-sub">Six generations of Silicon Valley — from eight departures in 1957 to a $2 trillion legacy. Click any node to explore.</div>
-    <div class="masthead-rule"></div>
+<header class="site-header">
+<div class="header-inner">
+  <div class="kicker">Research Brief · Non-Compete &amp; Innovation Series</div>
+  <h1 class="h-title">The Fairchild Genealogy</h1>
+  <p class="h-sub">Six generations of Silicon Valley — from eight departures in 1957 to a $2 trillion legacy. Click any node to explore the story.</p>
+  <div class="stat-row">
+    <span class="pill"><strong>1957</strong> — Fairchild founded</span>
+    <span class="pill"><strong>6 generations</strong> of spinoffs</span>
+    <span class="pill"><strong>92 public companies</strong> traced to Fairchild (2014)</span>
+    <span class="pill"><strong>$2.1 trillion</strong> combined descendant value</span>
+    <span class="pill"><strong>CA §16600</strong> — departure legally uninhibited</span>
   </div>
+</div>
+</header>
 
-  <div class="legend">
-    <span class="lchip"><span class="ldot" style="background:#1e40af"></span>Fairchild founders</span>
-    <span class="lchip"><span class="ldot" style="background:#1d4ed8"></span>Semiconductor companies</span>
-    <span class="lchip"><span class="ldot" style="background:#065f46"></span>Venture capital firms</span>
-    <span class="lchip"><span class="ldot" style="background:#92400e"></span>Computing &amp; software</span>
-    <span class="lchip"><span class="ldot" style="background:#4c1d95"></span>Internet era</span>
-    <span class="lchip"><span class="ldot" style="background:#374151"></span>Context / precursor</span>
+<main class="page-body">
+<div class="intro-grid">
+  <div class="icard">
+    <h3>The founding act</h3>
+    <p>On September 18, 1957, eight engineers left Shockley Semiconductor and founded a direct competitor. California's Business &amp; Professions Code §16600 made this legally consequence-free. In Massachusetts, the same move would have risked non-compete litigation.</p>
   </div>
-
-  <div class="tree-scroll">
-  <svg class="tree" viewBox="0 0 900 980" width="100%" style="min-width:680px">
-  <defs>
-    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-      <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-    </marker>
-  </defs>
-
-  <!-- Gen labels -->
-  <text class="gen-label" x="14" y="94">Precursor</text>
-  <text class="gen-label" x="14" y="194">1957</text>
-  <text class="gen-label" x="14" y="314">Gen 1</text>
-  <text class="gen-label" x="14" y="434">Gen 2</text>
-  <text class="gen-label" x="14" y="554">Gen 3</text>
-  <text class="gen-label" x="14" y="674">Gen 4</text>
-  <text class="gen-label" x="14" y="794">Gen 5</text>
-  <text class="gen-label" x="14" y="914">Gen 6</text>
-
-  <!-- Dividers -->
-  <line x1="110" y1="115" x2="890" y2="115" stroke="rgba(255,255,255,0.06)" stroke-width=".5"/>
-  <line x1="110" y1="225" x2="890" y2="225" stroke="rgba(255,255,255,0.06)" stroke-width=".5"/>
-  <line x1="110" y1="345" x2="890" y2="345" stroke="rgba(255,255,255,0.06)" stroke-width=".5"/>
-  <line x1="110" y1="465" x2="890" y2="465" stroke="rgba(255,255,255,0.06)" stroke-width=".5"/>
-  <line x1="110" y1="585" x2="890" y2="585" stroke="rgba(255,255,255,0.06)" stroke-width=".5"/>
-  <line x1="110" y1="705" x2="890" y2="705" stroke="rgba(255,255,255,0.06)" stroke-width=".5"/>
-  <line x1="110" y1="825" x2="890" y2="825" stroke="rgba(255,255,255,0.06)" stroke-width=".5"/>
-
-  <!-- Shockley -->
-  <g class="node-g" onclick="showCard('shockley')">
-    <rect x="340" y="68" width="220" height="44" rx="8" fill="#1f2937" stroke="#374151" stroke-width="1"/>
-    <text class="node-title" x="450" y="86" fill="#9ca3af">Shockley Semiconductor</text>
-    <text class="node-sub" x="450" y="101" fill="#6b7280">Mountain View, 1956</text>
-  </g>
-
-  <!-- Shockley → Fairchild -->
-  <line x1="450" y1="112" x2="450" y2="168" stroke="#d4a843" stroke-width="2.5" marker-end="url(#arr)"/>
-  <text style="font-family:'IBM Plex Mono',monospace;font-size:9px;fill:#d4a843;text-anchor:middle" x="490" y="143">8 engineers depart</text>
-
-  <!-- Fairchild -->
-  <g class="node-g" onclick="showCard('fairchild')">
-    <rect x="295" y="170" width="310" height="52" rx="10" fill="#1e3a5f" stroke="#3b82f6" stroke-width="1.5"/>
-    <text class="node-title" x="450" y="191" fill="#bfdbfe">Fairchild Semiconductor</text>
-    <text class="node-sub" x="450" y="208" fill="#93c5fd">Palo Alto, 1957 — "The First Trillion Dollar Startup"</text>
-  </g>
-
-  <!-- Gen 1 connectors -->
-  <path class="connector" stroke="#3b82f6" stroke-width="1" d="M380 222 L380 258 L175 258 L175 288" marker-end="url(#arr)"/>
-  <path class="connector" stroke="#3b82f6" stroke-width="1" d="M420 222 L420 258 L310 258 L310 288" marker-end="url(#arr)"/>
-  <path class="connector" stroke="#3b82f6" stroke-width="1" d="M450 222 L450 258 L450 288" marker-end="url(#arr)"/>
-  <path class="connector" stroke="#3b82f6" stroke-width="1" d="M480 222 L480 258 L600 258 L600 288" marker-end="url(#arr)"/>
-  <path class="connector" stroke="#10b981" stroke-width="1" d="M520 222 L520 258 L750 258 L750 288" marker-end="url(#arr)"/>
-
-  <!-- Gen 1 nodes -->
-  <g class="node-g" onclick="showCard('rheem')">
-    <rect x="120" y="288" width="110" height="48" rx="7" fill="#1e3a5f" stroke="#3b82f6" stroke-width=".7"/>
-    <text class="node-title" x="175" y="307" fill="#bfdbfe">Rheem Semi.</text>
-    <text class="node-sub" x="175" y="323" fill="#93c5fd">1959 · first spinoff</text>
-  </g>
-  <g class="node-g" onclick="showCard('amelco')">
-    <rect x="250" y="288" width="120" height="48" rx="7" fill="#1e3a5f" stroke="#3b82f6" stroke-width=".7"/>
-    <text class="node-title" x="310" y="307" fill="#bfdbfe">Amelco Semi.</text>
-    <text class="node-sub" x="310" y="323" fill="#93c5fd">1961 · Kleiner, Hoerni</text>
-  </g>
-  <g class="node-g" onclick="showCard('signetics')">
-    <rect x="390" y="288" width="120" height="48" rx="7" fill="#1e3a5f" stroke="#3b82f6" stroke-width=".7"/>
-    <text class="node-title" x="450" y="307" fill="#bfdbfe">Signetics</text>
-    <text class="node-sub" x="450" y="323" fill="#93c5fd">1961 · first IC company</text>
-  </g>
-  <g class="node-g" onclick="showCard('gme')">
-    <rect x="540" y="288" width="120" height="48" rx="7" fill="#1e3a5f" stroke="#3b82f6" stroke-width=".7"/>
-    <text class="node-title" x="600" y="307" fill="#bfdbfe">General Micro.</text>
-    <text class="node-sub" x="600" y="323" fill="#93c5fd">1963 · first MOS IC</text>
-  </g>
-  <g class="node-g" onclick="showCard('appliedmat')">
-    <rect x="690" y="288" width="120" height="48" rx="7" fill="#064e3b" stroke="#10b981" stroke-width=".7"/>
-    <text class="node-title" x="750" y="307" fill="#a7f3d0">Applied Materials</text>
-    <text class="node-sub" x="750" y="323" fill="#6ee7b7">1967 · Noyce-funded</text>
-  </g>
-
-  <!-- Gen 2 connectors -->
-  <path class="connector" stroke="#3b82f6" stroke-width="1" d="M380 222 L380 248 L380 400 L310 400 L310 408" marker-end="url(#arr)"/>
-  <path class="connector" stroke="#3b82f6" stroke-width="1" d="M450 222 L450 248 L450 408" marker-end="url(#arr)"/>
-  <path class="connector" stroke="#3b82f6" stroke-width="1" d="M520 222 L520 248 L590 400 L590 408" marker-end="url(#arr)"/>
-  <path class="connector" stroke="#10b981" stroke-width="1" d="M540 222 L540 248 L748 400 L748 408" marker-end="url(#arr)"/>
-  <path class="connector" stroke="#3b82f6" stroke-width="1" d="M460 222 L460 248 L460 378 L168 378 L168 408" marker-end="url(#arr)"/>
-
-  <!-- Gen 2 nodes -->
-  <g class="node-g" onclick="showCard('national')">
-    <rect x="110" y="408" width="116" height="48" rx="7" fill="#1e3a5f" stroke="#3b82f6" stroke-width=".7"/>
-    <text class="node-title" x="168" y="427" fill="#bfdbfe">National Semi.</text>
-    <text class="node-sub" x="168" y="443" fill="#93c5fd">1967 restart · Sporck</text>
-  </g>
-  <g class="node-g" onclick="showCard('intel')">
-    <rect x="248" y="408" width="124" height="48" rx="7" fill="#1e40af" stroke="#60a5fa" stroke-width="1.2"/>
-    <text class="node-title" x="310" y="427" fill="#dbeafe">Intel</text>
-    <text class="node-sub" x="310" y="443" fill="#bfdbfe">1968 · Noyce + Moore</text>
-  </g>
-  <g class="node-g" onclick="showCard('amd')">
-    <rect x="390" y="408" width="120" height="48" rx="7" fill="#1e3a5f" stroke="#3b82f6" stroke-width=".7"/>
-    <text class="node-title" x="450" y="427" fill="#bfdbfe">AMD</text>
-    <text class="node-sub" x="450" y="443" fill="#93c5fd">1969 · Jerry Sanders</text>
-  </g>
-  <g class="node-g" onclick="showCard('amd2')">
-    <rect x="528" y="408" width="124" height="48" rx="7" fill="#1e3a5f" stroke="#3b82f6" stroke-width=".7"/>
-    <text class="node-title" x="590" y="427" fill="#bfdbfe">27 chip firms</text>
-    <text class="node-sub" x="590" y="443" fill="#93c5fd">1966–69 · all Fairchild alumni</text>
-  </g>
-  <g class="node-g" onclick="showCard('arthurrock')">
-    <rect x="686" y="408" width="124" height="48" rx="7" fill="#064e3b" stroke="#10b981" stroke-width=".7"/>
-    <text class="node-title" x="748" y="427" fill="#a7f3d0">Davis &amp; Rock</text>
-    <text class="node-sub" x="748" y="443" fill="#6ee7b7">1961 · first Bay Area VC</text>
-  </g>
-
-  <!-- Gen 3 connectors -->
-  <path class="connector" stroke="#10b981" stroke-width="1" d="M168 456 L168 520 L165 528" marker-end="url(#arr)"/>
-  <path class="connector" stroke="#10b981" stroke-width="1" d="M168 456 L168 510 L303 510 L303 528" marker-end="url(#arr)"/>
-  <path class="connector" stroke="#f97316" stroke-width="1" d="M310 456 L310 490 L450 490 L450 528" marker-end="url(#arr)"/>
-  <path class="connector" stroke="#f97316" stroke-width="1" d="M310 456 L310 490 L590 490 L590 528" marker-end="url(#arr)"/>
-  <path class="connector" stroke="#f97316" stroke-width="1" d="M248 456 L248 510 L748 510 L748 528" marker-end="url(#arr)"/>
-
-  <!-- Gen 3 nodes -->
-  <g class="node-g" onclick="showCard('kpcb')">
-    <rect x="110" y="528" width="110" height="48" rx="7" fill="#064e3b" stroke="#10b981" stroke-width=".7"/>
-    <text class="node-title" x="165" y="547" fill="#a7f3d0">Kleiner Perkins</text>
-    <text class="node-sub" x="165" y="563" fill="#6ee7b7">1972 · Kleiner + Perkins</text>
-  </g>
-  <g class="node-g" onclick="showCard('sequoia')">
-    <rect x="248" y="528" width="110" height="48" rx="7" fill="#064e3b" stroke="#10b981" stroke-width=".7"/>
-    <text class="node-title" x="303" y="547" fill="#a7f3d0">Sequoia Capital</text>
-    <text class="node-sub" x="303" y="563" fill="#6ee7b7">1972 · Don Valentine</text>
-  </g>
-  <g class="node-g" onclick="showCard('apple')">
-    <rect x="390" y="528" width="120" height="48" rx="7" fill="#7c2d12" stroke="#f97316" stroke-width=".7"/>
-    <text class="node-title" x="450" y="547" fill="#fed7aa">Apple Computer</text>
-    <text class="node-sub" x="450" y="563" fill="#fdba74">1976 · Markkula, Rock</text>
-  </g>
-  <g class="node-g" onclick="showCard('oracle')">
-    <rect x="528" y="528" width="124" height="48" rx="7" fill="#7c2d12" stroke="#f97316" stroke-width=".7"/>
-    <text class="node-title" x="590" y="547" fill="#fed7aa">Oracle</text>
-    <text class="node-sub" x="590" y="563" fill="#fdba74">1977 · Sequoia-backed</text>
-  </g>
-  <g class="node-g" onclick="showCard('atari')">
-    <rect x="686" y="528" width="124" height="48" rx="7" fill="#7c2d12" stroke="#f97316" stroke-width=".7"/>
-    <text class="node-title" x="748" y="547" fill="#fed7aa">Atari</text>
-    <text class="node-sub" x="748" y="563" fill="#fdba74">1972 · Valentine's first</text>
-  </g>
-
-  <!-- Gen 4 connectors -->
-  <path class="connector" stroke="#f97316" stroke-width="1" d="M450 576 L450 620 L175 620 L175 648" marker-end="url(#arr)"/>
-  <path class="connector" stroke="#10b981" stroke-width="1" d="M165 576 L165 620 L310 620 L310 648" marker-end="url(#arr)"/>
-  <path class="connector" stroke="#10b981" stroke-width="1" d="M165 576 L165 620 L450 620 L450 648" marker-end="url(#arr)"/>
-  <path class="connector" stroke="#8b5cf6" stroke-width="1" d="M303 576 L303 620 L590 620 L590 648" marker-end="url(#arr)"/>
-  <path class="connector" stroke="#8b5cf6" stroke-width="1" d="M303 576 L303 620 L748 620 L748 648" marker-end="url(#arr)"/>
-
-  <!-- Gen 4 nodes -->
-  <g class="node-g" onclick="showCard('noycementors')">
-    <rect x="110" y="648" width="130" height="48" rx="7" fill="#4c1d95" stroke="#8b5cf6" stroke-width=".7"/>
-    <text class="node-title" x="175" y="667" fill="#ddd6fe">Noyce mentors Jobs</text>
-    <text class="node-sub" x="175" y="683" fill="#c4b5fd">1977–90 · tacit transfer</text>
-  </g>
-  <g class="node-g" onclick="showCard('genentech')">
-    <rect x="258" y="648" width="104" height="48" rx="7" fill="#064e3b" stroke="#10b981" stroke-width=".7"/>
-    <text class="node-title" x="310" y="667" fill="#a7f3d0">Genentech</text>
-    <text class="node-sub" x="310" y="683" fill="#6ee7b7">1976 · KPCB seed</text>
-  </g>
-  <g class="node-g" onclick="showCard('compaq')">
-    <rect x="390" y="648" width="120" height="48" rx="7" fill="#7c2d12" stroke="#f97316" stroke-width=".7"/>
-    <text class="node-title" x="450" y="667" fill="#fed7aa">Compaq</text>
-    <text class="node-sub" x="450" y="683" fill="#fdba74">1982 · KPCB + Sequoia</text>
-  </g>
-  <g class="node-g" onclick="showCard('netscape')">
-    <rect x="528" y="648" width="124" height="48" rx="7" fill="#3b1f6e" stroke="#8b5cf6" stroke-width=".7"/>
-    <text class="node-title" x="590" y="667" fill="#ddd6fe">Netscape</text>
-    <text class="node-sub" x="590" y="683" fill="#c4b5fd">1994 · KPCB · web era</text>
-  </g>
-  <g class="node-g" onclick="showCard('cisco')">
-    <rect x="686" y="648" width="124" height="48" rx="7" fill="#7c2d12" stroke="#f97316" stroke-width=".7"/>
-    <text class="node-title" x="748" y="667" fill="#fed7aa">Cisco Systems</text>
-    <text class="node-sub" x="748" y="683" fill="#fdba74">1984 · Sequoia's pride</text>
-  </g>
-
-  <!-- Gen 5 connectors -->
-  <path class="connector" stroke="#8b5cf6" stroke-width="1" d="M175 696 L175 740 L175 768" marker-end="url(#arr)"/>
-  <path class="connector" stroke="#8b5cf6" stroke-width="1" d="M165 576 L165 600 L165 730 L310 730 L310 768" marker-end="url(#arr)"/>
-  <path class="connector" stroke="#8b5cf6" stroke-width="1" d="M303 576 L303 600 L303 730 L450 730 L450 768" marker-end="url(#arr)"/>
-  <path class="connector" stroke="#8b5cf6" stroke-width="1" d="M303 576 L303 600 L303 730 L590 730 L590 768" marker-end="url(#arr)"/>
-  <path class="connector" stroke="#8b5cf6" stroke-width="1" d="M748 696 L748 740 L748 768" marker-end="url(#arr)"/>
-
-  <!-- Gen 5 nodes -->
-  <g class="node-g" onclick="showCard('amazon')">
-    <rect x="110" y="768" width="130" height="48" rx="7" fill="#3b1f6e" stroke="#8b5cf6" stroke-width=".7"/>
-    <text class="node-title" x="175" y="787" fill="#ddd6fe">Amazon</text>
-    <text class="node-sub" x="175" y="803" fill="#c4b5fd">1994 · KPCB 1996</text>
-  </g>
-  <g class="node-g" onclick="showCard('sun')">
-    <rect x="258" y="768" width="104" height="48" rx="7" fill="#3b1f6e" stroke="#8b5cf6" stroke-width=".7"/>
-    <text class="node-title" x="310" y="787" fill="#ddd6fe">Sun Microsystems</text>
-    <text class="node-sub" x="310" y="803" fill="#c4b5fd">1982 · KPCB-backed</text>
-  </g>
-  <g class="node-g" onclick="showCard('google')">
-    <rect x="390" y="768" width="120" height="48" rx="7" fill="#3b1f6e" stroke="#a78bfa" stroke-width="1.2"/>
-    <text class="node-title" x="450" y="787" fill="#ede9fe">Google</text>
-    <text class="node-sub" x="450" y="803" fill="#ddd6fe">1998 · KPCB + Sequoia</text>
-  </g>
-  <g class="node-g" onclick="showCard('aol')">
-    <rect x="528" y="768" width="124" height="48" rx="7" fill="#3b1f6e" stroke="#8b5cf6" stroke-width=".7"/>
-    <text class="node-title" x="590" y="787" fill="#ddd6fe">AOL / EA / more</text>
-    <text class="node-sub" x="590" y="803" fill="#c4b5fd">1980s–90s · KPCB</text>
-  </g>
-  <g class="node-g" onclick="showCard('youtube')">
-    <rect x="686" y="768" width="124" height="48" rx="7" fill="#3b1f6e" stroke="#8b5cf6" stroke-width=".7"/>
-    <text class="node-title" x="748" y="787" fill="#ddd6fe">YouTube / Airbnb</text>
-    <text class="node-sub" x="748" y="803" fill="#c4b5fd">2000s · Sequoia</text>
-  </g>
-
-  <!-- Gen 6 connectors -->
-  <path class="connector" stroke="#8b5cf6" stroke-width="1" d="M450 816 L450 868 L310 868 L310 888" marker-end="url(#arr)"/>
-  <path class="connector" stroke="#8b5cf6" stroke-width="1" d="M450 816 L450 868 L450 888" marker-end="url(#arr)"/>
-  <path class="connector" stroke="#8b5cf6" stroke-width="1" d="M450 816 L450 868 L590 868 L590 888" marker-end="url(#arr)"/>
-
-  <!-- Gen 6 nodes -->
-  <g class="node-g" onclick="showCard('linkedin')">
-    <rect x="235" y="888" width="150" height="48" rx="7" fill="#2e1065" stroke="#7c3aed" stroke-width=".7"/>
-    <text class="node-title" x="310" y="907" fill="#ede9fe">LinkedIn / Stripe</text>
-    <text class="node-sub" x="310" y="923" fill="#ddd6fe">2000s · Sequoia</text>
-  </g>
-  <g class="node-g" onclick="showCard('anthropic')">
-    <rect x="390" y="888" width="120" height="48" rx="7" fill="#2e1065" stroke="#7c3aed" stroke-width=".7"/>
-    <text class="node-title" x="450" y="907" fill="#ede9fe">Anthropic / OpenAI</text>
-    <text class="node-sub" x="450" y="923" fill="#ddd6fe">2015–21 · KPCB, Seq.</text>
-  </g>
-  <g class="node-g" onclick="showCard('whatsapp')">
-    <rect x="528" y="888" width="124" height="48" rx="7" fill="#2e1065" stroke="#7c3aed" stroke-width=".7"/>
-    <text class="node-title" x="590" y="907" fill="#ede9fe">WhatsApp / Airbnb</text>
-    <text class="node-sub" x="590" y="923" fill="#ddd6fe">2009–10 · Sequoia</text>
-  </g>
-
-  <!-- Value callout -->
-  <rect x="110" y="945" width="680" height="26" rx="6" fill="rgba(212,168,67,0.08)" stroke="rgba(212,168,67,0.3)" stroke-width=".8"/>
-  <text style="font-family:'IBM Plex Mono',monospace;font-size:11px;fill:#d4a843;dominant-baseline:central" x="450" y="958" text-anchor="middle">92 public Bay Area companies traced to Fairchild · $2T+ market cap</text>
-  </svg>
-  </div>
-
-  <div class="nc-box">
-    <strong>The California difference.</strong> Every departure on this tree — from Shockley to Fairchild, from Fairchild to Intel, from Intel alumni to Apple — was legally uninhibited by California's ban on non-compete agreements. That one regulatory difference created the genealogy you're seeing.
-  </div>
-
-  <div class="footer">
-    <strong>Sources:</strong> Computer History Museum Fairchildren Project (2016–2019); Endeavor Insight, "The First Trillion Dollar Startup" (2014); SEMI Silicon Valley Genealogy Chart (1977, updated 2023); Company founding records and SEC filings.
-    <strong>Part of:</strong> <em>Bound by Law</em> — a research series on non-compete agreements and innovation. Companion briefs available as Word documents.
-    <a href="/" class="back-link">← Back to visualizations</a>
+  <div class="icard">
+    <h3>The compounding principle</h3>
+    <p>Each Fairchild departure seeded the next: engineers → companies → VC firms → funded companies → more engineers. By 1986 the SEMI genealogy chart traced 126 semiconductor companies to Fairchild. By 2014 descendant market cap exceeded Canada's GDP.</p>
   </div>
 </div>
 
-<!-- Modal -->
-<div class="modal-backdrop" id="panel" onclick="closePanel(event)">
-  <div class="modal">
-    <button class="modal-close" onclick="closePanel(null,true)">×</button>
-    <div class="modal-era" id="c-era"></div>
-    <div class="modal-name" id="c-name"></div>
-    <div class="modal-year" id="c-year"></div>
-    <div class="modal-founders" id="c-founders"></div>
-    <div class="modal-desc" id="c-desc"></div>
-    <div class="modal-impact" id="c-impact"></div>
-  </div>
+<div class="callout">
+  <strong>The California difference.</strong> Every departure on this tree was legally uninhibited by California's §16600. In Massachusetts, each move would have required navigating a non-compete agreement. The departures that built this $2 trillion lineage were not exceptional courage — they were ordinary ambition, freed by law.
+</div>
+
+<div class="legend">
+  <span class="lchip"><span class="ldot" style="background:#1F3864"></span>Fairchild founders</span>
+  <span class="lchip"><span class="ldot" style="background:#185FA5"></span>Semiconductor companies</span>
+  <span class="lchip"><span class="ldot" style="background:#1D9E75"></span>Venture capital firms</span>
+  <span class="lchip"><span class="ldot" style="background:#993C1D"></span>Computing &amp; software</span>
+  <span class="lchip"><span class="ldot" style="background:#534AB7"></span>Internet era</span>
+  <span class="lchip"><span class="ldot" style="background:#888780"></span>Precursor</span>
+</div>
+
+<div class="tree-box">
+<h2>Six-generation family tree — click any node to explore</h2>
+<svg class="tree" viewBox="0 0 900 980" width="100%" style="min-width:680px">
+<defs><marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<text class="gen-label" x="14" y="94">Precursor</text><text class="gen-label" x="14" y="194">1957</text><text class="gen-label" x="14" y="314">Gen 1</text><text class="gen-label" x="14" y="434">Gen 2</text><text class="gen-label" x="14" y="554">Gen 3</text><text class="gen-label" x="14" y="674">Gen 4</text><text class="gen-label" x="14" y="794">Gen 5</text><text class="gen-label" x="14" y="914">Gen 6</text>
+<line x1="110" y1="115" x2="890" y2="115" stroke="#e0ded8" stroke-width=".5"/><line x1="110" y1="225" x2="890" y2="225" stroke="#e0ded8" stroke-width=".5"/><line x1="110" y1="345" x2="890" y2="345" stroke="#e0ded8" stroke-width=".5"/><line x1="110" y1="465" x2="890" y2="465" stroke="#e0ded8" stroke-width=".5"/><line x1="110" y1="585" x2="890" y2="585" stroke="#e0ded8" stroke-width=".5"/><line x1="110" y1="705" x2="890" y2="705" stroke="#e0ded8" stroke-width=".5"/><line x1="110" y1="825" x2="890" y2="825" stroke="#e0ded8" stroke-width=".5"/>
+<g class="ng" onclick="S('shockley')"><rect x="340" y="68" width="220" height="44" rx="8" fill="#5F5E5A" stroke="#444441" stroke-width=".5"/><text class="nt" x="450" y="86" fill="#D3D1C7">Shockley Semiconductor</text><text class="ns" x="450" y="101" fill="#B4B2A9">Mountain View, 1956</text></g>
+<line x1="450" y1="112" x2="450" y2="168" stroke="#b8860b" stroke-width="2.5" marker-end="url(#a)"/>
+<text style="font-family:'DM Sans',sans-serif;font-size:10px;fill:#b8860b;text-anchor:middle" x="480" y="143">8 engineers depart</text>
+<g class="ng" onclick="S('fairchild')"><rect x="295" y="170" width="310" height="52" rx="10" fill="#0C447C" stroke="#185FA5" stroke-width="1"/><text class="nt" x="450" y="191" fill="#B5D4F4">Fairchild Semiconductor</text><text class="ns" x="450" y="208" fill="#85B7EB">Palo Alto, 1957 — "The First Trillion Dollar Startup"</text></g>
+<path fill="none" stroke="#185FA5" stroke-width="1.2" d="M380 222L380 258L175 258L175 288" marker-end="url(#a)"/><path fill="none" stroke="#185FA5" stroke-width="1.2" d="M420 222L420 258L310 258L310 288" marker-end="url(#a)"/><path fill="none" stroke="#185FA5" stroke-width="1.2" d="M450 222L450 258L450 288" marker-end="url(#a)"/><path fill="none" stroke="#185FA5" stroke-width="1.2" d="M480 222L480 258L600 258L600 288" marker-end="url(#a)"/><path fill="none" stroke="#1D9E75" stroke-width="1.2" d="M520 222L520 258L750 258L750 288" marker-end="url(#a)"/>
+<g class="ng" onclick="S('rheem')"><rect x="120" y="288" width="110" height="48" rx="7" fill="#185FA5" stroke="#3B8BD4" stroke-width=".5"/><text class="nt" x="175" y="307" fill="#E6F1FB">Rheem Semi.</text><text class="ns" x="175" y="323" fill="#85B7EB">1959 · first spinoff</text></g>
+<g class="ng" onclick="S('amelco')"><rect x="250" y="288" width="120" height="48" rx="7" fill="#185FA5" stroke="#3B8BD4" stroke-width=".5"/><text class="nt" x="310" y="307" fill="#E6F1FB">Amelco Semi.</text><text class="ns" x="310" y="323" fill="#85B7EB">1961 · Kleiner, Hoerni</text></g>
+<g class="ng" onclick="S('signetics')"><rect x="390" y="288" width="120" height="48" rx="7" fill="#185FA5" stroke="#3B8BD4" stroke-width=".5"/><text class="nt" x="450" y="307" fill="#E6F1FB">Signetics</text><text class="ns" x="450" y="323" fill="#85B7EB">1961 · first IC company</text></g>
+<g class="ng" onclick="S('gme')"><rect x="540" y="288" width="120" height="48" rx="7" fill="#185FA5" stroke="#3B8BD4" stroke-width=".5"/><text class="nt" x="600" y="307" fill="#E6F1FB">General Micro.</text><text class="ns" x="600" y="323" fill="#85B7EB">1963 · first MOS IC</text></g>
+<g class="ng" onclick="S('appmat')"><rect x="690" y="288" width="120" height="48" rx="7" fill="#0F6E56" stroke="#1D9E75" stroke-width=".5"/><text class="nt" x="750" y="307" fill="#E1F5EE">Applied Materials</text><text class="ns" x="750" y="323" fill="#9FE1CB">1967 · Noyce-funded</text></g>
+<path fill="none" stroke="#185FA5" stroke-width="1.2" d="M380 222L380 248L380 400L310 400L310 408" marker-end="url(#a)"/><path fill="none" stroke="#185FA5" stroke-width="1.5" d="M450 222L450 408" marker-end="url(#a)"/><path fill="none" stroke="#185FA5" stroke-width="1.2" d="M520 222L520 248L590 400L590 408" marker-end="url(#a)"/><path fill="none" stroke="#1D9E75" stroke-width="1.2" d="M540 222L540 248L748 400L748 408" marker-end="url(#a)"/><path fill="none" stroke="#185FA5" stroke-width="1.2" d="M460 222L460 248L460 378L168 378L168 408" marker-end="url(#a)"/>
+<g class="ng" onclick="S('national')"><rect x="110" y="408" width="116" height="48" rx="7" fill="#185FA5" stroke="#3B8BD4" stroke-width=".5"/><text class="nt" x="168" y="427" fill="#E6F1FB">National Semi.</text><text class="ns" x="168" y="443" fill="#85B7EB">1967 · Valentine</text></g>
+<g class="ng" onclick="S('intel')"><rect x="248" y="408" width="124" height="48" rx="7" fill="#0C447C" stroke="#378ADD" stroke-width="1"/><text class="nt" x="310" y="427" fill="#E6F1FB">Intel</text><text class="ns" x="310" y="443" fill="#B5D4F4">1968 · Noyce + Moore</text></g>
+<g class="ng" onclick="S('amd')"><rect x="390" y="408" width="120" height="48" rx="7" fill="#185FA5" stroke="#3B8BD4" stroke-width=".5"/><text class="nt" x="450" y="427" fill="#E6F1FB">AMD</text><text class="ns" x="450" y="443" fill="#85B7EB">1969 · Jerry Sanders</text></g>
+<g class="ng" onclick="S('wave')"><rect x="528" y="408" width="124" height="48" rx="7" fill="#185FA5" stroke="#3B8BD4" stroke-width=".5"/><text class="nt" x="590" y="427" fill="#E6F1FB">27 new firms</text><text class="ns" x="590" y="443" fill="#85B7EB">1966–69 from Fairchild</text></g>
+<g class="ng" onclick="S('rock')"><rect x="686" y="408" width="124" height="48" rx="7" fill="#0F6E56" stroke="#1D9E75" stroke-width=".5"/><text class="nt" x="748" y="427" fill="#E1F5EE">Davis &amp; Rock</text><text class="ns" x="748" y="443" fill="#9FE1CB">1961 · first Bay Area VC</text></g>
+<path fill="none" stroke="#1D9E75" stroke-width="1.2" d="M168 456L168 528" marker-end="url(#a)"/><path fill="none" stroke="#1D9E75" stroke-width="1.2" d="M168 456L168 510L310 510L310 528" marker-end="url(#a)"/><path fill="none" stroke="#993C1D" stroke-width="1.2" d="M310 456L310 490L450 490L450 528" marker-end="url(#a)"/><path fill="none" stroke="#993C1D" stroke-width="1.2" d="M310 456L310 490L590 490L590 528" marker-end="url(#a)"/><path fill="none" stroke="#993C1D" stroke-width="1.2" d="M248 456L248 510L748 510L748 528" marker-end="url(#a)"/>
+<g class="ng" onclick="S('kpcb')"><rect x="110" y="528" width="110" height="48" rx="7" fill="#0F6E56" stroke="#1D9E75" stroke-width=".5"/><text class="nt" x="165" y="547" fill="#E1F5EE">Kleiner Perkins</text><text class="ns" x="165" y="563" fill="#9FE1CB">1972 · Kleiner + Perkins</text></g>
+<g class="ng" onclick="S('sequoia')"><rect x="248" y="528" width="110" height="48" rx="7" fill="#0F6E56" stroke="#1D9E75" stroke-width=".5"/><text class="nt" x="303" y="547" fill="#E1F5EE">Sequoia Capital</text><text class="ns" x="303" y="563" fill="#9FE1CB">1972 · Don Valentine</text></g>
+<g class="ng" onclick="S('apple')"><rect x="390" y="528" width="120" height="48" rx="7" fill="#993C1D" stroke="#D85A30" stroke-width=".5"/><text class="nt" x="450" y="547" fill="#FAECE7">Apple Computer</text><text class="ns" x="450" y="563" fill="#F0997B">1976 · Markkula, Rock</text></g>
+<g class="ng" onclick="S('oracle')"><rect x="528" y="528" width="124" height="48" rx="7" fill="#993C1D" stroke="#D85A30" stroke-width=".5"/><text class="nt" x="590" y="547" fill="#FAECE7">Oracle</text><text class="ns" x="590" y="563" fill="#F0997B">1977 · Sequoia-backed</text></g>
+<g class="ng" onclick="S('atari')"><rect x="686" y="528" width="124" height="48" rx="7" fill="#993C1D" stroke="#D85A30" stroke-width=".5"/><text class="nt" x="748" y="547" fill="#FAECE7">Atari</text><text class="ns" x="748" y="563" fill="#F0997B">1972 · Valentine's first</text></g>
+<path fill="none" stroke="#993C1D" stroke-width="1.2" d="M450 576L450 620L175 620L175 648" marker-end="url(#a)"/><path fill="none" stroke="#1D9E75" stroke-width="1.2" d="M165 576L165 620L310 620L310 648" marker-end="url(#a)"/><path fill="none" stroke="#1D9E75" stroke-width="1.2" d="M165 576L165 620L450 620L450 648" marker-end="url(#a)"/><path fill="none" stroke="#534AB7" stroke-width="1.2" d="M303 576L303 620L590 620L590 648" marker-end="url(#a)"/><path fill="none" stroke="#534AB7" stroke-width="1.2" d="M303 576L303 620L748 620L748 648" marker-end="url(#a)"/>
+<g class="ng" onclick="S('noyce')"><rect x="110" y="648" width="130" height="48" rx="7" fill="#534AB7" stroke="#7F77DD" stroke-width=".5"/><text class="nt" x="175" y="667" fill="#EEEDFE">Noyce mentors Jobs</text><text class="ns" x="175" y="683" fill="#AFA9EC">1977–90 · tacit transfer</text></g>
+<g class="ng" onclick="S('genentech')"><rect x="258" y="648" width="104" height="48" rx="7" fill="#0F6E56" stroke="#1D9E75" stroke-width=".5"/><text class="nt" x="310" y="667" fill="#E1F5EE">Genentech</text><text class="ns" x="310" y="683" fill="#9FE1CB">1976 · KPCB seed</text></g>
+<g class="ng" onclick="S('compaq')"><rect x="390" y="648" width="120" height="48" rx="7" fill="#993C1D" stroke="#D85A30" stroke-width=".5"/><text class="nt" x="450" y="667" fill="#FAECE7">Compaq</text><text class="ns" x="450" y="683" fill="#F0997B">1982 · KPCB-backed</text></g>
+<g class="ng" onclick="S('netscape')"><rect x="528" y="648" width="124" height="48" rx="7" fill="#534AB7" stroke="#7F77DD" stroke-width=".5"/><text class="nt" x="590" y="667" fill="#EEEDFE">Netscape</text><text class="ns" x="590" y="683" fill="#AFA9EC">1994 · KPCB · web era</text></g>
+<g class="ng" onclick="S('cisco')"><rect x="686" y="648" width="124" height="48" rx="7" fill="#993C1D" stroke="#D85A30" stroke-width=".5"/><text class="nt" x="748" y="667" fill="#FAECE7">Cisco Systems</text><text class="ns" x="748" y="683" fill="#F0997B">1984 · Sequoia</text></g>
+<path fill="none" stroke="#534AB7" stroke-width="1.2" d="M175 696L175 768" marker-end="url(#a)"/><path fill="none" stroke="#534AB7" stroke-width="1.2" d="M165 576L165 600L165 730L310 730L310 768" marker-end="url(#a)"/><path fill="none" stroke="#534AB7" stroke-width="1.2" d="M303 576L303 600L303 730L450 730L450 768" marker-end="url(#a)"/><path fill="none" stroke="#534AB7" stroke-width="1.2" d="M303 576L303 600L303 730L590 730L590 768" marker-end="url(#a)"/><path fill="none" stroke="#534AB7" stroke-width="1.2" d="M748 696L748 768" marker-end="url(#a)"/>
+<g class="ng" onclick="S('amazon')"><rect x="110" y="768" width="130" height="48" rx="7" fill="#534AB7" stroke="#7F77DD" stroke-width=".5"/><text class="nt" x="175" y="787" fill="#EEEDFE">Amazon</text><text class="ns" x="175" y="803" fill="#AFA9EC">1994 · KPCB 1996</text></g>
+<g class="ng" onclick="S('sun')"><rect x="258" y="768" width="104" height="48" rx="7" fill="#534AB7" stroke="#7F77DD" stroke-width=".5"/><text class="nt" x="310" y="787" fill="#EEEDFE">Sun Microsystems</text><text class="ns" x="310" y="803" fill="#AFA9EC">1982 · KPCB</text></g>
+<g class="ng" onclick="S('google')"><rect x="390" y="768" width="120" height="48" rx="7" fill="#534AB7" stroke="#7F77DD" stroke-width=".5"/><text class="nt" x="450" y="787" fill="#EEEDFE">Google</text><text class="ns" x="450" y="803" fill="#AFA9EC">1998 · KPCB + Sequoia</text></g>
+<g class="ng" onclick="S('portfolio')"><rect x="528" y="768" width="124" height="48" rx="7" fill="#534AB7" stroke="#7F77DD" stroke-width=".5"/><text class="nt" x="590" y="787" fill="#EEEDFE">AOL / EA / more</text><text class="ns" x="590" y="803" fill="#AFA9EC">1980s–90s · KPCB</text></g>
+<g class="ng" onclick="S('youtube')"><rect x="686" y="768" width="124" height="48" rx="7" fill="#534AB7" stroke="#7F77DD" stroke-width=".5"/><text class="nt" x="748" y="787" fill="#EEEDFE">YouTube / Airbnb</text><text class="ns" x="748" y="803" fill="#AFA9EC">2000s · Sequoia</text></g>
+<path fill="none" stroke="#534AB7" stroke-width="1.2" d="M450 816L450 868L310 868L310 888" marker-end="url(#a)"/><path fill="none" stroke="#534AB7" stroke-width="1.2" d="M450 816L450 888" marker-end="url(#a)"/><path fill="none" stroke="#534AB7" stroke-width="1.2" d="M450 816L450 868L590 868L590 888" marker-end="url(#a)"/>
+<g class="ng" onclick="S('linkedin')"><rect x="235" y="888" width="150" height="48" rx="7" fill="#3C3489" stroke="#534AB7" stroke-width=".5"/><text class="nt" x="310" y="907" fill="#EEEDFE">LinkedIn / Stripe</text><text class="ns" x="310" y="923" fill="#AFA9EC">2000s · Sequoia</text></g>
+<g class="ng" onclick="S('anthropic')"><rect x="390" y="888" width="120" height="48" rx="7" fill="#3C3489" stroke="#534AB7" stroke-width=".5"/><text class="nt" x="450" y="907" fill="#EEEDFE">Anthropic / OpenAI</text><text class="ns" x="450" y="923" fill="#AFA9EC">2015–21 · KPCB, Seq.</text></g>
+<g class="ng" onclick="S('whatsapp')"><rect x="528" y="888" width="124" height="48" rx="7" fill="#3C3489" stroke="#534AB7" stroke-width=".5"/><text class="nt" x="590" y="907" fill="#EEEDFE">WhatsApp / Airbnb</text><text class="ns" x="590" y="923" fill="#AFA9EC">2009–10 · Sequoia</text></g>
+<rect x="110" y="945" width="680" height="26" rx="5" fill="none" stroke="#e0ded8" stroke-width=".5"/>
+<text style="font-family:'DM Sans',sans-serif;font-size:12px;fill:#9c9a96;dominant-baseline:central" x="450" y="958" text-anchor="middle">92 public Bay Area companies traced to Fairchild (2014) · combined market value ≈ $2.1 trillion</text>
+</svg>
+</div>
+
+<div class="stats-row">
+  <div class="sc"><div class="sn">1957</div><div class="sl">Year Fairchild founded — same year as DEC</div></div>
+  <div class="sc"><div class="sn">92</div><div class="sl">Public Bay Area companies traced to Fairchild (2014)</div></div>
+  <div class="sc"><div class="sn">$2.1T</div><div class="sl">Combined market value of Fairchild descendants</div></div>
+  <div class="sc"><div class="sn">6</div><div class="sl">Generations of spinoffs — the chain never stopped</div></div>
+  <div class="sc"><div class="sn">800×</div><div class="sl">Descendant value vs. Fairchild's own peak market cap ($2.5B)</div></div>
+</div>
+</main>
+
+<footer>
+  <strong>Sources:</strong> Computer History Museum Fairchildren Project (2016–2019); Endeavor Insight, "The First Trillion Dollar Startup" (2014); SEMI Silicon Valley Genealogy Chart (1977, 1986); AnnaLee Saxenian, <em>Regional Advantage</em> (1994); Ronald J. Gilson, "The Legal Infrastructure of High Technology Industrial Districts," 74 N.Y.U. L. Rev. 575 (1999); Leslie Berlin, <em>The Man Behind the Microchip</em> (2005).
+  <br><br>Part of the <em>Bound by Law: Non-Compete Agreements and Innovation</em> research series.
+</footer>
+
+<div class="overlay" id="ov" onclick="C(event)">
+<div class="modal">
+  <button class="mc" onclick="C(null,1)">×</button>
+  <div class="m-era" id="me"></div>
+  <div class="m-name" id="mn"></div>
+  <div class="m-year" id="my"></div>
+  <div class="m-div"></div>
+  <div class="m-founders" id="mf"></div>
+  <div class="m-desc" id="md"></div>
+  <div class="m-impact" id="mi"></div>
+</div>
 </div>
 
 <script>
-const DATA = {
-  shockley:{era:"Precursor · 1956",name:"Shockley Semiconductor Laboratory",year:"Mountain View, CA · founded 1956",founders:"Founder: William Shockley, co-inventor of the transistor and Nobel laureate.",desc:"The original birthplace of Silicon Valley, founded by the Nobel Prize–winning inventor of the transistor. Shockley's autocratic management led to the 'traitorous eight' departing in 1957.",impact:"<strong>Critical catalyst.</strong> Without Shockley's rigid management, the 'fairchild eight' never break free and the entire silicon genealogy collapses."},
-  fairchild:{era:"Founding moment · 1957",name:"Fairchild Semiconductor",year:"Palo Alto, CA · founded September 18, 1957",founders:"Founders: Julius Blank, Victor Grinich, Jean Hoerni, Eugene Kleiner, Jay Last, Gordon Moore, Robert Noyce, Sheldon Roberts.",desc:"The 'traitorous eight' founded Fairchild with backing from Noyce's attorney and venture capitalist Arthur Rock. Fairchild became the dominant chip supplier of the 1960s, introducing the integrated circuit to mass production and creating the blueprint for Silicon Valley's VC-backed startup ecosystem.",impact:"<strong>First trillion-dollar startup.</strong> Direct or indirect stake-holders in Fairchild's eventual $2T+ legacy include thousands of employees, partners, and the state of California."},
-  rheem:{era:"Generation 1 · 1959",name:"Rheem Semiconductor",year:"1959 · first Fairchild spinoff",founders:"Founded by Fairchild engineers",desc:"The first company to spin out of Fairchild, joining the wave of Silicon Valley's first generation of semiconductor startups.",impact:"<strong>First departure.</strong> Rheem demonstrated that Fairchild alumni had the freedom and capital to launch new ventures — a pattern repeated dozens of times over the next decade."},
-  amelco:{era:"Generation 1 · 1961",name:"Amelco Semiconductor",year:"Mountain View, CA · 1961",founders:"Founders: Jean Hoerni, Eugene Kleiner, Jay Last, Sheldon Roberts (all from Fairchild, among the 'traitorous eight')",desc:"Founded by four of Fairchild's original founders, Amelco (American Electronic Laboratories) became a leader in silicon planar technology and analog chips.",impact:"<strong>Capital formation.</strong> Kleiner's departure to co-found Kleiner Perkins (1972) and the broader VC ecosystem traces directly to his experience at Amelco."},
-  signetics:{era:"Generation 1 · 1961",name:"Signetics",year:"Sunnyvale, CA · 1961",founders:"Founded by Fairchild engineers David Allison and others",desc:"The first stand-alone integrated circuit company, Signetics became a major player in TTL (transistor-transistor logic) chips and was an important early competitor to Fairchild.",impact:"<strong>IC manufacturing race.</strong> Signetics' success proved multiple semiconductor firms could thrive in the same market, encouraging further entrepreneurial departures."},
-  gme:{era:"Generation 1 · 1963",name:"General Microelectronics",year:"Santa Clara, CA · 1963",founders:"Founders: Howard Bobb, James Ferguson, Robert Norman (all Fairchild)",desc:"Introduced the first commercial MOS (metal-oxide semiconductor) integrated circuit, reshaping the industry toward low-power chips.",impact:"<strong>MOS revolution.</strong> GME's work on MOS-IC technology enabled the low-power designs that later made possible the microprocessor and personal computer."},
-  appliedmat:{era:"Generation 1 · 1967",name:"Applied Materials Technology",year:"Santa Clara, CA · 1967",founders:"Founder: Michael McNeily, with funding from Robert Noyce and others",desc:"Founded as a supplier of semiconductor manufacturing equipment, Applied Materials became the world's leading semiconductor equipment vendor — a foundational industry layer.",impact:"<strong>Ecosystem supply chain.</strong> Applied Materials proved that billion-dollar enterprises could be built as vendors *to* chip manufacturers, not just as chip makers themselves."},
-  national:{era:"Generation 2 · 1967",name:"National Semiconductor",year:"Santa Clara, CA · restarted 1967",founders:"Restart led by Charles Sporck (Fairchild GM), Floyd Kvamme, Pierre Lamond, and others.",desc:"Originally founded in 1959, National Semiconductor was restarted by Fairchild executives and became the #2 semiconductor company in the 1970s–80s.",impact:"<strong>Management talent exodus.</strong> National Semiconductor proved that Fairchild's operational expertise could scale to rival its own success."},
-  intel:{era:"Generation 2 · 1968",name:"Intel Corporation",year:"Mountain View, CA · founded July 18, 1968",founders:"Founders: Robert Noyce and Gordon Moore (both from Fairchild and Shockley); Arthur Rock orchestrated the financing.",desc:"Intel invented the microprocessor (1971, the 4004) and became the dominant chip maker for personal computers. Today the world's largest semiconductor company by market cap.",impact:"<strong>Microprocessor monopoly.</strong> Intel's 4004 (1971) and 8008 (1972) enabled personal computers. By the 1980s, Intel's x86 processors were the de facto standard, generating trillions in downstream value."},
-  amd:{era:"Generation 2 · 1969",name:"Advanced Micro Devices (AMD)",year:"Sunnyvale, CA · 1969",founders:"Founders: Jerry Sanders (Fairchild Director of Marketing) + 7 colleagues — all Fairchild alumni or connected.",desc:"AMD became Intel's principal competitor in x86 processors, driving decades of price competition, innovation, and consumer choice.",impact:"<strong>Competition driver.</strong> AMD's 70-year rivalry with Intel shaped the entire personal computing era, preventing monopolistic chip pricing."},
-  amd2:{era:"Generation 2 · 1960s–70s",name:"The 1960s semiconductor wave",year:"Silicon Valley · 1961–1970",founders:"126 companies traced directly to Fairchild in SEMI's 1986 genealogy chart. Another 126 were second-order descendants.",desc:"Between 1961 and 1970, a wave of semiconductor startups spun out of Fairchild, many founded by alumni. This created the first technology industry ecosystem and proved the VC-backed startup model.",impact:"<strong>Ecosystem proof.</strong> By 1970, Fairchild alumni had founded or co-founded an estimated 126 independent companies, creating the blueprint for modern venture capital."},
-  arthurrock:{era:"Generation 2 · 1961",name:"Davis & Rock",year:"San Francisco, CA · 1961",founders:"Founders: Arthur Rock (arranged the Fairchild deal) and Tommy Davis. Rock later backed Intel, Apple, and Genentech.",desc:"The first venture capital firm focused on Silicon Valley. Arthur Rock's connections to Fairchild founders (especially Noyce and Moore) made him the valley's 'deal maker,' and his firm launched the modern VC industry.",impact:"<strong>VC blueprint.</strong> Davis & Rock proved that venture capital backed on personal relationships and industry expertise could generate outsized returns, creating the template for Kleiner Perkins and Sequoia."},
-  kpcb:{era:"Generation 3 · 1972",name:"Kleiner Perkins",year:"Menlo Park, CA · 1972",founders:"Founders: Eugene Kleiner (Fairchild co-founder) and Tom Perkins (HP). Later joined by Frank Caufield.",desc:"The world's first megafund, KPCB became the most influential venture capital firm in Silicon Valley history, backing Genentech, Compaq, Netscape, Amazon, Google, and dozens of others.",impact:"<strong>VC domination.</strong> KPCB's '70s–'00s investments generated $100B+ in returns and created the template for modern venture capital fund sizes, stage focus, and portfolio construction."},
-  sequoia:{era:"Generation 3 · 1972",name:"Sequoia Capital",year:"Menlo Park, CA · 1972",founders:"Founder: Don Valentine (Fairchild sales, National Semiconductor VP). First fund: $3M.",desc:"Sequoia Capital became the second-most influential VC firm in the valley, backing Atari, Oracle, Apple, Cisco, YouTube, Airbnb, WhatsApp, and Instagram.",impact:"<strong>Parallel powerhouse.</strong> Sequoia's portfolio created as much value as KPCB's and helped diversify VC strategy beyond hardware into software and internet companies."},
-  apple:{era:"Generation 3 · 1976",name:"Apple Computer",year:"Los Altos, CA · 1976",founders:"Steve Jobs, Steve Wozniak, Ron Wayne. Mike Markkula (Intel/Fairchild alumnus) invested $250K, became CEO, and led the company's growth.",desc:"Apple pioneered the personal computer and later the graphical user interface (GUI), iPhone, and digital ecosystem. Today a $3T+ company.",impact:"<strong>Consumer computing revolution.</strong> Apple's 1977 Apple II and 1984 Macintosh (with GUI) made computing accessible to millions and created the 'personal computer' industry."},
-  oracle:{era:"Generation 3 · 1977",name:"Oracle",year:"Santa Clara, CA · 1977",founders:"Larry Ellison, Bob Miner, Ed Oates, Bruce Scott. Backed by Sequoia Capital.",desc:"Oracle developed relational database software and became the dominant database vendor for enterprise computing, generating trillions in downstream value.",impact:"<strong>Enterprise software standard.</strong> Oracle's SQL-based databases became the backbone of enterprise computing, making database management a multibillion-dollar industry."},
-  atari:{era:"Generation 3 · 1972",name:"Atari",year:"Sunnyvale, CA · 1972",founders:"Nolan Bushnell, Ted Dabney. Don Valentine's first investment at Sequoia.",desc:"Sequoia Capital's first major investment, Atari became the pioneer of arcade games and home video game consoles, creating the video game industry.",impact:"<strong>Gaming industry birth.</strong> Atari's 2600 console (1977) created the $200B+ global video game industry and demonstrated consumer electronics as a major technology market."},
-  noycementors:{era:"Generation 4 · 1977–1990",name:"Noyce mentors Jobs",year:"Silicon Valley · late 1970s through 1990",founders:"A personal relationship illustrating how tacit knowledge communicated: Robert Noyce (Fairchild/Intel co-founder) and Steve Jobs (Apple founder).",desc:"Noyce became a mentor and informal advisor to Steve Jobs during Apple's formative years (1977–1990), transmitting decades of semiconductor and business experience to the next generation.",impact:"<strong>Mentorship multiplier.</strong> The Noyce-Jobs relationship exemplified how Fairchild's culture and knowledge spread through personal networks to create new industries beyond semiconductors."},
-  genentech:{era:"Generation 4 · 1976",name:"Genentech",year:"South San Francisco, CA · 1976",founders:"Robert Swanson (venture capital), Herbert Boyer (UCSF). Backed by KPCB.",desc:"Genentech pioneered genetic engineering and recombinant DNA technology, creating the biotechnology industry. Today one of the world's largest biotech firms (acquired by Roche for $11B in 2009).",impact:"<strong>Biotech industry birth.</strong> Genentech proved that VC-backed science could commercialize academic research (Boyer's UCSF work) and create a new $500B+ industry sector."},
-  compaq:{era:"Generation 4 · 1982",name:"Compaq Computer",year:"Houston, TX · 1982, KPCB-backed",founders:"Rod Canion, Jim Harris, Bill Murto (all from Texas Instruments). KPCB Series A.",desc:"Compaq pioneered the IBM-compatible personal computer, proving that non-IBM manufacturers could build Windows-based PCs and compete on price. Compaq became a $200B+ company.",impact:"<strong>PC market democratization.</strong> Compaq's IBM-compatible clones broke IBM's monopoly, opened the PC market to price competition, and proved the x86 Windows standard."},
-  netscape:{era:"Generation 4 · 1994",name:"Netscape",year:"Mountain View, CA · 1994",founders:"Marc Andreessen (NCSA), Jim Clark (Silicon Graphics). KPCB led $5M Series A.",desc:"Netscape invented the web browser (based on NCSA Mosaic) and demonstrated the first major Internet-era company. IPO'd in 1995 for $2.3B on day one, establishing the internet bubble.",impact:"<strong>Internet browser standard.</strong> Netscape's Navigator browser made the web accessible to millions and sparked Microsoft's competitive response, shaping the web's evolution and the tech bubble."},
-  cisco:{era:"Generation 4 · 1984",name:"Cisco Systems",year:"San Jose, CA · 1984",founders:"Leonard Bosack, Sandy Lerner (Stanford). Don Valentine invested; served as Chairman for three decades.",desc:"Cisco pioneered network switching and routing, becoming the dominant supplier of Internet infrastructure hardware. Today a $700B+ company.",impact:"<strong>Internet infrastructure monopoly.</strong> Cisco's routers became the backbone of the Internet, making Cisco one of the most valuable companies of the 1990s–2000s and a key driver of internet adoption."},
-  amazon:{era:"Generation 5 · 1994",name:"Amazon",year:"Seattle, WA · 1994",founders:"Jeff Bezos. KPCB invested $8M in 1996 at a $60M valuation.",desc:"Amazon pioneered e-commerce and cloud computing (AWS). Today a $2T+ company and one of the world's largest retailers.",impact:"<strong>E-commerce and cloud dominance.</strong> Amazon's 1997 IPO at $18/share (now $200+) and AWS service transformed retail and made cloud computing a $500B+ industry."},
-  sun:{era:"Generation 5 · 1982",name:"Sun Microsystems",year:"Santa Clara, CA · 1982",founders:"Andy Bechtolsheim, Vinod Khosla, Scott McNealy (Stanford), Bill Joy (Berkeley). KPCB-backed.",desc:"Sun pioneered UNIX workstations and the Java programming language, becoming a $60B+ company at its peak. Acquired by Oracle in 2010.",impact:"<strong>Workstation and Java era.</strong> Sun's UNIX workstations and Java language shaped technical computing and the internet in the 1990s–2000s."},
-  google:{era:"Generation 5 · 1998",name:"Google",year:"Menlo Park, CA · 1998",founders:"Sergey Brin, Larry Page (Stanford). Both KPCB and Sequoia invested $12.5M each in 1999 — the two firms' first major joint bet.",desc:"Google pioneered large-scale web search and advertising. Today a $2T+ company and the world's most visited website.",impact:"<strong>Search and advertising dominance.</strong> Google's search engine (PageRank algorithm) and AdWords model generated $280B+ in annual revenue and made it one of the world's most valuable companies."},
-  aol:{era:"Generation 5 · 1980s–90s",name:"AOL, Electronic Arts, and the portfolio",year:"1980s–2000s · KPCB and Sequoia portfolios",founders:"KPCB funded 500+ companies. Sequoia funded hundreds. These firms created the venture capital playbook for portfolio construction and pro-rata follow-on investing.",desc:"KPCB and Sequoia's portfolios demonstrate the power of systematic venture capital: backing dozens of companies in emerging sectors (networking, software, internet) to capture the winners.",impact:"<strong>Portfolio model proof.</strong> KPCB and Sequoia's diversified, staged approach to investing proved that venture capital could generate consistent, outsized returns by funding innovation across sectors."},
-  youtube:{era:"Generation 5 · 2000s",name:"YouTube, Airbnb, and the Sequoia portfolio",year:"2005–2009 · Sequoia",founders:"YouTube: Jawed Karim, Chad Hurley, Steve Chen. Airbnb: Brian Chesky, Joe Gebbia, Nathan Blecharczyk.",desc:"Sequoia backed YouTube (2005, acquired by Google for $1.65B in 2006) and Airbnb (2009, IPO'd at $100B+ in 2020). These companies created the 'platform economy.'",impact:"<strong>Platform economy creation.</strong> YouTube and Airbnb proved that technology could disrupt traditional industries (video, hospitality) and create trillion-dollar platforms."},
-  linkedin:{era:"Generation 6 · 2002–2010",name:"LinkedIn, Stripe, and the network economy",year:"2002–2010 · Sequoia-backed",founders:"LinkedIn: Reid Hoffman (PayPal Mafia). Stripe: Patrick and John Collison (Irish entrepreneurs). Both Sequoia-backed.",desc:"LinkedIn pioneered professional social networks, and Stripe revolutionized payment processing. Together they demonstrate how network effects and infrastructure create $100B+ companies.",impact:"<strong>Network effects at scale.</strong> LinkedIn's 1B+ users and Stripe's $95B+ valuation show how VC-backed companies can capture entire infrastructure layers and become utilities."},
-  anthropic:{era:"Generation 6 · 2021",name:"Anthropic, OpenAI, and the AI era",year:"2021 (Anthropic) / 2015 (OpenAI) · KPCB, Sequoia",founders:"Anthropic: Dario Amodei, Daniela Amodei, and others (ex-OpenAI). OpenAI: Sam Altman, Elon Musk, others.",desc:"Anthropic and OpenAI pioneered large language models (LLMs) and generative AI, creating a new $100B+ technology sector. Both benefited from KPCB and Sequoia backing.",impact:"<strong>AI reshaping.</strong> Anthropic (Claude) and OpenAI (ChatGPT) proved that deep learning could scale to human-level language understanding, reshaping software, search, and enterprise computing."},
-  whatsapp:{era:"Generation 6 · 2009",name:"WhatsApp, Instagram, and mobile",year:"2009–2010 · Sequoia",founders:"WhatsApp: Jan Koum, Brian Acton (ex-Yahoo). Instagram: Kevin Systrom, Mike Krieger.",desc:"Sequoia backed WhatsApp (2009, acquired by Facebook for $19B in 2014) and Instagram (2010, acquired by Facebook for $1B, now $100B+ value). Both became mobile-era platforms.",impact:"<strong>Mobile and social graph dominance.</strong> WhatsApp and Instagram proved that simple, focused apps could reach billions of users and capture massive consumer value at mobile scale."}
+const D={
+shockley:{e:"Precursor · 1956",n:"Shockley Semiconductor Laboratory",y:"Mountain View, CA · Founded 1956",f:"Founder: William Shockley, Nobel laureate in Physics (1956), co-inventor of the transistor",d:"The first high-tech company in what would become Silicon Valley. Shockley's autocratic management — including lie-detector tests and paranoid investigations — drove away his best engineers within two years. When eight asked to be separated from his leadership and were refused, they resigned together.",i:"<strong>Unintended legacy:</strong> Shockley's failure to retain talent was the founding act of Silicon Valley. California's §16600 meant he had no legal recourse when they departed to found a direct competitor. His name lives on — ironically — as the origin point of an ecosystem he never intended to create."},
+fairchild:{e:"Founding · 1957",n:"Fairchild Semiconductor",y:"Palo Alto, CA · Founded September 18, 1957",f:"The 'Traitorous Eight': Julius Blank, Victor Grinich, Jean Hoerni, Eugene Kleiner, Jay Last, Gordon Moore, Robert Noyce, Sheldon Roberts. Backed $1.38M from Sherman Fairchild.",d:"The eight founders signed symbolic dollar bills at the Clift Hotel — a company born over breakfast. Jean Hoerni's planar process and Robert Noyce's integrated circuit transformed semiconductor manufacturing from craft to high-volume printing. Gordon Moore's 1965 observation that transistor density doubled every two years became Moore's Law.",i:"<strong>The legal test:</strong> In Massachusetts, leaving to found a direct competitor in the same technical specialty was legally hazardous. In California, it was simply entrepreneurship. Fairchild's own peak valuation never exceeded $2.5 billion. Its descendants were worth $2.1 trillion by 2014 — 800 times the company being departed from."},
+rheem:{e:"Generation 1 · 1959",n:"Rheem Semiconductor",y:"1959 · First Fairchild spinoff",f:"Founded by Fairchild engineers",d:"The first company to spin out of Fairchild, just two years after founding. Its existence proved the pattern: talented engineers could leave, build something new, and face no legal retaliation under California law.",i:"<strong>Pattern established:</strong> Rheem was followed by Amelco, Signetics, and General Microelectronics within two years. By 1986 the SEMI genealogy chart traced 126 semiconductor companies directly to Fairchild."},
+amelco:{e:"Generation 1 · 1961",n:"Amelco Semiconductor",y:"Mountain View, CA · 1961",f:"Founders: Jean Hoerni, Eugene Kleiner, Jay Last, Sheldon Roberts — four of the original eight Fairchild founders. Financed by Arthur Rock.",d:"The first spinoff led by Fairchild co-founders themselves. Kleiner's experience co-founding Amelco gave him the operational knowledge he would bring to Kleiner Perkins a decade later.",i:"<strong>Kleiner's chain:</strong> Without leaving Fairchild for Amelco, Kleiner Perkins is not founded. Without KPCB, Google, Amazon, and Genentech do not get their early capital. Each departure built the platform for the next."},
+signetics:{e:"Generation 1 · 1961",n:"Signetics",y:"Sunnyvale, CA · 1961",f:"Founded by Fairchild engineers",d:"The first stand-alone integrated circuit company, proving the IC market was commercially viable independent of any parent. Signetics competed head-to-head with Fairchild itself.",i:"<strong>Market validation:</strong> Signetics proved California's open labor market rewarded rather than punished ambition. No litigation. No non-compete enforcement. Just a new company competing in the same market."},
+gme:{e:"Generation 1 · 1963",n:"General Microelectronics",y:"Santa Clara, CA · 1963",f:"Founders: Howard Bobb, James Ferguson, Robert Norman (all Fairchild)",d:"Introduced the industry's first commercial MOS integrated circuit in 1964. The MOS transistor, which GME first commercialized, became the foundation of CMOS logic — the technology inside every smartphone, laptop, and server today.",i:"<strong>MOS technology:</strong> Every modern digital device is built on the technology GME first commercialized. Another Fairchild departure that changed the world — legally uninhibited, financially consequential."},
+appmat:{e:"Generation 1 · 1967",n:"Applied Materials Technology",y:"Santa Clara, CA · 1967",f:"Founder: Michael McNeily. Funded by Robert Noyce and others.",d:"Built the capital equipment for semiconductor manufacturing — the machines that make chip-building possible. Applied Materials became the dominant global supplier of wafer fabrication equipment.",i:"<strong>Infrastructure company:</strong> Fairchild alumni built not just chip companies but the entire manufacturing ecosystem around them. Applied Materials is today a $150B+ company essential to every semiconductor fab on earth."},
+national:{e:"Generation 2 · 1967",n:"National Semiconductor",y:"Santa Clara, CA · restarted 1967",f:"Led by Charles Sporck (Fairchild GM), Floyd Kvamme, Pierre Lamond, Donald Valentine — all Fairchild. Valentine later founded Sequoia Capital.",d:"Originally founded in Connecticut, National was restarted by Fairchild executives. Don Valentine's Fairchild and National experience gave him the network to found Sequoia Capital in 1972.",i:"<strong>Valentine's springboard:</strong> Sequoia's portfolio includes Apple, Cisco, Oracle, Google, YouTube, WhatsApp, LinkedIn, and Airbnb. The chain: Fairchild → Valentine → Sequoia → the internet economy."},
+intel:{e:"Generation 2 · 1968",n:"Intel Corporation",y:"Mountain View, CA · Founded July 18, 1968",f:"Robert Noyce + Gordon Moore (both Fairchild and Shockley). Andy Grove from Fairchild. Arthur Rock raised $2.5M in 48 hours.",d:"Noyce and Moore left Fairchild without non-compete restriction. Arthur Rock's 1968 Intel financing memo is called 'the Magna Carta of venture capital.' Intel's 4004 microprocessor (1971) launched the personal computing era. Noyce then mentored Steve Jobs personally.",i:"<strong>The microprocessor:</strong> Intel's 4004 made personal computing possible. The x86 architecture still powers the majority of the world's PCs and servers. Noyce to Jobs: 'Go off and do something wonderful.' In Massachusetts, both of Noyce's career-defining departures would have carried legal risk."},
+amd:{e:"Generation 2 · 1969",n:"Advanced Micro Devices",y:"Sunnyvale, CA · 1969",f:"Jerry Sanders (Fairchild Director of Marketing) + 7 Fairchild colleagues",d:"Between 1966 and 1969, 27 new semiconductor ventures were formed by Fairchild employees — not one legally impeded by departure. AMD became Intel's chief rival in microprocessors and graphics chips.",i:"<strong>27 startups in 3 years:</strong> The density of Fairchild departures in the late 1960s illustrates the compounding effect. In Massachusetts, each of these moves would have required navigating non-compete risk. In California, they were ordinary entrepreneurship."},
+wave:{e:"Generation 2 · 1960s",n:"The 1960s semiconductor wave",y:"Silicon Valley · 1961–1970",f:"126 companies traced directly to Fairchild in SEMI's 1986 genealogy chart",d:"The SEMI genealogy chart published in 1977 and expanded in 1986 traced 126 semiconductor companies directly to Fairchild. Between 1966 and 1969 alone, 27 new chip ventures formed from Fairchild alumni.",i:"<strong>Compound knowledge:</strong> Each company trained engineers who departed to start more companies. The knowledge compounded. Every departure created a new node. In Massachusetts, DEC's equivalent chain stopped after two generations."},
+rock:{e:"Generation 2 · 1961",n:"Davis & Rock",y:"San Francisco, CA · 1961",f:"Arthur Rock (arranged the Fairchild deal) and Tommy Davis. Davis & Rock invested $3M, returned $100M between 1961–1968.",d:"One of the first venture capital firms in the Bay Area. Rock's 1968 Intel financing memo established the template for venture capital: convertible notes, employee stock options, meritocratic governance.",i:"<strong>The VC model invented:</strong> Arthur Rock's Intel memo is the Magna Carta of venture capital. Every venture-backed startup in the world operates under rules Rock largely invented — rules that grew directly from the Fairchild financing he arranged in 1957."},
+kpcb:{e:"Generation 3 · 1972",n:"Kleiner Perkins",y:"Menlo Park, CA · 1972",f:"Eugene Kleiner (Fairchild co-founder) + Tom Perkins (HP). Launched with $8M.",d:"The most influential VC firm in Silicon Valley history. Portfolio: AOL, Amazon, Compaq, Genentech, Google, Intuit, Netscape, Sun Microsystems, Twitter, Waymo, Anthropic, and 500+ others.",i:"<strong>Kleiner's chain:</strong> Shockley (1956) → Fairchild (1957) → Amelco (1961) → KPCB (1972) → Amazon, Google, Genentech. Four steps, each a departure that California law permitted. Each one building the platform for the next."},
+sequoia:{e:"Generation 3 · 1972",n:"Sequoia Capital",y:"Menlo Park, CA · 1972",f:"Don Valentine (Fairchild sales, National Semiconductor VP). First fund: $3M.",d:"Sequoia backed Apple, Cisco, Oracle, Yahoo!, Google, YouTube, Instagram, WhatsApp, LinkedIn, Airbnb. Portfolio companies controlled $1.4 trillion in market cap at Valentine's death in 2019.",i:"<strong>Same year as KPCB:</strong> Two VC firms, both Fairchild-seeded, both founded in 1972. Both eventually backed Google together — the only time they co-invested. Between them, KPCB and Sequoia funded the entire internet economy."},
+apple:{e:"Generation 3 · 1976",n:"Apple Computer",y:"Los Altos, CA · 1976",f:"Steve Jobs, Steve Wozniak. Mike Markkula (Fairchild + Intel alumnus) invested $250K, became employee #3. Arthur Rock early investor.",d:"Apple was built by the Fairchild network. Markkula's wealth came from Fairchild and Intel stock options. Noyce mentored Jobs personally. Don Valentine connected Jobs to Markkula.",i:"<strong>Jobs on Noyce:</strong> 'Bob Noyce took me under his wing. I was young, in my twenties. He was in his early fifties. He tried to give me the lay of the land, give me a perspective that I could only partially understand.' The Fairchild mentorship chain reached Apple."},
+oracle:{e:"Generation 3 · 1977",n:"Oracle",y:"Santa Clara, CA · 1977",f:"Larry Ellison, Bob Miner, Ed Oates. Backed by Sequoia Capital.",d:"Oracle developed relational database software and became the backbone of global enterprise computing. It entered the Fairchild diaspora through Sequoia investment and its 2009 acquisition of KPCB-backed Sun Microsystems.",i:"<strong>Database infrastructure:</strong> Every bank, hospital, airline, and government agency runs on Oracle software. Ellison's wealth, built on the Fairchild-seeded Sequoia investment, made him one of the world's wealthiest individuals."},
+atari:{e:"Generation 3 · 1972",n:"Atari",y:"Sunnyvale, CA · 1972",f:"Nolan Bushnell, Ted Dabney. Don Valentine's first Sequoia investment.",d:"Atari was Sequoia's first investment. Steve Jobs worked at Atari. Nolan Bushnell introduced Jobs to Valentine. Valentine connected Jobs to Mike Markkula. Markkula funded Apple.",i:"<strong>The Jobs chain:</strong> Jobs (Atari) → Valentine (Sequoia, ex-Fairchild) → Markkula (Intel, ex-Fairchild) → Apple. The Fairchild network touched Apple's founding at every single step."},
+noyce:{e:"Generation 4 · 1977–90",n:"Noyce mentors Jobs",y:"Silicon Valley · late 1970s through 1990",f:"Robert Noyce: Fairchild co-founder, Intel co-founder, 'Mayor of Silicon Valley'",d:"Noyce spent his later years mentoring Silicon Valley entrepreneurs. Jobs recalled riding his motorcycle to Noyce's house regularly. What Jobs absorbed — technical excellence culture, flat organizations, willingness to cannibalize products — became Apple's DNA.",i:"<strong>Tacit knowledge transfer:</strong> This is exactly what non-compete agreements prevent: the person-to-person flow of accumulated knowledge across generations. Noyce's tacit knowledge — built across Shockley, Fairchild, and Intel — flowed directly to Jobs and into Apple."},
+genentech:{e:"Generation 4 · 1976",n:"Genentech",y:"South San Francisco, CA · 1976",f:"Robert Swanson (venture capital), Herbert Boyer (UCSF biochemist). Backed by KPCB.",d:"The founding company of the biotechnology industry. KPCB's investment showed the Fairchild-seeded VC model worked in life sciences as well as electronics.",i:"<strong>Biotech's origin:</strong> Genentech produced the first recombinant DNA therapeutic protein (human insulin). The entire modern biotechnology industry traces its VC funding model to the Fairchild-seeded ecosystem."},
+compaq:{e:"Generation 4 · 1982",n:"Compaq Computer",y:"Houston, TX · 1982",f:"Rod Canion, Jim Harris, Bill Murto (all Texas Instruments). Backed by KPCB.",d:"The first IBM PC-compatible portable computer, Compaq used the Intel microprocessor — itself a Fairchild descendant. KPCB led the Series A. Compaq later acquired DEC in 1998 for $9.6 billion.",i:"<strong>The PC clone market:</strong> Compaq commoditized the PC and drove Intel's x86 architecture to global dominance. The KPCB-Intel-Compaq triangle shows how Fairchild's network created interlocking ecosystems across generations."},
+netscape:{e:"Generation 4 · 1994",n:"Netscape",y:"Mountain View, CA · 1994",f:"Marc Andreessen (NCSA), Jim Clark (Silicon Graphics). Led by KPCB.",d:"Netscape's browser brought the internet to mass audiences. The August 1995 IPO — valuing a pre-profit company at over $2 billion — ignited the internet investment era and returned capital to KPCB that funded Amazon and Google.",i:"<strong>Internet era ignition:</strong> The 1995 Netscape IPO was the single event that triggered the internet investment boom. The capital returned to KPCB — originally seeded by Fairchild alumni — funded the next generation."},
+cisco:{e:"Generation 4 · 1984",n:"Cisco Systems",y:"San Jose, CA · 1984",f:"Leonard Bosack, Sandy Lerner (Stanford). Don Valentine invested; Chairman for 30 years.",d:"Cisco built the routers that became the physical infrastructure of the internet. Valentine called it the company he was proudest of in a career including Apple, Oracle, and YouTube.",i:"<strong>Internet infrastructure:</strong> Cisco's routers carry the majority of the world's internet traffic. Its market cap peaked at $555B in 2000. John Chambers — trained by Route 128's Wang Laboratories — became Cisco's CEO after moving to California, growing revenue from $1.9B to $49.2B."},
+amazon:{e:"Generation 5 · 1994",n:"Amazon",y:"Seattle, WA · 1994",f:"Jeff Bezos. KPCB invested $8M in 1996 at a $60M valuation. John Doerr joined the board.",d:"KPCB's $8M Amazon investment was worth roughly $5 billion at the 1997 IPO. Amazon is today worth over $1.5 trillion. The direct line: Fairchild → Kleiner → KPCB → Amazon.",i:"<strong>The Kleiner bet:</strong> Eugene Kleiner co-founded KPCB. KPCB backed Amazon. Amazon is now worth over $1.5 trillion. Four generations from a 1957 Palo Alto garage to the world's largest retailer."},
+sun:{e:"Generation 5 · 1982",n:"Sun Microsystems",y:"Santa Clara, CA · 1982",f:"Andy Bechtolsheim, Vinod Khosla, Scott McNealy (Stanford), Bill Joy (Berkeley). KPCB-backed.",d:"Sun built Unix workstations and Java. Khosla later became a KPCB partner, extending the Fairchild lineage into a new VC generation. Sun's open systems workstations directly challenged DEC's proprietary VAX.",i:"<strong>The open systems bet:</strong> What Massachusetts could not build — an adaptive successor to its minicomputer industry — Sun built in California with KPCB capital. The engineers who understood the Unix transition left DEC; some came to companies like Sun."},
+google:{e:"Generation 5 · 1998",n:"Google",y:"Menlo Park, CA · 1998",f:"Sergey Brin, Larry Page. KPCB and Sequoia each invested $12.5M in 1999 — investing together for the first time ever.",d:"The most consequential internet company, backed by both Fairchild-seeded VC firms simultaneously. John Doerr (KPCB) and Michael Moritz (Sequoia) both joined the board.",i:"<strong>The dual investment:</strong> $12.5M each into Google at $75M valuation in June 1999. KPCB and Sequoia — both founded in 1972 by Fairchild alumni — backing Google together is Silicon Valley's most emblematic moment. The Fairchild network concentrated in two firms, then funded the defining company of the internet age."},
+portfolio:{e:"Generation 5 · 1980s–2000s",n:"The KPCB portfolio",y:"500+ companies funded",f:"KPCB: AOL, Electronic Arts, Intuit, Juniper, Symantec and hundreds more",d:"Beyond headline names, KPCB and Sequoia built entire sectors. Each portfolio company trained engineers and executives who founded more companies.",i:"<strong>The compounding effect:</strong> Each KPCB or Sequoia portfolio company became a node from which further departures were possible. The Fairchild knowledge graph extended into sectors its founders never imagined — and California law never impeded a single step."},
+youtube:{e:"Generation 5 · 2000s",n:"YouTube and Airbnb",y:"2005–2009 · Sequoia",f:"YouTube: Jawed Karim, Chad Hurley, Steve Chen. Airbnb: Brian Chesky, Joe Gebbia, Nathan Blecharczyk. Both Sequoia-backed.",d:"Sequoia invested $3.5M in YouTube; Google acquired it 18 months later for $1.65B. Sequoia backed Airbnb at $2.4M; Airbnb is now worth $80B+.",i:"<strong>The model persists:</strong> Six generations from Fairchild, the investment philosophy Don Valentine built from his Fairchild sales experience still identifies the defining companies of each technology era."},
+linkedin:{e:"Generation 6 · 2002–10",n:"LinkedIn and Stripe",y:"2002–2010 · Sequoia",f:"LinkedIn: Reid Hoffman. Stripe: Patrick and John Collison. Both Sequoia.",d:"The sixth generation of the Fairchild tree reaches into professional networking and digital payments — sectors unimaginable in 1957 yet funded by institutions whose lineage traces directly to eight engineers walking out of Shockley's lab.",i:"<strong>The long chain:</strong> Shockley → Fairchild → Kleiner/Valentine → KPCB/Sequoia → Google/Amazon → PayPal Mafia → LinkedIn/Stripe. Every link enabled by California law that said departing employees face no non-compete threat."},
+anthropic:{e:"Generation 6 · 2021",n:"Anthropic and OpenAI",y:"OpenAI: 2015 · Anthropic: 2021",f:"Anthropic: Dario Amodei, Daniela Amodei, and others (from OpenAI). Kleiner Perkins is an Anthropic investor.",d:"The Fairchild lineage now extends into artificial intelligence. Anthropic was founded by researchers who left OpenAI — a departure California law made legally consequence-free. KPCB, founded by a Fairchild co-founder, is now an AI safety company investor.",i:"<strong>The circle complete:</strong> Fairchild alumni → Kleiner Perkins → Google → Anthropic. The 1957 principle — that talented engineers must be free to depart and build — now funds the AI era. In Massachusetts, the Anthropic founders' departure from OpenAI would have carried non-compete risk."},
+whatsapp:{e:"Generation 6 · 2009",n:"WhatsApp and Instagram",y:"2009–2010 · Sequoia",f:"WhatsApp: Jan Koum, Brian Acton (ex-Yahoo). Instagram: Kevin Systrom, Mike Krieger. Both Sequoia-backed.",d:"WhatsApp sold to Facebook for $19B — Sequoia's largest return to that point. Instagram sold for $1B. Both exits funded the next Sequoia generation.",i:"<strong>$19 billion return:</strong> Six generations removed from Fairchild, the compounding continues — enabled by the same legal principle that permitted eight engineers to walk out of Shockley's lab in 1957 without legal consequence."},
 };
-
-function showCard(id){
-  const d=DATA[id]; if(!d)return;
-  document.getElementById('c-era').textContent=d.era;
-  document.getElementById('c-name').textContent=d.name;
-  document.getElementById('c-year').textContent=d.year;
-  document.getElementById('c-founders').textContent=d.founders;
-  document.getElementById('c-desc').textContent=d.desc;
-  document.getElementById('c-impact').innerHTML=d.impact;
-  document.getElementById('panel').classList.add('open');
-}
-function closePanel(e,force){
-  if(force||!e||e.target===document.getElementById('panel'))
-    document.getElementById('panel').classList.remove('open');
-}
+function S(id){const d=D[id];if(!d)return;document.getElementById('me').textContent=d.e;document.getElementById('mn').textContent=d.n;document.getElementById('my').textContent=d.y;document.getElementById('mf').textContent=d.f;document.getElementById('md').textContent=d.d;document.getElementById('mi').innerHTML=d.i;document.getElementById('ov').classList.add('open');}
+function C(e,f){if(f||!e||e.target===document.getElementById('ov'))document.getElementById('ov').classList.remove('open');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.getElementById('ov').classList.remove('open');});
 </script>
 </body>
 </html>
