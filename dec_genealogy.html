@@ -3,532 +3,277 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Digital Equipment Corporation: The Truncated Tree</title>
+<title>DEC: The Truncated Tree — Route 128 Genealogy</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #0c0f0a;
-    --surface: #141914;
-    --surface2: #1c221c;
-    --border: rgba(255,255,255,0.07);
-    --text: #e4e8e0;
-    --text-muted: #7a8c78;
-    --text-dim: #3d4a3a;
-    --amber: #c9943a;
-    --amber-dim: rgba(201,148,58,0.12);
-    --blue: #4a90d9;
-    --blue-dark: #0f2744;
-    --green: #4caf80;
-    --green-dark: #0a2e1e;
-    --red: #d94a4a;
-    --red-dark: #2a0f0f;
-    --purple: #9068c8;
-    --purple-dark: #1e1040;
-    --gray: #5a6a58;
-    --gray-dark: #141a14;
-  }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 15px;
-    line-height: 1.6;
-    min-height: 100vh;
-  }
-
-  /* Subtle dot grid */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: radial-gradient(circle, rgba(201,148,58,0.06) 1px, transparent 1px);
-    background-size: 32px 32px;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .page {
-    position: relative;
-    z-index: 1;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 60px 32px 80px;
-  }
-
-  /* ── Header ── */
-  .masthead { margin-bottom: 48px; }
-  .masthead-kicker {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--amber);
-    margin-bottom: 14px;
-  }
-  .masthead h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(26px, 5vw, 50px);
-    font-weight: 700;
-    line-height: 1.1;
-    color: #fff;
-    margin-bottom: 8px;
-  }
-  .masthead h1 em {
-    font-style: italic;
-    color: var(--amber);
-  }
-  .masthead-sub {
-    font-size: 15px;
-    color: var(--text-muted);
-    max-width: 640px;
-    margin-bottom: 22px;
-  }
-  .masthead-rule {
-    height: 1px;
-    background: linear-gradient(90deg, var(--amber), transparent);
-    margin-bottom: 22px;
-  }
-
-  /* ── Legend ── */
-  .legend {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px 22px;
-    margin-bottom: 32px;
-    font-size: 12px;
-    color: var(--text-muted);
-  }
-  .lchip { display: inline-flex; align-items: center; gap: 6px; }
-  .ldot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
-
-  /* ── SVG ── */
-  .tree-scroll { width: 100%; overflow-x: auto; }
-  svg.tree { display: block; overflow: visible; }
-  .node-g { cursor: pointer; }
-  .node-g rect { transition: filter 0.15s; }
-  .node-g:hover rect { filter: brightness(1.3); }
-  .gen-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.1em; fill: #3d4a3a; text-transform: uppercase; }
-  .node-title { font-family: 'IBM Plex Sans', sans-serif; font-size: 11.5px; font-weight: 600; text-anchor: middle; dominant-baseline: central; }
-  .node-sub { font-family: 'IBM Plex Sans', sans-serif; font-size: 9.5px; font-weight: 400; text-anchor: middle; dominant-baseline: central; }
-  .connector { fill: none; }
-  .ghost { opacity: 0.35; }
-
-  /* ── Callout box ── */
-  .nc-box {
-    margin-top: 32px;
-    border-left: 3px solid var(--red);
-    background: rgba(217, 74, 74, 0.08);
-    border-radius: 0 8px 8px 0;
-    padding: 16px 20px;
-    font-size: 13px;
-    color: var(--text-muted);
-    line-height: 1.7;
-  }
-  .nc-box strong { color: var(--text); font-weight: 600; }
-
-  /* ── Comparison bar ── */
-  .compare {
-    margin-top: 36px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
-  .compare-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 20px;
-  }
-  .compare-card.dec { border-top: 2px solid var(--red); }
-  .compare-card.fairchild { border-top: 2px solid var(--green); }
-  .compare-label {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin-bottom: 12px;
-  }
-  .compare-card.dec .compare-label { color: var(--red); }
-  .compare-card.fairchild .compare-label { color: var(--green); }
-  .compare-stat {
-    font-family: 'Playfair Display', serif;
-    font-size: 28px;
-    font-weight: 700;
-    color: #fff;
-    margin-bottom: 4px;
-  }
-  .compare-desc { font-size: 12px; color: var(--text-muted); line-height: 1.55; }
-
-  /* ── Modal ── */
-  .modal-backdrop {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.75);
-    z-index: 50;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-  }
-  .modal-backdrop.open { display: flex; }
-  .modal {
-    background: var(--surface);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 12px;
-    padding: 28px;
-    max-width: 460px;
-    width: 100%;
-    max-height: 85vh;
-    overflow-y: auto;
-    position: relative;
-  }
-  .modal-close {
-    position: absolute; top: 14px; right: 16px;
-    background: none; border: none;
-    font-size: 20px; cursor: pointer;
-    color: var(--text-muted); line-height: 1;
-    font-family: 'IBM Plex Sans', sans-serif;
-  }
-  .modal-close:hover { color: var(--text); }
-  .modal-era { font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--amber); margin-bottom:8px; }
-  .modal-name { font-family:'Playfair Display',serif; font-size:20px; font-weight:700; color:#fff; margin-bottom:4px; line-height:1.25; }
-  .modal-year { font-size:12px; color:var(--text-muted); margin-bottom:14px; }
-  .modal-founders { font-size:12.5px; color:var(--text-muted); margin-bottom:12px; line-height:1.6; }
-  .modal-desc { font-size:13.5px; color:var(--text); line-height:1.7; margin-bottom:16px; }
-  .modal-impact { background:var(--surface2); border-radius:8px; padding:12px 16px; font-size:12.5px; color:var(--text-muted); line-height:1.65; }
-  .modal-impact strong { color:var(--text); font-weight:600; }
-
-  /* ── Footer ── */
-  .footer { margin-top:56px; padding-top:24px; border-top:1px solid var(--border); font-size:12px; color:var(--text-dim); line-height:1.7; }
-  .footer strong { color:var(--text-muted); font-weight:500; }
-  .footer a {
-    color: var(--amber);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  .footer a:hover {
-    color: #dab456;
-    text-decoration: underline;
-  }
-  .back-link {
-    display: inline-block;
-    margin-top: 16px;
-    padding: 8px 16px;
-    background: rgba(201,148,58,0.1);
-    border: 1px solid rgba(201,148,58,0.3);
-    border-radius: 6px;
-    color: var(--amber);
-    text-decoration: none;
-    font-size: 13px;
-    transition: all 0.2s;
-  }
-  .back-link:hover {
-    background: rgba(201,148,58,0.2);
-    border-color: rgba(201,148,58,0.5);
-  }
-
-  @media (max-width: 600px) {
-    .compare { grid-template-columns: 1fr; }
-  }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f9f7f4;--surface:#fff;--surface2:#f2f0ed;
+  --border:rgba(0,0,0,.10);--border-med:rgba(0,0,0,.18);
+  --text:#1a1917;--text-sec:#6b6860;--text-muted:#9c9a96;
+  --red:#b8210b;--red-light:#fdf0ee;
+  --blue-dk:#0c447c;--radius:10px;--radius-sm:6px;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.site-header{background:#7a1a10;color:#fff;padding:3rem 2rem 2.5rem;position:relative;overflow:hidden}
+.site-header::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 40px,rgba(0,0,0,.06) 40px,rgba(0,0,0,.06) 41px)}
+.header-inner{max-width:1100px;margin:0 auto;position:relative}
+.kicker{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#f5b8b0;margin-bottom:12px}
+.h-title{font-family:'DM Serif Display',serif;font-size:clamp(2rem,5vw,3.4rem);line-height:1.1;color:#fff;margin-bottom:10px}
+.h-sub{font-size:clamp(.95rem,2vw,1.2rem);color:#f5b8b0;font-weight:300;margin-bottom:1.5rem;max-width:700px}
+.stat-row{display:flex;flex-wrap:wrap;gap:1rem;margin-top:1.5rem}
+.pill{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:100px;padding:7px 16px;font-size:13px;color:#fde8e5}
+.pill strong{color:#fff;font-weight:600}
+.page-body{max-width:1100px;margin:0 auto;padding:2rem 1.5rem 4rem}
+.intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem}
+@media(max-width:640px){.intro-grid{grid-template-columns:1fr}}
+.icard{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem 1.5rem}
+.icard h3{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:8px}
+.icard p{font-size:14px;line-height:1.65;color:var(--text-sec)}
+.callout{background:var(--red-light);border-left:4px solid var(--red);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:1rem 1.25rem;margin-bottom:2rem;font-size:14px;line-height:1.65;color:#5a1008}
+.callout strong{color:#3a0a06}
+.legend{display:flex;flex-wrap:wrap;gap:10px 24px;margin-bottom:1.25rem;font-size:12px;color:var(--text-sec)}
+.lchip{display:inline-flex;align-items:center;gap:6px}
+.ldot{width:10px;height:10px;border-radius:50%;flex-shrink:0;display:inline-block}
+.tree-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem 1rem 1rem;overflow-x:auto;margin-bottom:2rem}
+.tree-box h2{font-size:15px;font-weight:600;color:var(--text);margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--border)}
+svg.tree{display:block}
+.gen-label{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;fill:#9c9a96;letter-spacing:.08em;text-transform:uppercase}
+.ng{cursor:pointer}
+.ng rect{transition:filter .15s}
+.ng:hover rect{filter:brightness(1.08)}
+.ng-ghost{cursor:pointer;opacity:.42}
+.ng-ghost rect{transition:filter .15s}
+.ng-ghost:hover{opacity:.62}
+.nt{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;text-anchor:middle;dominant-baseline:central}
+.ns{font-family:'DM Sans',sans-serif;font-size:10px;text-anchor:middle;dominant-baseline:central}
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:2rem}
+.sc{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem 1.5rem;text-align:center}
+.sn{font-family:'DM Serif Display',serif;font-size:2.2rem;color:#7a1a10;line-height:1;margin-bottom:6px}
+.sl{font-size:12px;color:var(--text-sec);line-height:1.4}
+.contrast-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-bottom:2rem}
+.contrast-section h2{font-size:15px;font-weight:600;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--border)}
+.ct-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:640px){.ct-grid{grid-template-columns:1fr}}
+.ct-ma{background:#fdf0ee;border:1px solid rgba(184,33,11,.2);border-radius:var(--radius-sm);padding:1rem}
+.ct-ca{background:#eef7f4;border:1px solid rgba(15,110,86,.2);border-radius:var(--radius-sm);padding:1rem}
+.ct-head{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+.ct-ma .ct-head{color:#7a1a10}
+.ct-ca .ct-head{color:#0f6e56}
+.ct-row{font-size:13px;color:var(--text-sec);padding:6px 0;border-bottom:1px solid rgba(0,0,0,.06);line-height:1.5}
+.ct-row:last-child{border-bottom:none}
+.ct-label{font-weight:500;color:var(--text);font-size:11px;display:block;margin-bottom:2px}
+.overlay{position:fixed;inset:0;z-index:200;background:rgba(15,10,5,.55);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s;padding:1rem}
+.overlay.open{opacity:1;pointer-events:auto}
+.modal{background:var(--surface);border-radius:var(--radius);border:1px solid var(--border-med);max-width:480px;width:100%;max-height:85vh;overflow-y:auto;padding:1.75rem;position:relative;box-shadow:0 24px 64px rgba(0,0,0,.22)}
+.mc{position:absolute;top:14px;right:16px;background:none;border:none;font-size:22px;cursor:pointer;color:var(--text-muted);line-height:1}
+.mc:hover{color:var(--text)}
+.m-era{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px}
+.m-name{font-family:'DM Serif Display',serif;font-size:1.4rem;color:var(--text);margin-bottom:4px;line-height:1.2;padding-right:2rem}
+.m-year{font-size:13px;color:var(--text-muted);margin-bottom:14px}
+.m-div{height:1px;background:var(--border);margin:1rem 0}
+.m-founders{font-size:13px;color:var(--text-sec);margin-bottom:12px;line-height:1.55;font-style:italic}
+.m-desc{font-size:14px;color:var(--text);line-height:1.65;margin-bottom:14px}
+.m-impact{background:var(--surface2);border-radius:var(--radius-sm);padding:10px 14px;font-size:13px;color:var(--text-sec);line-height:1.55}
+.m-impact strong{color:var(--text);font-weight:600}
+footer{border-top:1px solid var(--border);padding:1.5rem 2rem;max-width:1100px;margin:0 auto;font-size:12px;color:var(--text-muted);line-height:1.6}
 </style>
 </head>
 <body>
-<div class="page">
-
-  <div class="masthead">
-    <div class="masthead-kicker">Research Brief · Non-Compete Agreements &amp; Innovation</div>
-    <h1>The <em>Truncated</em> Tree</h1>
-    <div class="masthead-sub">Digital Equipment Corporation and the Route 128 genealogy that wasn't — how Massachusetts non-compete law constrained the knowledge compounding that built Silicon Valley.</div>
-    <div class="masthead-rule"></div>
+<header class="site-header">
+<div class="header-inner">
+  <div class="kicker">Research Brief · Non-Compete &amp; Innovation Series</div>
+  <h1 class="h-title">The Truncated Tree</h1>
+  <p class="h-sub">Digital Equipment Corporation and the Route 128 genealogy that wasn't. Founded the same year as Fairchild — but Massachusetts non-compete law meant the chain stopped after two generations.</p>
+  <div class="stat-row">
+    <span class="pill"><strong>1957</strong> — DEC founded (same year as Fairchild)</span>
+    <span class="pill"><strong>2 generations</strong> of spinoffs — all acquired</span>
+    <span class="pill"><strong>$9.6B</strong> — DEC acquired by Compaq, 1998</span>
+    <span class="pill"><strong>No successor industry</strong> on Route 128</span>
+    <span class="pill"><strong>MA common law</strong> — non-competes enforced</span>
   </div>
+</div>
+</header>
 
-  <div class="legend">
-    <span class="lchip"><span class="ldot" style="background:#0f2744"></span>DEC itself</span>
-    <span class="lchip"><span class="ldot" style="background:#1a3a6e"></span>Direct spinoffs (Massachusetts)</span>
-    <span class="lchip"><span class="ldot" style="background:#0a2e1e"></span>Talent that escaped to California</span>
-    <span class="lchip"><span class="ldot" style="background:#2a0f0f"></span>Decline / acquisition</span>
-    <span class="lchip"><span class="ldot" style="background:#1e1040;opacity:.5"></span>Counterfactual (what mobility could have built)</span>
+<main class="page-body">
+<div class="intro-grid">
+  <div class="icard">
+    <h3>The symmetry</h3>
+    <p>DEC and Fairchild were both founded in 1957 by engineers who left research institutions to build something better. Both became world-leading technology companies. But Fairchild's departures generated $2.1 trillion in descendant value. DEC's generated two generations of spinoffs — all eventually acquired or wound down.</p>
   </div>
-
-  <div class="tree-scroll">
-  <svg class="tree" viewBox="0 0 900 900" width="100%" style="min-width:680px">
-  <defs>
-    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-      <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-    </marker>
-  </defs>
-
-  <!-- Row labels -->
-  <text class="gen-label" x="14" y="94">Precursor</text>
-  <text class="gen-label" x="14" y="194">1957</text>
-  <text class="gen-label" x="14" y="314">1960s</text>
-  <text class="gen-label" x="14" y="434">Peak era</text>
-  <text class="gen-label" x="14" y="554">1970s–80s</text>
-  <text class="gen-label" x="14" y="674">Departures</text>
-  <text class="gen-label" x="14" y="794">Decline</text>
-
-  <!-- Dividers -->
-  <line x1="110" y1="115" x2="890" y2="115" stroke="rgba(255,255,255,0.05)" stroke-width=".5"/>
-  <line x1="110" y1="225" x2="890" y2="225" stroke="rgba(255,255,255,0.05)" stroke-width=".5"/>
-  <line x1="110" y1="345" x2="890" y2="345" stroke="rgba(255,255,255,0.05)" stroke-width=".5"/>
-  <line x1="110" y1="465" x2="890" y2="465" stroke="rgba(255,255,255,0.05)" stroke-width=".5"/>
-  <line x1="110" y1="585" x2="890" y2="585" stroke="rgba(255,255,255,0.05)" stroke-width=".5"/>
-  <line x1="110" y1="705" x2="890" y2="705" stroke="rgba(255,255,255,0.05)" stroke-width=".5"/>
-
-  <!-- MIT Lincoln Lab -->
-  <g class="node-g" onclick="showCard('mit')">
-    <rect x="310" y="68" width="280" height="44" rx="8" fill="#1a2214" stroke="#3a5a30" stroke-width=".8"/>
-    <text class="node-title" x="450" y="86" fill="#7a9a70">MIT Lincoln Laboratory</text>
-    <text class="node-sub" x="450" y="101" fill="#4a6a42">Project Whirlwind · TX-0 · 1950s</text>
-  </g>
-
-  <!-- MIT → DEC -->
-  <line x1="450" y1="112" x2="450" y2="168" stroke="#c9943a" stroke-width="2.5" marker-end="url(#arr)"/>
-  <text style="font-family:'IBM Plex Mono',monospace;font-size:9px;fill:#c9943a;text-anchor:middle" x="502" y="143">Olsen + Anderson depart</text>
-
-  <!-- DEC -->
-  <g class="node-g" onclick="showCard('dec')">
-    <rect x="270" y="170" width="360" height="52" rx="10" fill="#0f2744" stroke="#4a90d9" stroke-width="1.5"/>
-    <text class="node-title" x="450" y="191" fill="#bdd9f5">Digital Equipment Corporation</text>
-    <text class="node-sub" x="450" y="208" fill="#8ab8e8">Maynard, MA · 1957 · $70K from ARD · PDP → VAX → decline</text>
-  </g>
-
-  <!-- DEC → products -->
-  <line x1="350" y1="222" x2="200" y2="288" stroke="#4a90d9" stroke-width="1" marker-end="url(#arr)"/>
-  <line x1="420" y1="222" x2="380" y2="288" stroke="#4a90d9" stroke-width="1" marker-end="url(#arr)"/>
-  <line x1="480" y1="222" x2="520" y2="288" stroke="#7068a8" stroke-width="1" marker-end="url(#arr)"/>
-  <line x1="550" y1="222" x2="700" y2="288" stroke="#d94a4a" stroke-width="1" marker-end="url(#arr)"/>
-
-  <!-- 1960s row -->
-  <g class="node-g" onclick="showCard('pdp1')">
-    <rect x="120" y="288" width="160" height="48" rx="7" fill="#1a3a6e" stroke="#4a90d9" stroke-width=".7"/>
-    <text class="node-title" x="200" y="307" fill="#bdd9f5">PDP-1 (1960)</text>
-    <text class="node-sub" x="200" y="323" fill="#8ab8e8">First interactive computer</text>
-  </g>
-  <g class="node-g" onclick="showCard('pdp8')">
-    <rect x="300" y="288" width="160" height="48" rx="7" fill="#1a3a6e" stroke="#4a90d9" stroke-width=".7"/>
-    <text class="node-title" x="380" y="307" fill="#bdd9f5">PDP-8 (1965)</text>
-    <text class="node-sub" x="380" y="323" fill="#8ab8e8">First mass-market mini</text>
-  </g>
-  <g class="node-g" onclick="showCard('pdpx')">
-    <rect x="440" y="288" width="158" height="48" rx="7" fill="#1e1040" stroke="#9068c8" stroke-width=".7"/>
-    <text class="node-title" x="519" y="307" fill="#d4bfff">PDP-X rejected (1968)</text>
-    <text class="node-sub" x="519" y="323" fill="#a88ad8">de Castro's 16-bit proposal</text>
-  </g>
-  <g class="node-g" onclick="showCard('andersonout')">
-    <rect x="618" y="288" width="162" height="48" rx="7" fill="#2a0f0f" stroke="#d94a4a" stroke-width=".7"/>
-    <text class="node-title" x="699" y="307" fill="#ffbaba">Harlan Anderson exits</text>
-    <text class="node-sub" x="699" y="323" fill="#e88080">1966 · dispute with Olsen</text>
-  </g>
-
-  <!-- Peak era connections -->
-  <line x1="380" y1="336" x2="250" y2="408" stroke="#4a90d9" stroke-width="1" marker-end="url(#arr)"/>
-  <line x1="450" y1="222" x2="450" y2="408" stroke="#4a90d9" stroke-width="1.5" marker-end="url(#arr)"/>
-  <line x1="700" y1="336" x2="700" y2="408" stroke="#d94a4a" stroke-width="1" marker-end="url(#arr)"/>
-  <!-- PDP-X rejection → Data General departure line -->
-  <line x1="519" y1="336" x2="519" y2="380" stroke="#d94a4a" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr)"/>
-  <text style="font-family:'IBM Plex Mono',monospace;font-size:9px;fill:#d94a4a;text-anchor:middle" x="562" y="365">leaves; DEC sues</text>
-
-  <g class="node-g" onclick="showCard('datageneral')">
-    <rect x="430" y="380" width="178" height="48" rx="7" fill="#1e1040" stroke="#9068c8" stroke-width=".7"/>
-    <text class="node-title" x="519" y="399" fill="#d4bfff">Data General (1968)</text>
-    <text class="node-sub" x="519" y="415" fill="#a88ad8">de Castro + Burkhardt + Sogge</text>
-  </g>
-
-  <g class="node-g" onclick="showCard('vax')">
-    <rect x="110" y="408" width="176" height="48" rx="7" fill="#1a3a6e" stroke="#4a90d9" stroke-width=".7"/>
-    <text class="node-title" x="198" y="427" fill="#bdd9f5">PDP-11 + VAX (1970–77)</text>
-    <text class="node-sub" x="198" y="443" fill="#8ab8e8">Peak product · $14B revenue</text>
-  </g>
-  <g class="node-g" onclick="showCard('gordonbell')">
-    <rect x="324" y="408" width="162" height="48" rx="7" fill="#0f2744" stroke="#4a90d9" stroke-width=".7"/>
-    <text class="node-title" x="405" y="427" fill="#bdd9f5">Gordon Bell, VP Eng.</text>
-    <text class="node-sub" x="405" y="443" fill="#8ab8e8">Architect of VAX · leaves 1983</text>
-  </g>
-  <g class="node-g" onclick="showCard('decpeak')">
-    <rect x="618" y="408" width="164" height="48" rx="7" fill="#2a0f0f" stroke="#d94a4a" stroke-width=".7"/>
-    <text class="node-title" x="700" y="427" fill="#ffbaba">No PC strategy</text>
-    <text class="node-sub" x="700" y="443" fill="#e88080">Rainbow / DECmate flop · 1983</text>
-  </g>
-
-  <!-- 1970s–80s connections -->
-  <line x1="198" y1="456" x2="170" y2="528" stroke="#4a90d9" stroke-width="1" marker-end="url(#arr)"/>
-  <line x1="405" y1="456" x2="405" y2="528" stroke="#d94a4a" stroke-width="1" marker-end="url(#arr)"/>
-  <line x1="405" y1="456" x2="560" y2="528" stroke="#4caf80" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arr)"/>
-  <line x1="700" y1="456" x2="700" y2="528" stroke="#d94a4a" stroke-width="1.2" marker-end="url(#arr)"/>
-
-  <g class="node-g" onclick="showCard('primecomp')">
-    <rect x="110" y="528" width="120" height="48" rx="7" fill="#1a3a6e" stroke="#4a90d9" stroke-width=".7"/>
-    <text class="node-title" x="170" y="547" fill="#bdd9f5">Prime Computer</text>
-    <text class="node-sub" x="170" y="563" fill="#8ab8e8">1972 · MIT Multics alumni</text>
-  </g>
-  <g class="node-g" onclick="showCard('bellleaves')">
-    <rect x="318" y="528" width="174" height="48" rx="7" fill="#2a0f0f" stroke="#d94a4a" stroke-width=".7"/>
-    <text class="node-title" x="405" y="547" fill="#ffbaba">Bell departs after heart attack</text>
-    <text class="node-sub" x="405" y="563" fill="#e88080">1983 · co-founds Encore Computer</text>
-  </g>
-  <g class="node-g" onclick="showCard('decfall2')">
-    <rect x="618" y="528" width="164" height="48" rx="7" fill="#2a0f0f" stroke="#d94a4a" stroke-width=".7"/>
-    <text class="node-title" x="700" y="547" fill="#ffbaba">Losses begin 1990</text>
-    <text class="node-sub" x="700" y="563" fill="#e88080">Olsen forced out 1992</text>
-  </g>
-  <g class="node-g" onclick="showCard('chamberstoca')">
-    <rect x="508" y="528" width="102" height="48" rx="7" fill="#0a2e1e" stroke="#4caf80" stroke-width=".7"/>
-    <text class="node-title" x="559" y="547" fill="#a7e8c4">To California</text>
-    <text class="node-sub" x="559" y="563" fill="#6dcc9e">talent exits MA</text>
-  </g>
-
-  <!-- Departures connections -->
-  <line x1="170" y1="576" x2="170" y2="648" stroke="#4a90d9" stroke-width="1" marker-end="url(#arr)"/>
-  <line x1="405" y1="576" x2="312" y2="648" stroke="#d94a4a" stroke-width="1" marker-end="url(#arr)"/>
-  <line x1="700" y1="576" x2="700" y2="648" stroke="#d94a4a" stroke-width="1.2" marker-end="url(#arr)"/>
-  <line x1="559" y1="576" x2="559" y2="648" stroke="#4caf80" stroke-width="1" marker-end="url(#arr)"/>
-
-  <g class="node-g" onclick="showCard('apollocomp')">
-    <rect x="110" y="648" width="120" height="48" rx="7" fill="#1a3a6e" stroke="#4a90d9" stroke-width=".7"/>
-    <text class="node-title" x="170" y="667" fill="#bdd9f5">Apollo Computer</text>
-    <text class="node-sub" x="170" y="683" fill="#8ab8e8">1980 · Poduska (ex-Prime)</text>
-  </g>
-  <g class="node-g" onclick="showCard('encorecomp')">
-    <rect x="248" y="648" width="128" height="48" rx="7" fill="#1a3a6e" stroke="#4a90d9" stroke-width=".7"/>
-    <text class="node-title" x="312" y="667" fill="#bdd9f5">Encore Computer</text>
-    <text class="node-sub" x="312" y="683" fill="#8ab8e8">1983 · Bell + Burkhardt</text>
-  </g>
-  <g class="node-g" onclick="showCard('decfall')">
-    <rect x="618" y="648" width="164" height="48" rx="7" fill="#2a0f0f" stroke="#d94a4a" stroke-width=".7"/>
-    <text class="node-title" x="700" y="667" fill="#ffbaba">Olsen forced out</text>
-    <text class="node-sub" x="700" y="683" fill="#e88080">1992 · company in freefall</text>
-  </g>
-  <g class="node-g" onclick="showCard('chamberscisco')">
-    <rect x="494" y="648" width="132" height="48" rx="7" fill="#0a2e1e" stroke="#4caf80" stroke-width=".7"/>
-    <text class="node-title" x="560" y="667" fill="#a7e8c4">John Chambers</text>
-    <text class="node-sub" x="560" y="683" fill="#6dcc9e">Wang → Cisco → $49B CEO</text>
-  </g>
-
-  <!-- Decline connections -->
-  <line x1="170" y1="696" x2="170" y2="768" stroke="#d94a4a" stroke-width="1" marker-end="url(#arr)"/>
-  <line x1="312" y1="696" x2="312" y2="768" stroke="#d94a4a" stroke-width="1" marker-end="url(#arr)"/>
-  <line x1="700" y1="696" x2="700" y2="768" stroke="#d94a4a" stroke-width="1.5" marker-end="url(#arr)"/>
-
-  <g class="node-g" onclick="showCard('apolloacq')">
-    <rect x="110" y="768" width="120" height="48" rx="7" fill="#2a0f0f" stroke="#d94a4a" stroke-width=".7"/>
-    <text class="node-title" x="170" y="787" fill="#ffbaba">Acquired by HP</text>
-    <text class="node-sub" x="170" y="803" fill="#e88080">1989 · $476M · wound down</text>
-  </g>
-  <g class="node-g" onclick="showCard('encoreend')">
-    <rect x="248" y="768" width="128" height="48" rx="7" fill="#2a0f0f" stroke="#d94a4a" stroke-width=".7"/>
-    <text class="node-title" x="312" y="787" fill="#ffbaba">Encore winds down</text>
-    <text class="node-sub" x="312" y="803" fill="#e88080">1998 · acquired by Gores</text>
-  </g>
-  <g class="node-g" onclick="showCard('compaqacq')">
-    <rect x="578" y="768" width="202" height="48" rx="7" fill="#2a0f0f" stroke="#ff6060" stroke-width="1.2"/>
-    <text class="node-title" x="679" y="787" fill="#ffbaba">DEC acquired by Compaq</text>
-    <text class="node-sub" x="679" y="803" fill="#e88080">June 1998 · $9.6 billion</text>
-  </g>
-
-  <!-- Counterfactual ghosts -->
-  <g class="ghost node-g" onclick="showCard('ghost1')">
-    <rect x="400" y="648" width="86" height="48" rx="7" fill="#1a2214" stroke="#3a5a30" stroke-width=".8" stroke-dasharray="4 3"/>
-    <text class="node-title" x="443" y="667" fill="#4a6a42">Route 128</text>
-    <text class="node-sub" x="443" y="683" fill="#3a4a38">PC startup?</text>
-  </g>
-  <g class="ghost node-g" onclick="showCard('ghost2')">
-    <rect x="400" y="768" width="86" height="48" rx="7" fill="#1a2214" stroke="#3a5a30" stroke-width=".8" stroke-dasharray="4 3"/>
-    <text class="node-title" x="443" y="787" fill="#4a6a42">Successor</text>
-    <text class="node-sub" x="443" y="803" fill="#3a4a38">industry?</text>
-  </g>
-  <line x1="443" y1="696" x2="443" y2="766" stroke="#3a5a30" stroke-width=".8" stroke-dasharray="3 3" opacity=".4"/>
-
-  <!-- Bottom stat bar -->
-  <rect x="110" y="826" width="680" height="44" rx="6" fill="rgba(201,148,58,0.06)" stroke="rgba(201,148,58,0.25)" stroke-width=".8"/>
-  <text style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;fill:#c9943a;dominant-baseline:central" x="450" y="843" text-anchor="middle">DEC: founded 1957 — same year as Fairchild. Ten spinoffs, two acquisitions, one decline.
-  <text style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;fill:#c9943a;dominant-baseline:central" x="450" y="860" text-anchor="middle">Fairchild (CA, same year): $2.1T in descendant company market cap. Same innovation, different law.
-  </svg>
-  </div>
-
-  <div class="nc-box">
-    <strong>The non-compete constraint.</strong> DEC's engineers were subject to Massachusetts non-compete law from day one. When Edson de Castro left to found Data General, DEC sued immediately — a legal battle that chilled further departures. Compare this to California, where Fairchild alumni were legally free to compete. The result: Silicon Valley compounded knowledge across six generations. Route 128 did not.
-  </div>
-
-  <div class="compare">
-    <div class="compare-card dec">
-      <div class="compare-label">DEC · Route 128 · Massachusetts</div>
-      <div class="compare-stat">$9.6B</div>
-      <div class="compare-desc">Terminal acquisition price (1998). Two generations of spinoffs — all acquired or wound down. No successor industry. Talent exited to California.</div>
-    </div>
-    <div class="compare-card fairchild">
-      <div class="compare-label">Fairchild · Silicon Valley · California</div>
-      <div class="compare-stat">$2.1T</div>
-      <div class="compare-desc">Descendant company market cap (2014). Six generations of spinoffs. Intel, Apple, Oracle, Cisco, Google, Amazon, Anthropic. Same founding year. Different law.</div>
-    </div>
-  </div>
-
-  <div class="footer">
-    <strong>Sources:</strong> Computer History Museum oral histories (Bell, de Castro, Anderson, Kotok); Schein et al., <em>DEC Is Dead, Long Live DEC</em> (2003); Kidder, <em>The Soul of a New Machine</em> (1981).
-    <strong>Part of:</strong> <em>Bound by Law</em> — a research series on non-compete agreements and innovation. Companion briefs available as Word documents.
-    <a href="/" class="back-link">← Back to visualizations</a>
+  <div class="icard">
+    <h3>The constraint</h3>
+    <p>Massachusetts common law enforced non-compete agreements under a "reasonableness" standard. DEC sued Data General — its most important spinoff — almost immediately after founding. That litigation signaled to every subsequent DEC engineer that departure carried legal risk. The chain was shortened before it started.</p>
   </div>
 </div>
 
-<!-- Modal -->
-<div class="modal-backdrop" id="panel" onclick="closePanel(event)">
-  <div class="modal">
-    <button class="modal-close" onclick="closePanel(null,true)">×</button>
-    <div class="modal-era" id="c-era"></div>
-    <div class="modal-name" id="c-name"></div>
-    <div class="modal-year" id="c-year"></div>
-    <div class="modal-founders" id="c-founders"></div>
-    <div class="modal-desc" id="c-desc"></div>
-    <div class="modal-impact" id="c-impact"></div>
+<div class="callout">
+  <strong>The non-compete constraint.</strong> DEC's engineers were subject to Massachusetts non-compete law from day one. When Edson de Castro left to found Data General — building the 16-bit computer DEC refused to build — DEC sued him. In California, the same departure (eight engineers leaving Shockley for Fairchild) triggered no litigation. The different legal responses produced completely different ecosystems.
+</div>
+
+<div class="legend">
+  <span class="lchip"><span class="ldot" style="background:#0C447C"></span>DEC itself</span>
+  <span class="lchip"><span class="ldot" style="background:#185FA5"></span>Direct spinoffs (Route 128)</span>
+  <span class="lchip"><span class="ldot" style="background:#7F77DD"></span>Internal inflection points</span>
+  <span class="lchip"><span class="ldot" style="background:#1D9E75"></span>Talent that escaped to California</span>
+  <span class="lchip"><span class="ldot" style="background:#791F1F"></span>Decline / acquisition</span>
+  <span class="lchip"><span class="ldot" style="background:#888780" style="opacity:.5"></span>Counterfactual (faded)</span>
+</div>
+
+<div class="tree-box">
+<h2>DEC genealogy — click any node to explore</h2>
+<svg class="tree" viewBox="0 0 900 900" width="100%" style="min-width:680px">
+<defs><marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<text class="gen-label" x="14" y="94">Precursor</text><text class="gen-label" x="14" y="194">1957</text><text class="gen-label" x="14" y="314">1960s</text><text class="gen-label" x="14" y="434">Peak era</text><text class="gen-label" x="14" y="554">1970s–80s</text><text class="gen-label" x="14" y="674">Departures</text><text class="gen-label" x="14" y="794">End</text>
+<line x1="110" y1="115" x2="890" y2="115" stroke="#e0ded8" stroke-width=".5"/><line x1="110" y1="225" x2="890" y2="225" stroke="#e0ded8" stroke-width=".5"/><line x1="110" y1="345" x2="890" y2="345" stroke="#e0ded8" stroke-width=".5"/><line x1="110" y1="465" x2="890" y2="465" stroke="#e0ded8" stroke-width=".5"/><line x1="110" y1="585" x2="890" y2="585" stroke="#e0ded8" stroke-width=".5"/><line x1="110" y1="705" x2="890" y2="705" stroke="#e0ded8" stroke-width=".5"/>
+<!-- MIT Lincoln Lab -->
+<g class="ng" onclick="S('mit')"><rect x="310" y="68" width="280" height="44" rx="8" fill="#5F5E5A" stroke="#444441" stroke-width=".5"/><text class="nt" x="450" y="86" fill="#D3D1C7">MIT Lincoln Laboratory</text><text class="ns" x="450" y="101" fill="#B4B2A9">Project Whirlwind · TX-0 · 1950s</text></g>
+<line x1="450" y1="112" x2="450" y2="168" stroke="#b8860b" stroke-width="2.5" marker-end="url(#a)"/>
+<text style="font-family:'DM Sans',sans-serif;font-size:10px;fill:#b8860b;text-anchor:middle" x="494" y="143">Olsen + Anderson depart</text>
+<!-- DEC -->
+<g class="ng" onclick="S('dec')"><rect x="270" y="170" width="360" height="52" rx="10" fill="#0C447C" stroke="#185FA5" stroke-width="1"/><text class="nt" x="450" y="191" fill="#B5D4F4">Digital Equipment Corporation</text><text class="ns" x="450" y="208" fill="#85B7EB">Maynard, MA · 1957 · $70K from ARD · PDP series → VAX</text></g>
+<!-- 1960s connectors -->
+<path fill="none" stroke="#185FA5" stroke-width="1.2" d="M350 222L200 288" marker-end="url(#a)"/>
+<path fill="none" stroke="#185FA5" stroke-width="1.2" d="M420 222L380 288" marker-end="url(#a)"/>
+<path fill="none" stroke="#7F77DD" stroke-width="1.2" d="M480 222L520 288" marker-end="url(#a)"/>
+<path fill="none" stroke="#791F1F" stroke-width="1.2" d="M550 222L700 288" marker-end="url(#a)"/>
+<!-- 1960s nodes -->
+<g class="ng" onclick="S('pdp1')"><rect x="120" y="288" width="160" height="48" rx="7" fill="#185FA5" stroke="#3B8BD4" stroke-width=".5"/><text class="nt" x="200" y="307" fill="#E6F1FB">PDP-1 (1960)</text><text class="ns" x="200" y="323" fill="#85B7EB">First interactive computer</text></g>
+<g class="ng" onclick="S('pdp8')"><rect x="300" y="288" width="160" height="48" rx="7" fill="#185FA5" stroke="#3B8BD4" stroke-width=".5"/><text class="nt" x="380" y="307" fill="#E6F1FB">PDP-8 (1965)</text><text class="ns" x="380" y="323" fill="#85B7EB">First mass-market mini</text></g>
+<g class="ng" onclick="S('pdpx')"><rect x="438" y="288" width="164" height="48" rx="7" fill="#3C3489" stroke="#7F77DD" stroke-width=".5"/><text class="nt" x="520" y="307" fill="#EEEDFE">PDP-X rejected (1968)</text><text class="ns" x="520" y="323" fill="#AFA9EC">de Castro's 16-bit proposal</text></g>
+<g class="ng" onclick="S('anderson')"><rect x="618" y="288" width="164" height="48" rx="7" fill="#791F1F" stroke="#A32D2D" stroke-width=".5"/><text class="nt" x="700" y="307" fill="#FCEBEB">Harlan Anderson exits</text><text class="ns" x="700" y="323" fill="#F7C1C1">1966 · dispute with Olsen</text></g>
+<!-- Peak era connectors -->
+<path fill="none" stroke="#185FA5" stroke-width="1.2" d="M380 336L250 408" marker-end="url(#a)"/>
+<path fill="none" stroke="#185FA5" stroke-width="1.5" d="M450 222L450 408" marker-end="url(#a)"/>
+<path fill="none" stroke="#3B8BD4" stroke-width="1.2" d="M520 336L660 408" marker-end="url(#a)"/>
+<!-- Data General from PDP-X rejection -->
+<path fill="none" stroke="#E24B4A" stroke-width="1.5" stroke-dasharray="4 3" d="M520 336L520 380" marker-end="url(#a)"/>
+<text style="font-family:'DM Sans',sans-serif;font-size:10px;fill:#A32D2D;text-anchor:middle" x="562" y="368">leaves; DEC sues</text>
+<g class="ng" onclick="S('datageneral')"><rect x="430" y="380" width="180" height="48" rx="7" fill="#3C3489" stroke="#7F77DD" stroke-width=".5"/><text class="nt" x="520" y="399" fill="#EEEDFE">Data General (1968)</text><text class="ns" x="520" y="415" fill="#AFA9EC">de Castro + Burkhardt + Sogge</text></g>
+<!-- Peak era nodes -->
+<g class="ng" onclick="S('vax')"><rect x="110" y="408" width="176" height="48" rx="7" fill="#185FA5" stroke="#3B8BD4" stroke-width=".5"/><text class="nt" x="198" y="427" fill="#E6F1FB">PDP-11 + VAX (1970–77)</text><text class="ns" x="198" y="443" fill="#85B7EB">Peak product · $14B revenue</text></g>
+<g class="ng" onclick="S('bell')"><rect x="318" y="408" width="162" height="48" rx="7" fill="#0C447C" stroke="#185FA5" stroke-width=".5"/><text class="nt" x="399" y="427" fill="#E6F1FB">Gordon Bell, VP Eng.</text><text class="ns" x="399" y="443" fill="#85B7EB">VAX architect · leaves 1983</text></g>
+<g class="ng" onclick="S('peak')"><rect x="620" y="408" width="162" height="48" rx="7" fill="#185FA5" stroke="#3B8BD4" stroke-width=".5"/><text class="nt" x="701" y="427" fill="#E6F1FB">DEC at its peak</text><text class="ns" x="701" y="443" fill="#85B7EB">140K employees · 1987</text></g>
+<!-- 1970s-80s connectors -->
+<path fill="none" stroke="#185FA5" stroke-width="1.2" d="M198 456L170 528" marker-end="url(#a)"/>
+<path fill="none" stroke="#791F1F" stroke-width="1.2" stroke-dasharray="4 3" d="M701 456L701 528" marker-end="url(#a)"/>
+<path fill="none" stroke="#791F1F" stroke-width="1.2" d="M399 456L399 528" marker-end="url(#a)"/>
+<path fill="none" stroke="#1D9E75" stroke-width="1.2" stroke-dasharray="4 3" d="M399 456L560 528" marker-end="url(#a)"/>
+<!-- 1970s-80s nodes -->
+<g class="ng" onclick="S('prime')"><rect x="110" y="528" width="120" height="48" rx="7" fill="#185FA5" stroke="#3B8BD4" stroke-width=".5"/><text class="nt" x="170" y="547" fill="#E6F1FB">Prime Computer</text><text class="ns" x="170" y="563" fill="#85B7EB">1972 · MIT Multics alumni</text></g>
+<g class="ng" onclick="S('bellleaves')"><rect x="312" y="528" width="174" height="48" rx="7" fill="#791F1F" stroke="#A32D2D" stroke-width=".5"/><text class="nt" x="399" y="547" fill="#FCEBEB">Bell departs (heart attack)</text><text class="ns" x="399" y="563" fill="#F7C1C1">1983 · co-founds Encore</text></g>
+<g class="ng" onclick="S('nopc')"><rect x="618" y="528" width="164" height="48" rx="7" fill="#791F1F" stroke="#A32D2D" stroke-width=".5"/><text class="nt" x="700" y="547" fill="#FCEBEB">No PC strategy</text><text class="ns" x="700" y="563" fill="#F7C1C1">Rainbow/DECmate flop · 1983</text></g>
+<g class="ng" onclick="S('toca')"><rect x="500" y="528" width="110" height="48" rx="7" fill="#0F6E56" stroke="#1D9E75" stroke-width=".5"/><text class="nt" x="555" y="547" fill="#E1F5EE">To California</text><text class="ns" x="555" y="563" fill="#9FE1CB">talent exits MA</text></g>
+<!-- Departures connectors -->
+<path fill="none" stroke="#791F1F" stroke-width="1.2" d="M170 576L170 648" marker-end="url(#a)"/>
+<path fill="none" stroke="#791F1F" stroke-width="1.2" d="M399 576L280 648" marker-end="url(#a)"/>
+<path fill="none" stroke="#791F1F" stroke-width="1.5" d="M701 576L701 648" marker-end="url(#a)"/>
+<path fill="none" stroke="#1D9E75" stroke-width="1.2" d="M555 576L555 648" marker-end="url(#a)"/>
+<!-- Departures nodes -->
+<g class="ng" onclick="S('apollo')"><rect x="110" y="648" width="120" height="48" rx="7" fill="#185FA5" stroke="#3B8BD4" stroke-width=".5"/><text class="nt" x="170" y="667" fill="#E6F1FB">Apollo Computer</text><text class="ns" x="170" y="683" fill="#85B7EB">1980 · Poduska (ex-Prime)</text></g>
+<g class="ng" onclick="S('encore')"><rect x="248" y="648" width="128" height="48" rx="7" fill="#185FA5" stroke="#3B8BD4" stroke-width=".5"/><text class="nt" x="312" y="667" fill="#E6F1FB">Encore Computer</text><text class="ns" x="312" y="683" fill="#85B7EB">1983 · Bell + Burkhardt</text></g>
+<g class="ng" onclick="S('olsenout')"><rect x="618" y="648" width="164" height="48" rx="7" fill="#791F1F" stroke="#A32D2D" stroke-width=".5"/><text class="nt" x="700" y="667" fill="#FCEBEB">Olsen forced out</text><text class="ns" x="700" y="683" fill="#F7C1C1">1992 · losses from 1990</text></g>
+<g class="ng" onclick="S('chambers')"><rect x="494" y="648" width="132" height="48" rx="7" fill="#0F6E56" stroke="#1D9E75" stroke-width=".5"/><text class="nt" x="560" y="667" fill="#E1F5EE">John Chambers</text><text class="ns" x="560" y="683" fill="#9FE1CB">Wang → Cisco → $49B CEO</text></g>
+<!-- Counterfactual ghost -->
+<g class="ng-ghost" onclick="S('ghost')"><rect x="396" y="648" width="92" height="48" rx="7" fill="#5F5E5A" stroke="#888780" stroke-width=".5" stroke-dasharray="4 3"/><text class="nt" x="442" y="667" fill="#D3D1C7">MA startup?</text><text class="ns" x="442" y="683" fill="#B4B2A9">never built</text></g>
+<!-- End connectors -->
+<path fill="none" stroke="#791F1F" stroke-width="1.2" d="M170 696L170 768" marker-end="url(#a)"/>
+<path fill="none" stroke="#791F1F" stroke-width="1.2" d="M312 696L312 768" marker-end="url(#a)"/>
+<path fill="none" stroke="#791F1F" stroke-width="1.5" d="M700 696L700 768" marker-end="url(#a)"/>
+<!-- End nodes -->
+<g class="ng" onclick="S('apolloacq')"><rect x="110" y="768" width="120" height="48" rx="7" fill="#791F1F" stroke="#A32D2D" stroke-width=".5"/><text class="nt" x="170" y="787" fill="#FCEBEB">Acquired by HP</text><text class="ns" x="170" y="803" fill="#F7C1C1">1989 · $476M · wound down</text></g>
+<g class="ng" onclick="S('encoreend')"><rect x="248" y="768" width="128" height="48" rx="7" fill="#791F1F" stroke="#A32D2D" stroke-width=".5"/><text class="nt" x="312" y="787" fill="#FCEBEB">Encore winds down</text><text class="ns" x="312" y="803" fill="#F7C1C1">1998 · acquired by Gores</text></g>
+<g class="ng" onclick="S('compaqacq')"><rect x="568" y="768" width="216" height="48" rx="7" fill="#791F1F" stroke="#E24B4A" stroke-width="1"/><text class="nt" x="676" y="787" fill="#FCEBEB">DEC acquired by Compaq</text><text class="ns" x="676" y="803" fill="#F7C1C1">June 1998 · $9.6 billion</text></g>
+<!-- Caption bar -->
+<rect x="110" y="826" width="680" height="44" rx="5" fill="none" stroke="#e0ded8" stroke-width=".5"/>
+<text style="font-family:'DM Sans',sans-serif;font-size:12px;fill:#9c9a96;dominant-baseline:central" x="450" y="843" text-anchor="middle">DEC founded 1957 — same year as Fairchild. Peak: $14B revenue, 140K employees. Acquired 1998. No successor industry on Route 128.</text>
+<text style="font-family:'DM Sans',sans-serif;font-size:12px;fill:#9c9a96;dominant-baseline:central" x="450" y="860" text-anchor="middle">Fairchild (CA): $2.1T in descendants. DEC (MA): two generations of spinoffs, all eventually wound down.</text>
+</svg>
+</div>
+
+<div class="stats-row">
+  <div class="sc"><div class="sn">1957</div><div class="sl">DEC founded — same year as Fairchild</div></div>
+  <div class="sc"><div class="sn">2</div><div class="sl">Generations of spinoffs — all acquired, none generating further companies</div></div>
+  <div class="sc"><div class="sn">$9.6B</div><div class="sl">DEC acquired by Compaq, 1998 — terminal value</div></div>
+  <div class="sc"><div class="sn">0</div><div class="sl">Successor technology companies built on Route 128 after DEC's collapse</div></div>
+  <div class="sc"><div class="sn">800×</div><div class="sl">Fairchild's descendant value vs. DEC's acquisition price</div></div>
+</div>
+
+<div class="contrast-section">
+  <h2>DEC vs. Fairchild: key divergences</h2>
+  <div class="ct-grid">
+    <div class="ct-ma">
+      <div class="ct-head">Massachusetts — DEC</div>
+      <div class="ct-row"><span class="ct-label">Non-compete law</span>Enforced under common law "reasonableness" standard</div>
+      <div class="ct-row"><span class="ct-label">First spinoff</span>Data General (1968, 11 years later) — DEC immediately sued</div>
+      <div class="ct-row"><span class="ct-label">Key departure signal</span>DEC v. Data General litigation signaled that leaving carries legal risk</div>
+      <div class="ct-row"><span class="ct-label">VC ecosystem</span>ARD (1946) provided seed capital but generated no second-generation VC firms</div>
+      <div class="ct-row"><span class="ct-label">Spinoff generations</span>2 generations — DEC → {Data General, Prime, Apollo, Encore} → all acquired</div>
+      <div class="ct-row"><span class="ct-label">Knowledge fate</span>Locked in DEC; deprecated as VAX market collapsed; dispersed via layoffs</div>
+      <div class="ct-row"><span class="ct-label">Terminal value</span>$9.6B acquisition price (1998) — the end of the chain</div>
+    </div>
+    <div class="ct-ca">
+      <div class="ct-head">California — Fairchild</div>
+      <div class="ct-row"><span class="ct-label">Non-compete law</span>§16600 voids post-employment non-competes as a matter of statute</div>
+      <div class="ct-row"><span class="ct-label">First spinoff</span>Rheem Semiconductor (1959, 2 years later) — no litigation, celebrated as entrepreneurship</div>
+      <div class="ct-row"><span class="ct-label">Key departure signal</span>Every departure normalized and celebrated; departure is aspiration, not betrayal</div>
+      <div class="ct-row"><span class="ct-label">VC ecosystem</span>Davis &amp; Rock (1961), Kleiner Perkins (1972), Sequoia (1972) — all seeded by Fairchild departures</div>
+      <div class="ct-row"><span class="ct-label">Spinoff generations</span>6+ generations — Fairchild → Intel/AMD → Apple/KPCB/Sequoia → Google → Anthropic</div>
+      <div class="ct-row"><span class="ct-label">Knowledge fate</span>Flowed freely via departures; compounded across generations; built an ecosystem</div>
+      <div class="ct-row"><span class="ct-label">Terminal value</span>$2.1 trillion in descendant companies (2014) — 800× Fairchild's own peak valuation</div>
+    </div>
   </div>
+</div>
+</main>
+
+<footer>
+  <strong>Sources:</strong> Computer History Museum oral histories (Bell, de Castro, Anderson, Kotok); Edgar Schein et al., <em>DEC Is Dead, Long Live DEC</em> (2003); Tracy Kidder, <em>The Soul of a New Machine</em> (1981); AnnaLee Saxenian, <em>Regional Advantage</em> (1994); Ronald J. Gilson, "The Legal Infrastructure of High Technology Industrial Districts," 74 N.Y.U. L. Rev. 575 (1999); IT History Society biographical entries; Goodwin &amp; Johnson, "DEC: The Mistakes That Led to Its Downfall," SIGCIS (2004).
+  <br><br>Part of the <em>Bound by Law: Non-Compete Agreements and Innovation</em> research series.
+</footer>
+
+<div class="overlay" id="ov" onclick="C(event)">
+<div class="modal">
+  <button class="mc" onclick="C(null,1)">×</button>
+  <div class="m-era" id="me"></div>
+  <div class="m-name" id="mn"></div>
+  <div class="m-year" id="my"></div>
+  <div class="m-div"></div>
+  <div class="m-founders" id="mf"></div>
+  <div class="m-desc" id="md"></div>
+  <div class="m-impact" id="mi"></div>
+</div>
 </div>
 
 <script>
-const DATA = {
-  mit:{era:"Precursor · 1950s",name:"MIT Lincoln Laboratory",year:"Cambridge & Lexington, MA · established 1951",founders:"Key figures: Ken Olsen (TX-0, Whirlwind), Harlan Anderson. Both engineers on Project Whirlwind."},
-  dec:{era:"Founding · 1957",name:"Digital Equipment Corporation",year:"Maynard, MA · founded 1957 · old wool mill",founders:"Founders: Ken Olsen (31) and Harlan Anderson (27). $70,000 from ARD (American Research and Development), an early VC firm."},
-  pdp1:{era:"Products · 1960",name:"PDP-1 (1960)",year:"First interactive minicomputer · $120,000",founders:"Principal designer: Ben Gurley (resigned 1962 to join a startup; tragically murdered in 1971). DEC did not sue his new venture."},
-  pdp8:{era:"Products · 1965",name:"PDP-8 (1965)",year:"First mass-market minicomputer · $18,500",founders:"Principal designer / Project Manager: Edson de Castro (who left DEC in 1968 to found Data General, sparking a lawsuit)."},
-  pdpx:{era:"Inflection · 1968",name:"PDP-X proposal rejected",year:"Hudson, MA · 1968",founders:"Edson de Castro, Henry Burkhardt III, Richard Sogge — all DEC engineers",desc:"de Castro proposed a 16-bit computer (PDP-X) to rival IBM's emerging computers. Olsen rejected it as too radical."},
-  andersonout:{era:"First departure · 1966",name:"Harlan Anderson forced out",year:"1966 · nine years after founding",founders:"Co-founder and Executive Vice President of DEC",desc:"Harlan Anderson, DEC's co-founder, was forced out by Ken Olsen after a dispute. Anderson went into private equity and consulting, not direct competition."},
-  vax:{era:"Peak products · 1970–77",name:"PDP-11 and VAX",year:"1970 (PDP-11) · 1977 (VAX/780)",founders:"VAX architecture designed under Gordon Bell as VP Engineering",desc:"The PDP-11 was DEC's best-selling computer ever (sold into the 1990s). The VAX (1977) was DEC's supercomputer; VAX sales generated $14B+ over two decades."},
-  gordonbell:{era:"Key person · 1972–83",name:"Gordon Bell",year:"VP Engineering 1972–1983",founders:"DEC's chief architect — designed or oversaw every major computer from PDP-6 through VAX.",desc:"Gordon Bell was DEC's senior technologist and visionary. After a heart attack in 1983, he left DEC and co-founded Encore Computer, building parallel processors using non-compete-challenged talent."},
-  decpeak:{era:"Strategic failure · 1983",name:"DEC's PC strategy fails",year:"1982–1986 · Rainbow, DECmate, VAXmate all flop",founders:"CEO Ken Olsen, who famously dismissed the personal computer market."},
-  datageneral:{era:"Spinoff · 1968",name:"Data General Corporation",year:"Hudson, MA · 1968",founders:"Edson de Castro (29), Henry Burkhardt III (23), Richard Sogge (all DEC). Herbert Richman (DEC finance)."},
-  primecomp:{era:"Adjacent company · 1972",name:"Prime Computer",year:"Natick, MA · 1972",founders:"Seven founders including William Poduska (MIT, later Apollo Computer)"},
-  bellleaves:{era:"Key departure · 1983",name:"Gordon Bell leaves DEC",year:"1983 · co-founds Encore Computer",founders:"Bell + Ken Fisher (Prime Computer CEO) + Henry Burkhardt III (Data General co-founder)."},
-  decfall2:{era:"Decline · 1990",name:"Losses begin 1990",year:"Last profitable year: 1989",founders:"CEO: Ken Olsen (in role since 1957); replaced by Robert Palmer 1992"},
-  chamberstoca:{era:"Talent loss · 1980s–90s",name:"Talent exits Massachusetts",year:"Ongoing through the 1980s and 1990s",founders:"John Chambers (Wang → Cisco); scores of DEC engineers to California."},
-  apollocomp:{era:"Spinoff · 1980",name:"Apollo Computer",year:"Chelmsford, MA · 1980",founders:"William Poduska (from Prime Computer); first graphical workstation, 2 years before Sun."},
-  encorecomp:{era:"Late spinoff · 1983",name:"Encore Computer",year:"Marlborough, MA · 1983",founders:"Gordon Bell (DEC), Kenneth Fisher (Prime Computer CEO), Henry Burkhardt III (Data General co-founder)."},
-  decfall:{era:"Decline · 1992",name:"Ken Olsen forced out",year:"1992 · after consecutive losses",founders:"Olsen replaced by Robert Palmer — DEC's first external CEO."},
-  chamberscisco:{era:"Talent that escaped · 1991",name:"John Chambers",year:"Wang Laboratories → Cisco Systems · 1991",founders:"VP US Operations at Wang; CEO of Cisco 1995–2015. Today retired with a net worth of $3B+."},
-  apolloacq:{era:"Acquisition · 1989",name:"Apollo acquired by HP",year:"1989 · $476 million",founders:"No successor companies were spun out."},
-  encoreend:{era:"Acquisition · 1998",name:"Encore Computer wound down",year:"1998 · acquired by Gores Technology Group",founders:"Bell, Fisher, Burkhardt had all departed."},
-  compaqacq:{era:"Final acquisition · 1998",name:"DEC acquired by Compaq",year:"June 1998 · $9.6 billion",founders:"Largest computer industry merger at the time."},
-  ghost1:{era:"Counterfactual",name:"The Route 128 PC startup that wasn't",year:"Hypothetical · 1980s",founders:"DEC engineers who could see the PC transition but couldn't freely leave."},
-  ghost2:{era:"Counterfactual",name:"The successor industry that never formed",year:"Hypothetical · 1990s onward",founders:"Would have required the compounding that non-compete enforcement prevented."}
+const D={
+mit:{e:"Precursor · 1950s",n:"MIT Lincoln Laboratory",y:"Cambridge & Lexington, MA · established 1951",f:"Key figures: Ken Olsen (TX-0, Whirlwind, age 31), Harlan Anderson (27). Both engineers on Project Whirlwind and the TX-0 computer.",d:"Lincoln Lab was established to develop air defense systems. Ken Olsen mastered transistor circuit design and magnetic core memory there. As IBM liaison, he found corporate bureaucracy stifling — 'like going to a communist state,' he said. He and Anderson left to build something better.",i:"<strong>The departure:</strong> Olsen and Anderson left MIT Lincoln Lab in 1957 — the same year the Traitorous Eight left Shockley in California. Both groups founded companies that year. The legal environments they departed into were completely different: California §16600 vs. Massachusetts common law."},
+dec:{e:"Founding · 1957",n:"Digital Equipment Corporation",y:"Maynard, MA · Founded 1957 · old wool mill",f:"Founders: Ken Olsen (31), Harlan Anderson (27). $70,000 from American Research and Development Corp. (ARD) for 70% equity.",d:"DEC was the first successful venture-backed computer company. They started by building logic modules for three years before producing the PDP-1 in 1960. At peak (1987): 140,000+ employees worldwide, $14 billion in revenue — the second-largest computer company in the world after IBM.",i:"<strong>Same year, different law:</strong> DEC was founded in 1957 — the same year as Fairchild Semiconductor. Both started with brilliant engineers, breakthrough technology, and venture backing. Fairchild operated under California §16600; DEC operated under Massachusetts common law that enforced non-compete agreements. The result: $2.1 trillion vs. $9.6 billion."},
+pdp1:{e:"Products · 1960",n:"PDP-1",y:"First interactive minicomputer · $120,000",f:"Principal designer: Ben Gurley (resigned 1962 to join a startup — one of DEC's first significant talent losses)",d:"The PDP-1 was revolutionary: the first computer sold with a monitor and keyboard for interactive use, the first affordable enough that universities could buy one. MIT's Hacks Lab used a PDP-1 to create Spacewar!, the first video game.",i:"<strong>The Gurley departure:</strong> Ben Gurley's 1962 resignation illustrates the early pattern. He left to join a startup — legally complicated by Massachusetts non-compete norms. His premature death cut short what might have been a significant entrepreneurial career. DEC's talent departures tended to end this way."},
+pdp8:{e:"Products · 1965",n:"PDP-8",y:"First mass-market minicomputer · $18,500",f:"Principal designer and Project Manager: Edson de Castro (who would leave DEC in 1968 to found Data General)",d:"The PDP-8 democratized computing. At $18,500 it was the first minicomputer affordable to a laboratory or company. It sold over 50,000 units and established DEC as the dominant minicomputer maker. De Castro designed it — then proposed the natural successor (PDP-X) and was turned down.",i:"<strong>The seed of departure:</strong> De Castro's success with the PDP-8 gave him the credibility to propose the PDP-X. When DEC rejected it, he left to build it himself as Data General. In California, this was unremarkable entrepreneurship. In Massachusetts, it triggered years of litigation."},
+pdpx:{e:"Inflection · 1968",n:"PDP-X proposal rejected",y:"1968 · the moment the chain could have extended",f:"Edson de Castro, Henry Burkhardt III, Richard Sogge — all DEC engineers",d:"De Castro proposed a 16-bit architecture that could scale to 8, 16, and 32 bits — essentially the foundation of modern computing. Ken Olsen rejected it: insufficient advantage over the existing 12-bit PDP-8. De Castro left to build it himself.",i:"<strong>DEC sues Data General:</strong> Unlike Fairchild, which took no legal action when employees departed, DEC sued de Castro's Data General almost immediately for trade secret misappropriation. The litigation ran for years and consumed resources. Every subsequent DEC engineer who considered founding a competing company had this lawsuit as a cautionary example. This is how non-compete culture shortens the chain."},
+anderson:{e:"First departure · 1966",n:"Harlan Anderson forced out",y:"1966 · nine years after co-founding",f:"Co-founder and Executive Vice President of DEC. Employee #2.",d:"Anderson was forced out in 1966 after a dispute with Olsen over management structure following the PDP-6 failure. He went on to become Director of Technology for Time, Inc. — a career change, not a company founding.",i:"<strong>Lost founder:</strong> In California, a co-founder with Anderson's credentials who departed after nine years would have been expected to found something new. In Massachusetts, the path of least legal resistance was a corporate job elsewhere. Anderson's departure was DEC's first signal of management brittleness."},
+datageneral:{e:"Spinoff · 1968",n:"Data General Corporation",y:"Hudson, MA · 1968",f:"Edson de Castro (29), Henry Burkhardt III (23), Richard Sogge (all DEC). Herbert Richman (Fairchild Semiconductor).",d:"Data General was DEC's most significant spinoff. Its Nova minicomputer sold 500 units in 15 months at under $10,000. The company's Eagle project was immortalized in Tracy Kidder's Pulitzer Prize-winning 'The Soul of a New Machine' (1981).",i:"<strong>The lawsuit:</strong> DEC sued Data General almost immediately for trade secret misappropriation. The litigation dragged for years. In California, the equivalent departure — eight engineers leaving Shockley for Fairchild — triggered no legal action whatsoever. The different legal responses shaped the different cultures that followed. Data General was acquired by EMC in 1999 with no notable spinoffs of its own."},
+vax:{e:"Peak products · 1970–77",n:"PDP-11 and VAX",y:"1970 (PDP-11) · 1977 (VAX/780)",f:"VAX architecture designed under Gordon Bell as VP Engineering",d:"The PDP-11 was one of the most influential computers ever built — Unix was originally written for it. The VAX introduced 32-bit virtual memory and became DEC's definitive product. In 1983, DEC canceled the Jupiter mainframe project in favor of all-in on VAX — a decision that proved catastrophic when PC workstations eroded the market.",i:"<strong>The VAX trap:</strong> DEC's commitment to proprietary VAX/VMS was its greatest strength and the cause of its death. The engineers who could see the open-systems transition coming found it legally difficult to leave and build alternatives. The tacit knowledge that might have seeded a Massachusetts workstation industry stayed locked inside DEC until the layoffs came."},
+bell:{e:"Key person · 1972–83",n:"Gordon Bell",y:"VP Engineering 1972–1983",f:"DEC's chief architect — designed or oversaw every major computer from PDP-6 through VAX",d:"Gordon Bell is one of the most important computer architects in history. He designed the PDP series and, as VP Engineering, architected the VAX. He left permanently in 1983 after suffering a heart attack, co-founding Encore Computer with Kenneth Fisher (former Prime Computer CEO) and Henry Burkhardt III (Data General co-founder).",i:"<strong>What Bell built after DEC:</strong> Three of the most credentialed computer architects in the world, operating in Massachusetts, built Encore Computer — a company that peaked at ~1,000 employees and was acquired in 1998. In California with KPCB or Sequoia backing, the same individuals would have had access to a radically different ecosystem. The legal and financial gap was decisive."},
+peak:{e:"Peak · 1987",n:"DEC at its peak",y:"1987 · 140,000+ employees worldwide",f:"CEO: Ken Olsen (founder, 30 years in the role)",d:"By 1987 DEC was threatening IBM's number-one position. Revenues were $14 billion. The VAX was dominant in engineering, scientific, and academic computing. Ken Olsen was named by Fortune as 'perhaps the most successful entrepreneur in the history of American business.'",i:"<strong>The peak illusion:</strong> DEC's 1987 peak masked three fatal weaknesses: inability to adapt to commodity PC hardware, a proprietary VMS ecosystem that locked customers in while locking DEC out of open systems, and a culture that prevented decisive strategic pivots. Engineers who could see the transition coming were constrained from leaving to build alternatives."},
+prime:{e:"Spinoff · 1972",n:"Prime Computer",y:"Natick, MA · 1972",f:"Seven founders including William Poduska (MIT, later Apollo), Robert Baron, and others from MIT's Multics project",d:"Prime introduced virtual memory minicomputers and competed in the same market as DEC. It was acquired by JMB Realty in 1989 in a leveraged buyout that prioritized financial engineering over technology investment. William Poduska left Prime in 1981 to found Apollo Computer.",i:"<strong>Poduska's chain:</strong> Poduska left Prime for Apollo — one of Route 128's rare entrepreneurial successes. But Apollo too was acquired (by HP in 1989) without generating a successor generation. Contrast with Fairchild: acquired by Schlumberger in 1979 and yet continuing to generate spinoffs for decades because California law permitted departure."},
+bellleaves:{e:"Key departure · 1983",n:"Gordon Bell leaves DEC",y:"1983 · after heart attack",f:"Bell co-founded Encore Computer with Ken Fisher (Prime Computer CEO) and Henry Burkhardt III (Data General co-founder)",d:"Bell's departure was health-driven, not planned. But it illustrated DEC's reliance on irreplaceable individuals rather than a regenerative ecosystem of talent. Encore tried to build parallel supercomputers but never achieved scale.",i:"<strong>The Massachusetts constraint:</strong> Bell, Fisher, and Burkhardt were three of the most experienced computer engineers in the world. In California with KPCB backing, they might have built the next Sun Microsystems. In Massachusetts, they built a niche supercomputer company acquired in 1998. The legal and VC ecosystem gap was the decisive difference."},
+nopc:{e:"Strategic failure · 1983",n:"DEC's PC strategy fails",y:"Rainbow, DECmate, VAXmate — all fail · 1982–86",f:"CEO Ken Olsen, who famously declared there was 'no reason for any individual to have a computer in their home'",d:"DEC responded to the IBM PC with three incompatible machines, all of which failed. None ran standard MS-DOS applications. Engineers within DEC who understood the PC transition found it difficult to act on that knowledge — they couldn't easily leave to found PC companies.",i:"<strong>The talent implication:</strong> Engineers at DEC who could see the PC era coming faced a choice: stay in a company refusing to adapt, or leave and risk non-compete litigation. Many stayed until the layoffs. The knowledge that might have seeded a Massachusetts PC industry dispersed rather than compounding."},
+toca:{e:"Talent loss · 1980s–90s",n:"Talent exits Massachusetts",y:"Ongoing through the 1980s and 1990s",f:"John Chambers (Wang → Cisco); scores of DEC engineers to California companies",d:"As DEC and Wang declined, their engineers faced a choice: stay in Massachusetts in a contracting industry, or move to California. Many left. John Chambers — who became Cisco's CEO and grew it from $1.9B to $49.2B in revenue — left Wang Laboratories in 1991 for California.",i:"<strong>Brain drain quantified:</strong> Research by Borjas et al. found Massachusetts 'exports its most able workers.' Half of Greater Boston graduates left the area after receiving degrees. The engineers who left took exactly the tacit knowledge — minicomputer architecture, networking, operating systems — that a successor Massachusetts industry might have been built on."},
+apollo:{e:"Spinoff · 1980",n:"Apollo Computer",y:"Chelmsford, MA · 1980",f:"William Poduska (from Prime Computer), Dave Nelson, Mike Greata. First graphical workstation — two years before Sun.",d:"Apollo beat Sun to market with graphical workstations by two years. But it chose a proprietary networking architecture (Domain/OS) rather than Unix, repeating DEC's fundamental error. When Sun embraced open standards, Apollo's market eroded.",i:"<strong>Acquired before compounding:</strong> HP acquired Apollo in 1989 for $476M. No notable spinoffs emerged from Apollo's alumni in Massachusetts. Engineers dispersed. Compare to Fairchild: every acquisition was followed by new departures that generated new companies. Apollo's acquisition was a terminal event."},
+encore:{e:"Late spinoff · 1983",n:"Encore Computer",y:"Marlborough, MA · 1983",f:"Gordon Bell (DEC), Kenneth Fisher (Prime Computer CEO), Henry Burkhardt III (Data General co-founder)",d:"Encore represented Route 128's best attempt at a second-generation company from DEC-lineage talent. Three of the most credentialed computer architects in the world built parallel supercomputers from commodity parts — a genuinely innovative vision.",i:"<strong>The scale gap:</strong> Encore peaked at ~1,000 employees and was acquired in 1998. The same year, the Fairchild lineage was founding Google. Three world-class architects operating in Massachusetts built a niche company. The legal and financial ecosystem difference was decisive."},
+olsenout:{e:"Decline · 1992",n:"Ken Olsen forced out",y:"1992 · after consecutive losses",f:"Replaced by Robert Palmer — DEC's first external CEO, who 'ran out of ideas' by his own account",d:"DEC's last profitable year was 1989. Losses began in 1990. Layoffs started in January 1991. By 1992 the board asked for Olsen's resignation after 35 years as CEO. The company had approximately 30,000 more employees than it needed.",i:"<strong>The locked-in workforce:</strong> DEC's non-compete culture had created a workforce deeply specialized in VAX/VMS — skills with limited value outside DEC. When layoffs came, these engineers found transition difficult. Many left Massachusetts. The knowledge that built DEC dissipated rather than compounding into new companies."},
+chambers:{e:"Talent that escaped · 1991",n:"John Chambers",y:"Wang Laboratories → Cisco Systems · 1991",f:"VP US Operations at Wang → Cisco executive → CEO 1995–2015",d:"Chambers joined Wang in 1983, rising to VP of US Operations. He watched Wang's profits collapse from $2B in 1989 to a $700M loss in 1990. He left for Cisco in 1991 — moving to California. As Cisco's CEO (1995–2015) he grew annual revenue from $1.9B to $49.2B.",i:"<strong>The definitive example:</strong> Chambers was trained by Route 128 companies. His skills created their full value only when deployed in California's open ecosystem. Had he stayed in Massachusetts and tried to found a company, he would have faced non-compete risk. In California, he helped build a $200 billion company."},
+ghost:{e:"Counterfactual",n:"The Route 128 successor industry that never formed",y:"Hypothetical · 1980s–90s",f:"Would have required the compounding that non-compete enforcement prevented",d:"In California, when engineers at a dominant technology company saw the next wave and their employer refusing to pivot, they left and built the alternative. In Massachusetts, DEC engineers who understood the PC and Unix transitions faced legal risk in departing. Many stayed until the layoffs. Some moved to California. None founded Route 128's answer to Sun Microsystems.",i:"<strong>The counterfactual:</strong> Gordon Bell, Henry Burkhardt, and the engineers who built the VAX possessed knowledge that could have seeded a Massachusetts workstation industry. The legal environment — non-compete agreements enforceable under Massachusetts common law — was one structural reason that knowledge never recombined into new companies at California's rate."},
+apolloacq:{e:"Acquisition · 1989",n:"Apollo acquired by HP",y:"1989 · $476 million",founders:"No successor companies were spun out",d:"HP acquired Apollo and gradually wound it down over 1990–1997. No notable spinoffs emerged. Compare to Fairchild: acquired by Schlumberger in 1979, and yet continuing to generate spinoffs for decades because California law and culture permitted mobile talent to recombine.",i:"<strong>No successor generation:</strong> Apollo's acquisition generated no second-generation spinoffs, no new VC firms, no mentorship chains. The knowledge that had built Apollo's workstations dispersed rather than compounding. The terminal event ended the chain."},
+encoreend:{e:"Acquisition · 1998",n:"Encore Computer wound down",y:"1998 · acquired by Gores Technology Group",f:"Bell, Fisher, Burkhardt had all departed by then",d:"Encore was acquired by Gores Technology Group in 1998 — the same year DEC was acquired by Compaq. The simultaneous disappearance of both DEC and its most technically ambitious spinoff in the same year marks the end of Route 128's minicomputer era.",i:"<strong>End of the line:</strong> The DEC genealogy ends here — two generations, all eventually acquired or wound down, generating no successor industries on Route 128. By 1998, Silicon Valley was founding Google. Route 128 was liquidating. The difference was not talent or technology — it was law."},
+compaqacq:{e:"Final acquisition · 1998",n:"DEC acquired by Compaq",y:"June 1998 · $9.6 billion",f:"Largest computer industry merger in history at the time. DEC brand eventually disappears; Compaq acquired by HP in 2002.",d:"Compaq acquired DEC for $9.6 billion. DEC's Alpha processor technology, internet infrastructure, and AltaVista search engine were the primary assets. The DEC brand eventually disappeared entirely.",i:"<strong>The final accounting:</strong> DEC was founded in 1957, acquired in 1998 — 41 years. Fairchild was founded in 1957, acquired by Schlumberger in 1979, but its descendants were worth $2.1 trillion in 2014. DEC's $9.6 billion acquisition price was its terminal value. Its talent, constrained by non-compete culture and legal environment, generated no comparable downstream wealth."},
 };
-
-function showCard(id){
-  const d=DATA[id]; if(!d)return;
-  document.getElementById('c-era').textContent=d.era;
-  document.getElementById('c-name').textContent=d.name;
-  document.getElementById('c-year').textContent=d.year;
-  document.getElementById('c-founders').textContent=d.founders;
-  document.getElementById('c-desc').textContent=d.desc;
-  document.getElementById('c-impact').innerHTML=d.impact;
-  document.getElementById('panel').classList.add('open');
-}
-function closePanel(e,force){
-  if(force||!e||e.target===document.getElementById('panel'))
-    document.getElementById('panel').classList.remove('open');
-}
+function S(id){const d=D[id];if(!d)return;document.getElementById('me').textContent=d.e;document.getElementById('mn').textContent=d.n;document.getElementById('my').textContent=d.y;document.getElementById('mf').textContent=d.f||'';document.getElementById('md').textContent=d.d;document.getElementById('mi').innerHTML=d.i;document.getElementById('ov').classList.add('open');}
+function C(e,f){if(f||!e||e.target===document.getElementById('ov'))document.getElementById('ov').classList.remove('open');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.getElementById('ov').classList.remove('open');});
 </script>
 </body>
 </html>
