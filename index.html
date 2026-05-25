@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visualizations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0c0f0a;
+      --surface: #141914;
+      --border: rgba(255,255,255,0.07);
+      --text: #e4e8e0;
+      --text-muted: #7a8c78;
+      --amber: #c9943a;
+      --blue: #4a90d9;
+      --green: #4caf80;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 60px 32px;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(201,148,58,0.06) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #fff;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      color: var(--text-muted);
+      margin-bottom: 48px;
+      max-width: 640px;
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, var(--amber), transparent);
+      margin-bottom: 48px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 28px;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      border-color: var(--amber);
+      transform: translateY(-2px);
+    }
+
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+
+    .card-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .card-link {
+      display: inline-block;
+      color: var(--amber);
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration: none;
+      border-bottom: 1px solid var(--amber);
+      transition: opacity 0.2s;
+    }
+
+    .card-link:hover {
+      opacity: 0.8;
+    }
+
+    .footer {
+      margin-top: 56px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: #3d4a3a;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Tech Genealogies</h1>
+    <p class="subtitle">Visualizations exploring how non-compete agreements shaped innovation in the computer industry.</p>
+    <div class="divider"></div>
+
+    <div class="grid">
+      <a href="./dec_genealogy.html" class="card">
+        <div class="card-title">DEC: The Truncated Tree</div>
+        <p class="card-desc">Digital Equipment Corporation and the Route 128 genealogy that wasn't — how Massachusetts non-compete law constrained the knowledge compounding that built Silicon Valley.</p>
+        <span class="card-link">View visualization →</span>
+      </a>
+
+      <a href="./fairchild_genealogy.html" class="card">
+        <div class="card-title">Fairchild Genealogy</div>
+        <p class="card-desc">The Silicon Valley story of how relaxed non-compete enforcement enabled a successive generation of spinoffs and descendants.</p>
+        <span class="card-link">View visualization →</span>
+      </a>
+    </div>
+
+    <div class="footer">
+      <strong>Part of:</strong> <em>Bound by Law</em> — a research series on non-compete agreements and innovation.
+    </div>
+  </div>
+</body>
+</html>
