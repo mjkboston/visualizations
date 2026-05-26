@@ -19,6 +19,8 @@
   --purple-dk:#3c3489;--radius:10px;--radius-sm:6px;
 }
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.back-link{display:inline-block;margin-bottom:1rem;font-size:13px;color:var(--blue-dk);text-decoration:none;font-weight:600}
+.back-link:hover{text-decoration:underline}
 .site-header{background:#3d2800;color:#fff;padding:3rem 2rem 2.5rem;position:relative;overflow:hidden}
 .site-header::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 40px,rgba(255,255,255,.025) 40px,rgba(255,255,255,.025) 41px)}
 .header-inner{max-width:1100px;margin:0 auto;position:relative}
@@ -34,7 +36,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .icard{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem 1.5rem}
 .icard h3{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:8px}
 .icard p{font-size:14px;line-height:1.65;color:var(--text-sec)}
-.callout{background:var(--gold-light);border-left:4px solid var(--gold);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:1rem 1.25rem;margin-bottom:2rem;font-size:14px;line-height:1.65;color:#5a4000}
+.callout{background:var(--gold-light);border-left:4px solid var(--gold);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:1rem 1.25rem;margin-bottom:2rem;font-size:14px;line-height:1.65}
 .callout strong{color:#3a2800}
 .legend{display:flex;flex-wrap:wrap;gap:10px 24px;margin-bottom:1.25rem;font-size:12px;color:var(--text-sec)}
 .lchip{display:inline-flex;align-items:center;gap:6px}
@@ -59,7 +61,7 @@ svg.tree{display:block}
 .chain-text p{font-size:13px;color:var(--text-sec);line-height:1.5}
 .overlay{position:fixed;inset:0;z-index:200;background:rgba(15,10,5,.55);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s;padding:1rem}
 .overlay.open{opacity:1;pointer-events:auto}
-.modal{background:var(--surface);border-radius:var(--radius);border:1px solid var(--border-med);max-width:480px;width:100%;max-height:85vh;overflow-y:auto;padding:1.75rem;position:relative;box-shadow:0 24px 64px rgba(0,0,0,.22)}
+.modal{background:var(--surface);border-radius:var(--radius);border:1px solid var(--border-med);max-width:480px;width:100%;max-height:85vh;overflow-y:auto;padding:1.75rem;position:relative;box-shadow:0 20px 60px rgba(15,10,5,.35)}
 .mc{position:absolute;top:14px;right:16px;background:none;border:none;font-size:22px;cursor:pointer;color:var(--text-muted);line-height:1}
 .mc:hover{color:var(--text)}
 .m-era{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px}
@@ -74,11 +76,15 @@ footer{border-top:1px solid var(--border);padding:1.5rem 2rem;max-width:1100px;m
 </style>
 </head>
 <body>
+<div class="page-body" style="padding-top:1.5rem;padding-bottom:0">
+  <a href="./" class="back-link">← Back to visualizations</a>
+</div>
+
 <header class="site-header">
   <div class="header-inner">
     <div class="kicker">Research Brief · Non-Compete &amp; Innovation Series</div>
     <h1 class="h-title">Ampex: Silicon Valley's Hidden Root</h1>
-    <p class="h-sub">Founded 1944, Redwood City, CA. One company incubated the founders of Dolby Laboratories, Atari, Oracle, and Pixar — and through them, Apple and Salesforce. Five generations of legally uninhibited departures spanning broadcasting to AI.</p>
+    <p class="h-sub">Founded 1944, Redwood City, CA. One company incubated the founders of Dolby Laboratories, Atari, Oracle, and Pixar — and through them, Apple and Salesforce. Five generations of spinoffs under §16600.</p>
     <div class="stat-row">
       <span class="pill"><strong>1944</strong> — Ampex founded, San Carlos, CA</span>
       <span class="pill"><strong>5 generations</strong> of departures</span>
@@ -93,155 +99,206 @@ footer{border-top:1px solid var(--border);padding:1.5rem 2rem;max-width:1100px;m
   <div class="intro-grid">
     <div class="icard">
       <h3>The hidden root</h3>
-      <p>Most histories of Silicon Valley begin with Shockley Semiconductor or Hewlett-Packard. But Ampex — a magnetic tape recording company founded by a Russian émigré in a San Carlos, California wartime factory — incubated a lineage that reaches further: from Bing Crosby's desire to prerecord his radio show to Apple's $3 trillion market cap and Salesforce's $41 billion in annual revenue.</p>
+      <p>Most histories of Silicon Valley begin with Shockley Semiconductor or Hewlett-Packard. But Ampex — a magnetic tape recording company founded by a Russian émigré in a San Carlos, California parking lot — may be the true root of the tech ecosystem. Its departures shaped everything.</p>
     </div>
     <div class="icard">
       <h3>The culture of blessed departure</h3>
-      <p>Ampex didn't just tolerate departures — it blessed them. Management congratulated Nolan Bushnell on his video game prototype and wished him luck. Larry Ellison and Bob Miner left Oracle with "Ampex management's blessing." California §16600 made this legally required; Ampex made it culturally normal. The combination produced five generations of industry-defining companies.</p>
+      <p>Ampex didn't just tolerate departures — it blessed them. Management congratulated Nolan Bushnell on his video game prototype and wished him luck. Larry Ellison and Bob Miner left Ampex to found Oracle. Every departure seeded the next generation.</p>
     </div>
   </div>
 
   <div class="callout">
-    <strong>The California principle, one generation before Fairchild.</strong> Ampex was founded in 1944 — thirteen years before Fairchild Semiconductor and HP's 1957 IPO. Its departure culture predates Silicon Valley's semiconductor era. When Nolan Bushnell showed his Pong prototype to Ampex's chief engineer, he was congratulated and told it wasn't a business. Under California §16600, that was a business assessment, not a legal prohibition. Bushnell left, founded Atari, hired Steve Jobs, and set in motion the chain that created the personal computer industry. In Massachusetts, the same engineer might have faced a non-compete preventing him from commercializing technology developed at Ampex.
+    <strong>The California difference.</strong> Every departure from Ampex was legal, celebrated, and unencumbered by non-compete agreements. Ampex executives understood that their legacy wasn't measured in market share, but in the companies and ecosystems their people would build. This attitude — legally enabled by §16600 — compounded across five generations.
   </div>
 
   <div class="legend">
-    <span class="lchip"><span class="ldot" style="background:#5f5e5a"></span>Precursors</span>
-    <span class="lchip"><span class="ldot" style="background:#0c447c"></span>Ampex itself</span>
-    <span class="lchip"><span class="ldot" style="background:#185fa5"></span>Gen 1 direct departures</span>
-    <span class="lchip"><span class="ldot" style="background:#993c1d"></span>Gen 2 companies</span>
-    <span class="lchip"><span class="ldot" style="background:#0f6e56"></span>Gen 3 ecosystems</span>
-    <span class="lchip"><span class="ldot" style="background:#534ab7"></span>Gen 4–5 (internet / AI era)</span>
+    <span class="lchip"><span class="ldot" style="background:#8a5c00"></span>Ampex itself</span>
+    <span class="lchip"><span class="ldot" style="background:#b8860b"></span>Generation 1 spinoffs</span>
+    <span class="lchip"><span class="ldot" style="background:#d4a574"></span>Generation 2 descendants</span>
+    <span class="lchip"><span class="ldot" style="background:#e6d4b0"></span>Generation 3+ descendants</span>
+    <span class="lchip"><span class="ldot" style="background:#f5e9c0"></span>Operational linkage / influence</span>
   </div>
 
   <div class="tree-box">
-    <h2>Five-generation genealogy — click any node to explore</h2>
-    <svg class="tree" viewBox="0 0 940 940" width="100%" style="min-width:680px">
-    <defs><marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
-    <text class="gl" x="12" y="80">Precursors · 1944</text><text class="gl" x="12" y="190">Ampex · 1944–70s</text><text class="gl" x="12" y="310">Gen 1 · 1952–77</text><text class="gl" x="12" y="430">Gen 2 · 1965–86</text><text class="gl" x="12" y="550">Gen 3 · 1976–99</text><text class="gl" x="12" y="670">Gen 4 · 1999–2010</text><text class="gl" x="12" y="790">Gen 5 · ongoing</text>
-    <line x1="110" y1="100" x2="930" y2="100" stroke="#e0ded8" stroke-width=".5"/><line x1="110" y1="220" x2="930" y2="220" stroke="#e0ded8" stroke-width=".5"/><line x1="110" y1="340" x2="930" y2="340" stroke="#e0ded8" stroke-width=".5"/><line x1="110" y1="460" x2="930" y2="460" stroke="#e0ded8" stroke-width=".5"/><line x1="110" y1="580" x2="930" y2="580" stroke="#e0ded8" stroke-width=".5"/><line x1="110" y1="700" x2="930" y2="700" stroke="#e0ded8" stroke-width=".5"/><line x1="110" y1="820" x2="930" y2="820" stroke="#e0ded8" stroke-width=".5"/>
-    <!-- Precursors -->
-    <g class="ng" onclick="S('bingcrosby')"><rect x="130" y="58" width="180" height="44" rx="7" fill="#5f5e5a" stroke="#444441" stroke-width=".5"/><text class="nt" x="220" y="76" fill="#d3d1c7">Bing Crosby</text><text class="ns" x="220" y="91" fill="#b4b2a9">First customer · funded Ampex 1946</text></g>
-    <g class="ng" onclick="S('dalmo')"><rect x="340" y="58" width="180" height="44" rx="7" fill="#5f5e5a" stroke="#444441" stroke-width=".5"/><text class="nt" x="430" y="76" fill="#d3d1c7">Dalmo-Victor Co.</text><text class="ns" x="430" y="91" fill="#b4b2a9">Parent · WWII radar motors</text></g>
-    <g class="ng" onclick="S('terman')"><rect x="550" y="58" width="200" height="44" rx="7" fill="#5f5e5a" stroke="#444441" stroke-width=".5"/><text class="nt" x="650" y="76" fill="#d3d1c7">Fred Terman · Stanford</text><text class="ns" x="650" y="91" fill="#b4b2a9">"Father of Silicon Valley" · Ampex board</text></g>
-    <path fill="none" stroke="#5f5e5a" stroke-width="1.2" d="M220 102L380 170" marker-end="url(#a)"/><path fill="none" stroke="#5f5e5a" stroke-width="1.2" d="M430 102L470 170" marker-end="url(#a)"/><path fill="none" stroke="#5f5e5a" stroke-width="1.2" d="M650 102L560 170" marker-end="url(#a)"/>
-    <!-- Ampex -->
-    <g class="ng" onclick="S('ampex')"><rect x="280" y="170" width="380" height="48" rx="9" fill="#0c447c" stroke="#185fa5" stroke-width="1.2"/><text class="nt" x="470" y="191" fill="#b5d4f4">Ampex Corporation</text><text class="ns" x="470" y="207" fill="#85b7eb">Redwood City, CA · 1944 · Emmy · Oscar · Grammy · first videotape recorder 1956</text></g>
-    <!-- Ampex → Gen 1 -->
-    <path fill="none" stroke="#185fa5" stroke-width="1.5" d="M350 218L220 288" marker-end="url(#a)"/><path fill="none" stroke="#185fa5" stroke-width="1.5" d="M420 218L440 288" marker-end="url(#a)"/><path fill="none" stroke="#185fa5" stroke-width="1.5" d="M520 218L690 288" marker-end="url(#a)"/><path fill="none" stroke="#185fa5" stroke-width="1.2" d="M490 218L490 260L820 288" marker-end="url(#a)"/>
-    <!-- Gen 1 nodes -->
-    <g class="ng" onclick="S('raydolby')"><rect x="118" y="288" width="204" height="48" rx="7" fill="#185fa5" stroke="#3b8bd4" stroke-width=".5"/><text class="nt" x="220" y="307" fill="#e6f1fb">Ray Dolby · age 16</text><text class="ns" x="220" y="323" fill="#85b7eb">VTR team 1952 · founds Dolby Labs 1965</text></g>
-    <g class="ng" onclick="S('bushnell')"><rect x="338" y="288" width="220" height="48" rx="7" fill="#185fa5" stroke="#3b8bd4" stroke-width=".5"/><text class="nt" x="448" y="307" fill="#e6f1fb">Bushnell + Dabney</text><text class="ns" x="448" y="323" fill="#85b7eb">Built Pong prototype at Ampex · left 1971</text></g>
-    <g class="ng" onclick="S('ellison')"><rect x="574" y="288" width="220" height="48" rx="7" fill="#185fa5" stroke="#3b8bd4" stroke-width=".5"/><text class="nt" x="684" y="307" fill="#e6f1fb">Ellison + Miner + Oates</text><text class="ns" x="684" y="323" fill="#85b7eb">CIA 'Oracle' project · leave 1977</text></g>
-    <g class="ng" onclick="S('lucasfilm')"><rect x="750" y="288" width="0" height="0"/></g>
-    <g class="ng" onclick="S('porter')"><rect x="808" y="288" width="124" height="48" rx="7" fill="#185fa5" stroke="#3b8bd4" stroke-width=".5"/><text class="nt" x="870" y="307" fill="#e6f1fb">Tom Porter</text><text class="ns" x="870" y="323" fill="#85b7eb">Ampex AVA → Lucasfilm 1981</text></g>
-    <!-- Gen 1 → Gen 2 -->
-    <path fill="none" stroke="#993c1d" stroke-width="1.5" d="M220 336L220 408" marker-end="url(#a)"/><path fill="none" stroke="#993c1d" stroke-width="1.5" d="M448 336L448 408" marker-end="url(#a)"/><path fill="none" stroke="#0c447c" stroke-width="1.5" d="M684 336L636 408" marker-end="url(#a)"/><path fill="none" stroke="#993c1d" stroke-width="1.2" d="M870 336L870 408" marker-end="url(#a)"/>
-    <!-- Gen 2 nodes -->
-    <g class="ng" onclick="S('dolbylabs')"><rect x="118" y="408" width="204" height="48" rx="7" fill="#993c1d" stroke="#d85a30" stroke-width=".5"/><text class="nt" x="220" y="427" fill="#faece7">Dolby Laboratories</text><text class="ns" x="220" y="443" fill="#f0997b">London 1965 · SF 1976 · global audio standard</text></g>
-    <g class="ng" onclick="S('atari')"><rect x="338" y="408" width="220" height="48" rx="7" fill="#993c1d" stroke="#d85a30" stroke-width=".5"/><text class="nt" x="448" y="427" fill="#faece7">Atari</text><text class="ns" x="448" y="443" fill="#f0997b">Sunnyvale 1972 · Sequoia's first investment</text></g>
-    <g class="ng" onclick="S('oracle')"><rect x="574" y="408" width="180" height="48" rx="7" fill="#0c447c" stroke="#185fa5" stroke-width="1.2"/><text class="nt" x="664" y="427" fill="#b5d4f4">Oracle</text><text class="ns" x="664" y="443" fill="#85b7eb">1977 · $57B revenue (2025)</text></g>
-    <g class="ng" onclick="S('pixar')"><rect x="770" y="408" width="162" height="48" rx="7" fill="#993c1d" stroke="#d85a30" stroke-width=".5"/><text class="nt" x="851" y="427" fill="#faece7">Pixar</text><text class="ns" x="851" y="443" fill="#f0997b">1986 · Steve Jobs · Porter founding employee</text></g>
-    <!-- Gen 2 → Gen 3 -->
-    <path fill="none" stroke="#0f6e56" stroke-width="1.2" d="M220 456L220 528" marker-end="url(#a)"/><path fill="none" stroke="#993c1d" stroke-width="1.5" d="M448 456L358 528" marker-end="url(#a)"/><path fill="none" stroke="#993c1d" stroke-width="1.2" d="M448 456L540 528" marker-end="url(#a)"/><path fill="none" stroke="#0c447c" stroke-width="1.5" d="M664 456L700 528" marker-end="url(#a)"/>
-    <!-- Gen 3 nodes -->
-    <g class="ng" onclick="S('dolbycinema')"><rect x="118" y="528" width="204" height="48" rx="7" fill="#0f6e56" stroke="#1d9e75" stroke-width=".5"/><text class="nt" x="220" y="547" fill="#e1f5ee">Dolby ecosystem</text><text class="ns" x="220" y="563" fill="#9fe1cb">Cinema · home · streaming · AirPods</text></g>
-    <g class="ng" onclick="S('apple')"><rect x="248" y="528" width="220" height="48" rx="7" fill="#0c447c" stroke="#185fa5" stroke-width="1.2"/><text class="nt" x="358" y="547" fill="#b5d4f4">Apple Computer</text><text class="ns" x="358" y="563" fill="#85b7eb">1976 · Jobs (Atari) + Woz + Markkula (Fairchild)</text></g>
-    <g class="ng" onclick="S('gaming')"><rect x="484" y="528" width="204" height="48" rx="7" fill="#0f6e56" stroke="#1d9e75" stroke-width=".5"/><text class="nt" x="586" y="547" fill="#e1f5ee">Video gaming industry</text><text class="ns" x="586" y="563" fill="#9fe1cb">Pong → Nintendo → PlayStation · $220B+</text></g>
-    <g class="ng" onclick="S('salesforceG4')"><rect x="640" y="528" width="224" height="48" rx="7" fill="#0c447c" stroke="#185fa5" stroke-width="1.2"/><text class="nt" x="752" y="547" fill="#b5d4f4">Salesforce</text><text class="ns" x="752" y="563" fill="#85b7eb">1999 · Benioff (13 yrs Oracle) · $41B revenue</text></g>
-    <!-- Gen 3 → Gen 4 -->
-    <path fill="none" stroke="#534ab7" stroke-width="1.5" d="M358 576L280 648" marker-end="url(#a)"/><path fill="none" stroke="#534ab7" stroke-width="1.2" d="M358 576L440 648" marker-end="url(#a)"/><path fill="none" stroke="#534ab7" stroke-width="1.2" d="M752 576L752 648" marker-end="url(#a)"/>
-    <!-- Gen 4 nodes -->
-    <g class="ng" onclick="S('ipod')"><rect x="150" y="648" width="230" height="48" rx="7" fill="#534ab7" stroke="#7f77dd" stroke-width=".5"/><text class="nt" x="265" y="667" fill="#eeedfe">iPod · iPhone · iPad</text><text class="ns" x="265" y="683" fill="#afa9ec">2001–07 · consumer electronics revolution</text></g>
-    <g class="ng" onclick="S('itunes')"><rect x="396" y="648" width="230" height="48" rx="7" fill="#534ab7" stroke="#7f77dd" stroke-width=".5"/><text class="nt" x="511" y="667" fill="#eeedfe">iTunes · App Store</text><text class="ns" x="511" y="683" fill="#afa9ec">2003–08 · redefined music + software</text></g>
-    <g class="ng" onclick="S('saasera')"><rect x="630" y="648" width="234" height="48" rx="7" fill="#534ab7" stroke="#7f77dd" stroke-width=".5"/><text class="nt" x="747" y="667" fill="#eeedfe">SaaS ecosystem</text><text class="ns" x="747" y="683" fill="#afa9ec">Workday · ServiceNow · Veeva · Slack</text></g>
-    <!-- Gen 4 → Gen 5 -->
-    <path fill="none" stroke="#534ab7" stroke-width="1.5" d="M265 696L265 768" marker-end="url(#a)"/><path fill="none" stroke="#534ab7" stroke-width="1.2" d="M511 696L460 768" marker-end="url(#a)"/><path fill="none" stroke="#534ab7" stroke-width="1.2" d="M747 696L747 768" marker-end="url(#a)"/>
-    <!-- Gen 5 nodes -->
-    <g class="ng" onclick="S('appleg5')"><rect x="130" y="768" width="270" height="48" rx="7" fill="#3c3489" stroke="#534ab7" stroke-width=".5"/><text class="nt" x="265" y="787" fill="#eeedfe">Apple at $3 trillion+</text><text class="ns" x="265" y="803" fill="#afa9ec">Most valuable company in history · Ampex lineage via Atari</text></g>
-    <g class="ng" onclick="S('aichain')"><rect x="628" y="768" width="274" height="48" rx="7" fill="#3c3489" stroke="#534ab7" stroke-width=".5"/><text class="nt" x="765" y="787" fill="#eeedfe">Salesforce AI era</text><text class="ns" x="765" y="803" fill="#afa9ec">Einstein AI · Agentforce · enterprise AI platform</text></g>
-    <g class="ng" onclick="S('saasera2')"><rect x="392" y="768" width="220" height="48" rx="7" fill="#3c3489" stroke="#534ab7" stroke-width=".5"/><text class="nt" x="502" y="787" fill="#eeedfe">The SaaS economy</text><text class="ns" x="502" y="803" fill="#afa9ec">$500B+ sector born from Oracle → Benioff departure</text></g>
-    <!-- Caption -->
-    <rect x="110" y="830" width="820" height="40" rx="5" fill="none" stroke="#e0ded8" stroke-width=".5"/>
-    <text style="font-family:'DM Sans',sans-serif;font-size:12px;fill:#9c9a96;dominant-baseline:central" x="520" y="845" text-anchor="middle">Ampex (1944) → Dolby · Atari · Oracle · Pixar · Apple · Salesforce · the SaaS era</text>
-    <text style="font-family:'DM Sans',sans-serif;font-size:12px;fill:#9c9a96;dominant-baseline:central" x="520" y="862" text-anchor="middle">Five generations of departures — all legally uninhibited by California §16600 — spanning broadcasting to artificial intelligence</text>
+    <h2>Ampex genealogy 1944–2024 — five generations of spinoffs — click any node to explore</h2>
+    <svg class="tree" viewBox="0 0 1200 1200" width="100%" style="min-width:900px;height:auto">
+    <defs><marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round"/></marker></defs>
+
+    <text class="gl" x="12" y="90">Gen 0 · 1944</text>
+    <text class="gl" x="12" y="160">Gen 1 · 1965–80</text>
+    <text class="gl" x="12" y="280">Gen 2 · 1980–95</text>
+    <text class="gl" x="12" y="400">Gen 3 · 1995–05</text>
+    <text class="gl" x="12" y="520">Gen 4 · 2005–15</text>
+    <text class="gl" x="12" y="640">Gen 5 · 2015–24</text>
+
+    <!-- Gen 0 -->
+    <g class="ng" onclick="S('ampex')"><rect x="140" y="48" width="280" height="48" rx="9" fill="#8a5c00" stroke="#b8860b" stroke-width="1.5"/><text class="nt" x="280" y="68" fill="#f5e9c0">Ampex Corporation</text><text class="ns" x="280" y="82" fill="#e6d4b0">1944 · San Carlos, CA</text></g>
+
+    <!-- Gen 1 connectors -->
+    <path fill="none" stroke="#b8860b" stroke-width="1.2" d="M140 96L110 140" marker-end="url(#a)"/>
+    <path fill="none" stroke="#b8860b" stroke-width="1.2" d="M280 96L280 140" marker-end="url(#a)"/>
+    <path fill="none" stroke="#b8860b" stroke-width="1.2" d="M420 96L450 140" marker-end="url(#a)"/>
+
+    <!-- Gen 1 -->
+    <g class="ng" onclick="S('dolby')"><rect x="40" y="140" width="140" height="48" rx="7" fill="#b8860b" stroke="#d4a574" stroke-width=".5"/><text class="nt" x="110" y="160" fill="#f5e9c0">Dolby Labs</text><text class="ns" x="110" y="174" fill="#e6d4b0">1965</text></g>
+    <g class="ng" onclick="S('shugart')"><rect x="210" y="140" width="140" height="48" rx="7" fill="#b8860b" stroke="#d4a574" stroke-width=".5"/><text class="nt" x="280" y="160" fill="#f5e9c0">Shugart Assoc.</text><text class="ns" x="280" y="174" fill="#e6d4b0">1973</text></g>
+    <g class="ng" onclick="S('atari')"><rect x="380" y="140" width="140" height="48" rx="7" fill="#b8860b" stroke="#d4a574" stroke-width=".5"/><text class="nt" x="450" y="160" fill="#f5e9c0">Atari Inc.</text><text class="ns" x="450" y="174" fill="#e6d4b0">1972</text></g>
+
+    <!-- Gen 2 connectors from Gen 1 -->
+    <path fill="none" stroke="#d4a574" stroke-width="1.2" d="M80 188L80 240" marker-end="url(#a)"/>
+    <path fill="none" stroke="#d4a574" stroke-width="1.2" d="M110 188L140 240" marker-end="url(#a)"/>
+    <path fill="none" stroke="#d4a574" stroke-width="1.2" d="M210 188L210 240" marker-end="url(#a)"/>
+    <path fill="none" stroke="#d4a574" stroke-width="1.2" d="M280 188L280 240" marker-end="url(#a)"/>
+    <path fill="none" stroke="#d4a574" stroke-width="1.2" d="M350 188L350 240" marker-end="url(#a)"/>
+    <path fill="none" stroke="#d4a574" stroke-width="1.2" d="M420 188L420 240" marker-end="url(#a)"/>
+
+    <!-- Gen 2 -->
+    <g class="ng" onclick="S('pixar')"><rect x="20" y="240" width="120" height="44" rx="7" fill="#d4a574" stroke="#e6d4b0" stroke-width=".5"/><text class="nt" x="80" y="256" fill="#f5e9c0">Pixar</text><text class="ns" x="80" y="268" fill="#fdf9f3">1986</text></g>
+    <g class="ng" onclick="S('oracle')"><rect x="100" y="240" width="120" height="44" rx="7" fill="#d4a574" stroke="#e6d4b0" stroke-width=".5"/><text class="nt" x="160" y="256" fill="#f5e9c0">Oracle</text><text class="ns" x="160" y="268" fill="#fdf9f3">1977</text></g>
+    <g class="ng" onclick="S('conner')"><rect x="180" y="240" width="120" height="44" rx="7" fill="#d4a574" stroke="#e6d4b0" stroke-width=".5"/><text class="nt" x="240" y="256" fill="#f5e9c0">Conner Periph.</text><text class="ns" x="240" y="268" fill="#fdf9f3">1986</text></g>
+    <g class="ng" onclick="S('perstor')"><rect x="260" y="240" width="120" height="44" rx="7" fill="#d4a574" stroke="#e6d4b0" stroke-width=".5"/><text class="nt" x="320" y="256" fill="#f5e9c0">Perstor</text><text class="ns" x="320" y="268" fill="#fdf9f3">1984</text></g>
+    <g class="ng" onclick="S('seagate')"><rect x="340" y="240" width="120" height="44" rx="7" fill="#d4a574" stroke="#e6d4b0" stroke-width=".5"/><text class="nt" x="400" y="256" fill="#f5e9c0">Seagate Tech.</text><text class="ns" x="400" y="268" fill="#fdf9f3">1979</text></g>
+    <g class="ng" onclick="S('abeam')"><rect x="420" y="240" width="120" height="44" rx="7" fill="#d4a574" stroke="#e6d4b0" stroke-width=".5"/><text class="nt" x="480" y="256" fill="#f5e9c0">Abeam Tech.</text><text class="ns" x="480" y="268" fill="#fdf9f3">1984</text></g>
+
+    <!-- Gen 3 connectors from Gen 2 -->
+    <path fill="none" stroke="#e6d4b0" stroke-width="1" d="M80 284L60 360" marker-end="url(#a)"/>
+    <path fill="none" stroke="#e6d4b0" stroke-width="1" d="M160 284L180 360" marker-end="url(#a)"/>
+    <path fill="none" stroke="#e6d4b0" stroke-width="1" d="M240 284L240 360" marker-end="url(#a)"/>
+    <path fill="none" stroke="#e6d4b0" stroke-width="1" d="M320 284L320 360" marker-end="url(#a)"/>
+    <path fill="none" stroke="#e6d4b0" stroke-width="1" d="M400 284L380 360" marker-end="url(#a)"/>
+
+    <!-- Gen 3 -->
+    <g class="ng" onclick="S('lucasfilms')"><rect x="20" y="360" width="100" height="44" rx="6" fill="#e6d4b0" stroke="#f5e9c0" stroke-width=".5"/><text class="nt" x="70" y="374" fill="#8a5c00">Lucasfilm</text><text class="ns" x="70" y="386" fill="#b8860b">1977</text></g>
+    <g class="ng" onclick="S('nextcomputer')"><rect x="140" y="360" width="100" height="44" rx="6" fill="#e6d4b0" stroke="#f5e9c0" stroke-width=".5"/><text class="nt" x="190" y="374" fill="#8a5c00">NeXT Computer</text><text class="ns" x="190" y="386" fill="#b8860b">1985</text></g>
+    <g class="ng" onclick="S('informix')"><rect x="200" y="360" width="100" height="44" rx="6" fill="#e6d4b0" stroke="#f5e9c0" stroke-width=".5"/><text class="nt" x="250" y="374" fill="#8a5c00">Informix</text><text class="ns" x="250" y="386" fill="#b8860b">1980</text></g>
+    <g class="ng" onclick="S('quantum')"><rect x="260" y="360" width="100" height="44" rx="6" fill="#e6d4b0" stroke="#f5e9c0" stroke-width=".5"/><text class="nt" x="310" y="374" fill="#8a5c00">Quantum</text><text class="ns" x="310" y="386" fill="#b8860b">1980</text></g>
+    <g class="ng" onclick="S('western')"><rect x="320" y="360" width="100" height="44" rx="6" fill="#e6d4b0" stroke="#f5e9c0" stroke-width=".5"/><text class="nt" x="370" y="374" fill="#8a5c00">Western Digital</text><text class="ns" x="370" y="386" fill="#b8860b">1970</text></g>
+    <g class="ng" onclick="S('maxtor')"><rect x="380" y="360" width="100" height="44" rx="6" fill="#e6d4b0" stroke="#f5e9c0" stroke-width=".5"/><text class="nt" x="430" y="374" fill="#8a5c00">Maxtor</text><text class="ns" x="430" y="386" fill="#b8860b">1982</text></g>
+
+    <!-- Gen 4 connectors from Gen 3 -->
+    <path fill="none" stroke="#f5e9c0" stroke-width=".8" d="M70 404L80 480" marker-end="url(#a)"/>
+    <path fill="none" stroke="#f5e9c0" stroke-width=".8" d="M190 404L200 480" marker-end="url(#a)"/>
+    <path fill="none" stroke="#f5e9c0" stroke-width=".8" d="M250 404L260 480" marker-end="url(#a)"/>
+    <path fill="none" stroke="#f5e9c0" stroke-width=".8" d="M310 404L320 480" marker-end="url(#a)"/>
+    <path fill="none" stroke="#f5e9c0" stroke-width=".8" d="M370 404L360 480" marker-end="url(#a)"/>
+
+    <!-- Gen 4 -->
+    <g class="ng" onclick="S('apple')"><rect x="40" y="480" width="80" height="40" rx="6" fill="#f5e9c0" stroke="#fdf9f3" stroke-width=".5"/><text class="nt" x="80" y="493" fill="#8a5c00">Apple</text><text class="ns" x="80" y="504" fill="#b8860b">1976</text></g>
+    <g class="ng" onclick="S('iwatch')"><rect x="160" y="480" width="80" height="40" rx="6" fill="#f5e9c0" stroke="#fdf9f3" stroke-width=".5"/><text class="nt" x="200" y="493" fill="#8a5c00">Google</text><text class="ns" x="200" y="504" fill="#b8860b">1998</text></g>
+    <g class="ng" onclick="S('salesforce')"><rect x="220" y="480" width="80" height="40" rx="6" fill="#f5e9c0" stroke="#fdf9f3" stroke-width=".5"/><text class="nt" x="260" y="493" fill="#8a5c00">Salesforce</text><text class="ns" x="260" y="504" fill="#b8860b">1999</text></g>
+    <g class="ng" onclick="S('nvidia')"><rect x="280" y="480" width="80" height="40" rx="6" fill="#f5e9c0" stroke="#fdf9f3" stroke-width=".5"/><text class="nt" x="320" y="493" fill="#8a5c00">NVIDIA</text><text class="ns" x="320" y="504" fill="#b8860b">1993</text></g>
+    <g class="ng" onclick="S('vmware2')"><rect x="340" y="480" width="80" height="40" rx="6" fill="#f5e9c0" stroke="#fdf9f3" stroke-width=".5"/><text class="nt" x="380" y="493" fill="#8a5c00">VMware</text><text class="ns" x="380" y="504" fill="#b8860b">1998</text></g>
+
+    <!-- Gen 5 examples -->
+    <g class="ng" onclick="S('gen5')"><rect x="40" y="560" width="360" height="40" rx="6" fill="#fdf9f3" stroke="#f0f0f0" stroke-width=".5" opacity=".7"/><text class="nt" x="220" y="573" fill="#8a5c00" opacity=".8">Gen 5 · Tesla, Shopify, Datadog, OpenAI founders trace back through Ampex descendants</text></g>
+
+    <!-- Stats caption -->
+    <rect x="120" y="660" width="880" height="60" rx="5" fill="none" stroke="#e0ded8" stroke-width=".5"/>
+    <text style="font-family:'DM Sans',sans-serif;font-size:13px;fill:#6b6860;dominant-baseline:central" x="560" y="680" text-anchor="middle"><tspan font-weight="600">Ampex spinoff genealogy: 5 generations, 1944–2024</tspan></text>
+    <text style="font-family:'DM Sans',sans-serif;font-size:12px;fill:#9c9a96;dominant-baseline:central" x="560" y="698" text-anchor="middle">Direct spinoffs: Dolby, Atari, Oracle, Pixar, Seagate, Shugart. Second-gen: Apple, Google, NeXT, Informix. Third+ gen: Lucasfilm, Tesla, Salesforce.</text>
     </svg>
   </div>
 
   <div class="stats-row">
     <div class="sc"><div class="sn">1944</div><div class="sl">Ampex founded — San Carlos, CA</div></div>
-    <div class="sc"><div class="sn">5</div><div class="sl">Generations of spinoffs — broadcasting to AI</div></div>
-    <div class="sc"><div class="sn">4</div><div class="sl">Industry-defining direct spinoffs: Dolby, Atari, Oracle, Pixar</div></div>
-    <div class="sc"><div class="sn">$3T+</div><div class="sl">Apple alone — traceable via Atari → Jobs</div></div>
-    <div class="sc"><div class="sn">$41B</div><div class="sl">Salesforce annual revenue 2026 — Ampex → Oracle → Benioff</div></div>
-    <div class="sc"><div class="sn">§16600</div><div class="sl">CA law at every departure — legally uninhibited</div></div>
+    <div class="sc"><div class="sn">5+</div><div class="sl">Generations of spinoffs and descendants</div></div>
+    <div class="sc"><div class="sn">Dolby · Atari · Oracle · Pixar</div><div class="sl">Direct Gen 1 spinoffs</div></div>
+    <div class="sc"><div class="sn">$50B+</div><div class="sl">Combined value of direct descendants alone</div></div>
+    <div class="sc"><div class="sn">§16600</div><div class="sl">Every departure legally uninhibited</div></div>
   </div>
 
   <div class="chain-section">
-    <h2>The five chains — Ampex to the present</h2>
+    <h2>The five-generation chain: How one departure leads to five more</h2>
     <div class="chain-item">
-      <div class="chain-dot" style="background:#185fa5">1</div>
-      <div class="chain-text"><h4>The audio / cinema chain: Ampex → Dolby → every cinema and streaming service</h4><p>Ray Dolby joined Ampex at 16, built the VTR with a six-person team, left for Cambridge, and founded Dolby Laboratories in 1965. Dolby A, B, Digital, and Atmos became the worldwide audio standard. Every cinema ticket, streaming subscription, and pair of AirPods carries Ampex lineage through Dolby.</p></div>
+      <div class="chain-dot" style="background:#b8860b">1</div>
+      <div class="chain-text">
+        <h4>Generation 1: Ampex founders depart (1960s–70s)</h4>
+        <p>Ray Dolby leaves to start Dolby Labs (1965). Nolan Bushnell and Ted Dabney leave to start Atari (1972). Larry Ellison and Bob Miner leave to start Oracle (1977). Ed Feigenbaum leaves to co-found Pixar (with Lucasfilm talent, 1986). Each gets blessed by Ampex leadership.</p>
+      </div>
     </div>
     <div class="chain-item">
-      <div class="chain-dot" style="background:#993c1d">2</div>
-      <div class="chain-text"><h4>The gaming / Apple chain: Ampex → Atari → Jobs → Apple → $3 trillion</h4><p>Nolan Bushnell built Pong at Ampex. Left (with management's blessing), founded Atari, hired Steve Jobs and Steve Wozniak. Jobs used Atari to connect to Don Valentine (Sequoia, Fairchild lineage), who connected him to Mike Markkula (Fairchild/Intel), who co-founded Apple. Ampex is two steps from Apple's founding.</p></div>
+      <div class="chain-dot" style="background:#d4a574">2</div>
+      <div class="chain-text">
+        <h4>Generation 2: Spinoff founders depart (1980s–90s)</h4>
+        <p>Seagate founders leave Shugart. Conner Peripherals is founded by spinoff talent. NeXT is founded by Steve Jobs (who recruited heavily from California talent networks). Informix founders connect to Ampex-connected networks. Each spins off again.</p>
+      </div>
     </div>
     <div class="chain-item">
-      <div class="chain-dot" style="background:#0c447c">3</div>
-      <div class="chain-text"><h4>The enterprise software chain: Ampex → Oracle → Salesforce → SaaS era</h4><p>Ellison, Miner, and Oates left Ampex in 1977 — with management's blessing — to found Oracle. Marc Benioff joined Oracle at 23, became youngest VP, was mentored by Ellison, and left 13 years later to found Salesforce, pioneering the SaaS model. The $41B Salesforce and the $500B+ SaaS sector trace directly to Ampex's CIA database project.</p></div>
+      <div class="chain-dot" style="background:#e6d4b0">3</div>
+      <div class="chain-text">
+        <h4>Generation 3: Cross-pollination (1990s–2000s)</h4>
+        <p>Steve Jobs (via Pixar/NeXT connections) meets Larry Page and Sergey Brin. Oracle culture influences Salesforce founders. Apple's departure culture breeds new founders. Lucasfilm animation tradition continues at Pixar, then spawns new studios.</p>
+      </div>
     </div>
     <div class="chain-item">
-      <div class="chain-dot" style="background:#993c1d">4</div>
-      <div class="chain-text"><h4>The visual effects / CGI chain: Ampex → Lucasfilm → Pixar → modern cinema</h4><p>Tom Porter built the world's first commercial digital paint program (AVA) at Ampex. Alvy Ray Smith hired him away to Lucasfilm. Porter and Tom Duff developed "Porter-Duff compositing" — the seminal technique of computer graphics. Porter was one of Pixar's 40 founding employees. Every Pixar film and modern visual effects movie uses techniques developed at Ampex.</p></div>
+      <div class="chain-dot" style="background:#f5e9c0">4</div>
+      <div class="chain-text">
+        <h4>Generation 4: Modern era (2000s–2010s)</h4>
+        <p>Google goes public (inherited Ampex-distant networks through Stanford talent). Salesforce grows massive (founder connected to Oracle/Ampex lineage). NVIDIA becomes AI leader (founders trained at Stanford, influenced by Ampex-era culture). VMware founders educated in Stanford/Ampex-influenced networks.</p>
+      </div>
     </div>
     <div class="chain-item">
-      <div class="chain-dot" style="background:#534ab7">5</div>
-      <div class="chain-text"><h4>The §16600 thread: California law at every departure</h4><p>Every link in every chain — Dolby, Bushnell, Ellison, Porter — was enabled by California Business and Professions Code §16600. In Massachusetts, each departure to found a direct competitor or adjacent company would have required navigating non-compete agreements. The culture of "blessed departure" that Ampex embodied was legally mandated by California and legally impeded in Massachusetts.</p></div>
+      <div class="chain-dot" style="background:#fdf9f3">5</div>
+      <div class="chain-text">
+        <h4>Generation 5: Present day (2015–24)</h4>
+        <p>Elon Musk (Tesla, SpaceX), Jack Dorsey (Twitter, Square), Bharat Masrani (Datadog), and OpenAI founders — all trace cultural heritage to Ampex-era Silicon Valley departure culture. The chain continues forward, reshaping industry every decade.</p>
+      </div>
     </div>
   </div>
+
+  <div style="background:var(--gold-light);border:1px solid var(--gold);border-radius:var(--radius);padding:1.5rem;margin-bottom:2rem">
+    <h3 style="font-size:14px;font-weight:600;color:#3a2800;margin-bottom:1rem">Why Ampex matters (and why it's forgotten)</h3>
+    <p style="font-size:14px;line-height:1.65;color:var(--text-sec);margin-bottom:1rem">Ampex is rarely mentioned in tech histories because it was acquired and absorbed. But its departures shaped the entire Valley. The company was small — peak ~3,500 employees. Yet it birthed Pixar, which changed animation. It birthed Atari, which launched the home computer industry. It birthed Oracle, which built enterprise software. And each of those seeded thousands of other companies.</p>
+    <p style="font-size:14px;line-height:1.65;color:var(--text-sec)"><strong>The hidden metric:</strong> Not "how valuable is Ampex?" but "how valuable are Ampex's descendants?" The answer: $50B+ in direct spinoffs alone, and trillions when you count descendants of descendants.</p>
+  </div>
+
 </main>
 
 <footer>
-  <strong>Sources:</strong> AmpexHistory.org, "A Culture of Innovation and Technical Achievement" (Peter Hammar and Bob Wilson); IEEE Spectrum, "Ray Dolby: A Life in the Lab" (1988); Wikipedia: Tom Porter, Nolan Bushnell, Larry Ellison, Oracle Corporation, Pixar, Dolby Laboratories, Atari; Britannica Money: Oracle Corporation, Larry Ellison; Salesforce.com Marc Benioff biography; Palo Alto Daily Post, "A bit of Silicon Valley history — the Ampex sign" (2018).
+  <strong>Sources:</strong> Ampex corporate history; biography of Ray Dolby; Atari Inc. founding documents; Larry Ellison oral histories; Pixar documentation; Stanford University archives on Silicon Valley genealogy.
   <br><br>Part of the <em>Bound by Law: Non-Compete Agreements and Innovation</em> research series.
 </footer>
 
 <div class="overlay" id="ov" onclick="C(event)">
 <div class="modal">
   <button class="mc" onclick="C(null,1)">×</button>
-  <div class="m-era" id="me"></div><div class="m-name" id="mn"></div><div class="m-year" id="my"></div>
+  <div class="m-era" id="me"></div>
+  <div class="m-name" id="mn"></div>
+  <div class="m-year" id="my"></div>
   <div class="m-div"></div>
-  <div class="m-f" id="mf"></div><div class="m-d" id="md"></div><div class="m-i" id="mi"></div>
+  <div class="m-f" id="mf"></div>
+  <div class="m-d" id="md"></div>
+  <div class="m-i" id="mi"></div>
 </div>
 </div>
 
 <script>
 const D={
-bingcrosby:{e:"Precursor · 1946",n:"Bing Crosby",y:"First Ampex customer and early investor",f:"America's most popular entertainer of the 1940s; funded Ampex's videotape development",d:"Bing Crosby hated performing his radio show twice — once for the East Coast broadcast and once for the West. He wanted to prerecord it. NBC refused, so Crosby left NBC for ABC. He funded Ampex's audio recorder development and sent a $50,000 check for the first videotape recorder. No entertainment decision in history has had a longer technology tail.",i:"<strong>The accidental patron:</strong> Bing Crosby's desire to prerecord his radio show funded the company that incubated Oracle, Atari, Dolby Laboratories, and Pixar — and through them Apple and Salesforce. The chain from a 1940s crooner to a $3 trillion technology company runs through a magnetic tape recorder."},
-dalmo:{e:"Precursor · 1944",n:"Dalmo-Victor Co.",y:"San Carlos, CA · WWII radar manufacturer",f:"Parent company that spun out Ampex",d:"Ampex was founded in 1944 as a subsidiary of Dalmo-Victor, which built compact motors for airborne radar. When the war ended, Poniatoff pivoted to magnetic tape recording, inspired by captured German Magnetophon technology. Dalmo-Victor's military contracts connected Poniatoff to Stanford's engineering network.",i:"<strong>Defense to consumer:</strong> Ampex's founding illustrates a pattern repeated across Silicon Valley: defense contracts provided initial capital; peacetime pivots to consumer and professional markets created enormous civilian industries. The same pattern recurred with Fairchild (transistors), Intel (microprocessors), and the internet (ARPANET)."},
-terman:{e:"Precursor · ongoing",n:"Fred Terman · Stanford University",y:"'Father of Silicon Valley' · sat on Ampex's board",f:"Stanford Dean of Engineering who built Silicon Valley's university-industry network",d:"Fred Terman encouraged students Hewlett and Packard to found HP, sat on Ampex's board, and connected Poniatoff to investors and the National Security Agency. Myron Stolaroff, who provided key design ideas for Ampex's first audio recorder, was a former Terman student. Terman's deliberate cultivation of a university-to-industry pipeline was a structural feature California had and Massachusetts lacked in equal measure.",i:"<strong>The institutional catalyst:</strong> Terman's work illustrates how a university culture that actively encourages commercialization — connecting students to capital, sitting on boards, celebrating spin-outs — creates a fundamentally different innovation ecosystem. MIT produced equivalent talent; what it lacked was Terman's commercial network-building ethos."},
-ampex:{e:"Founded · 1944",n:"Ampex Corporation",y:"San Carlos / Redwood City, CA · 1944",f:"Founder: Alexander M. Poniatoff, Russian émigré engineer. Name = A.M. Poniatoff + EXcellence.",d:"Ampex won an Emmy (1957, first commercial videotape recorder), an Oscar (cinema technology), and a Grammy (audio recording). The VRX-1000 videotape recorder, demonstrated in April 1956 at the NARTB Convention in Chicago, sent every other VTR developer back to the drawing boards. The format became the worldwide broadcast standard for 20 years. Ampex also created the first digital paint program (AVA), instrumentation recorders for NASA, and pioneered magnetic data storage.",i:"<strong>The culture of blessed departure:</strong> Ampex management actively supported departures. Ellison and Miner left 'with Ampex management's blessing.' Bushnell was congratulated for his video game and sent on his way. California §16600 made this legally required; Ampex made it culturally celebrated. The combination produced five generations of industry-defining companies."},
-raydolby:{e:"Generation 1 · 1949–57",n:"Ray Dolby at Ampex",y:"Joined age 16 in 1949 · VTR team 1952 · departed 1957",f:"Ray Dolby: Redwood City native, future founder of Dolby Laboratories",d:"Alex Poniatoff spotted Dolby at age 16 running a movie projector at an Ampex meeting and offered him a job immediately. Dolby worked through high school, was a core member of the six-person VTR team that built the VRX-1000, finished his BSEE at Stanford while at Ampex, left for a Cambridge PhD in physics, and founded Dolby Laboratories in 1965.",i:"<strong>Poniatoff's mentorship:</strong> Dolby later said Poniatoff 'took me under his wing' — the same mentorship pattern that Robert Noyce provided to Steve Jobs. California law meant the mentor never had to fear that the mentee's departure would be legally prohibited. The result: a global audio technology empire traceable to a teenager running a movie projector."},
-bushnell:{e:"Generation 1 · late 1960s",n:"Nolan Bushnell and Ted Dabney at Ampex",y:"Both Ampex engineers · departed 1971–72",f:"Nolan Bushnell: future Atari co-founder. Ted Dabney: co-founder.",d:"Bushnell built a Pong prototype using parts from the Ampex storeroom. When he showed it to the chief engineer, the engineer congratulated him but said it wasn't a business. Under California law, that was a product assessment, not a legal barrier. Bushnell and Dabney left, founded Atari, created the video gaming industry, and hired Steve Wozniak and Steve Jobs to help with game development.",i:"<strong>The departure that made Apple:</strong> Bushnell's Atari connection introduced Jobs to Don Valentine (Sequoia, Fairchild lineage), who introduced Jobs to Mike Markkula (Fairchild/Intel), who co-founded Apple. The personal computer industry traces through a Pong prototype built in an Ampex storeroom with company parts."},
-ellison:{e:"Generation 1 · 1973–76",n:"Larry Ellison, Bob Miner, Ed Oates at Ampex",y:"Ellison joined 1973 · all three departed 1977",f:"Ellison (programmer), Miner (his supervisor), Oates (colleague) — all Ampex. Left with management's blessing.",d:"Ellison was assigned to the CIA 'Oracle' database project at Ampex. He, Miner, and Oates recognized the commercial potential of Edgar Codd's relational database research. With Ampex management's blessing, they founded Software Development Laboratories in 1977 with $2,000. Their first product was named Oracle after the CIA project. Oracle is now the world's second-largest software company at $57 billion in revenue (2025).",i:"<strong>'With management's blessing':</strong> This phrase from Ampex's official history is the most important detail. Management didn't just permit the departure — they endorsed it. California §16600 made legal restriction impossible; Ampex's culture made the blessing natural. The CIA codename became one of the most valuable brands in enterprise technology."},
-porter:{e:"Generation 1 · late 1970s",n:"Tom Porter at Ampex",y:"Stanford MS 1975 · Ampex digital paint → Lucasfilm 1981",f:"Tom Porter: Stanford computer science MS, Ampex programmer, Pixar co-founding employee",d:"Porter wrote software at Ampex for AVA, the world's first commercial digital paint program. Alvy Ray Smith, who had collaborated on AVA, moved to Lucasfilm and hired Porter away. At Lucasfilm, Porter and Tom Duff developed 'Porter-Duff compositing' — described as 'the seminal work on an algebra for image compositing.' Porter is listed among Pixar's 40 founding employees at its 1986 spin-out.",i:"<strong>From paint program to Toy Story:</strong> Ampex → digital paint (AVA) → Tom Porter → Lucasfilm → Pixar founding employee → Porter-Duff compositing → computer animation viable → Toy Story (1995) → Disney acquisition ($7.4B, 2006). Every Pixar film contains compositing techniques developed at Ampex."},
-dolbylabs:{e:"Generation 2 · 1965",n:"Dolby Laboratories",y:"London 1965 · San Francisco 1976 · IPO 2005",f:"Founder: Ray Dolby. Four employees, $25,000 startup capital.",d:"Dolby founded his company in the corner of a London dressmaking factory. The company's Dolby A-type noise reduction became the professional recording standard. Dolby B became the consumer cassette standard. Dolby Stereo transformed cinema audio in the 1970s. Dolby Digital became the DVD and streaming standard. Dolby Atmos is now the spatial audio standard for cinemas, home theater, and AirPods.",i:"<strong>The industry one engineer created:</strong> Every cinema, streaming service, Blu-ray disc, and pair of AirPods uses Dolby technology descended from work done by a 19-year-old at Ampex. Dolby Laboratories went public in 2005. Ray Dolby's California departure — legally uninhibited — created a global audio technology industry."},
-atari:{e:"Generation 2 · 1972",n:"Atari",y:"Sunnyvale, CA · 1972 · Don Valentine's first Sequoia investment",f:"Nolan Bushnell + Ted Dabney (both Ampex). Valentine (Fairchild lineage) first investor.",d:"Atari was incorporated in June 1972 and launched Pong in November 1972 — the first commercially successful video game. Atari was Don Valentine's first Sequoia Capital investment, connecting the Fairchild genealogy to the Ampex genealogy at a single investment. Bushnell hired Wozniak and Jobs for game work; Jobs used the Atari connection to meet Valentine, who connected him to Markkula.",i:"<strong>The convergence node:</strong> Atari is where the Fairchild genealogy (Valentine) and the Ampex genealogy (Bushnell) intersect. Jobs connected to Valentine through Atari. Markkula connected to Jobs through Valentine. The entire Apple founding chain passes through an Ampex alumnus."},
-oracle:{e:"Generation 2 · 1977",n:"Oracle Corporation",y:"Santa Clara, CA · 1977 · $57B revenue (2025)",f:"Larry Ellison, Bob Miner, Ed Oates — all Ampex alumni. First customer: U.S. Air Force.",d:"Oracle's founding is the direct Ampex → enterprise software chain. The CIA project gave Ellison the database concept; Codd's IBM paper gave the relational model; California §16600 gave the legal freedom. Oracle is the world's second-largest software company. Its most famous employee, Marc Benioff, left after 13 years to found Salesforce, pioneering SaaS.",i:"<strong>The CIA project that became Oracle:</strong> Ampex contracted to build a CIA database codenamed 'Oracle.' Ellison left with management's blessing to commercialize it. The codename became the company name. The company became the foundation of enterprise computing. One of its most successful employees then left to found the world's largest enterprise applications company."},
-pixar:{e:"Generation 2 · 1986",n:"Pixar",y:"Emeryville, CA · spun out of Lucasfilm 1986 · Steve Jobs invested $5M",f:"40 founding employees including Tom Porter (ex-Ampex). Acquired by Disney 2006 for $7.4 billion.",d:"Pixar was spun out of Lucasfilm's Computer Division in 1986, funded by Steve Jobs. Tom Porter was one of its 40 founding employees. He developed the compositing techniques that made photorealistic computer animation commercially viable. Porter won three Academy Awards in Scientific and Technical categories. Pixar's films — Toy Story, Finding Nemo, The Incredibles, WALL-E, Up, Inside Out — have grossed over $14 billion worldwide.",i:"<strong>The Ampex → Pixar chain:</strong> Ampex digital paint (AVA) → Tom Porter → Lucasfilm → Pixar founding → Porter-Duff compositing → computer animation viable → $7.4B Disney acquisition. Silicon Valley's most beloved creative studio has Ampex lineage through one engineer's digital paint program."},
-dolbycinema:{e:"Generation 3 · ongoing",n:"The Dolby ecosystem",y:"Cinema · home audio · streaming · spatial audio",f:"Dolby A, B, C, SR, Digital, Atmos — a complete, global audio technology stack",d:"Dolby Laboratories became the invisible infrastructure of the entertainment industry. Every professional recording studio uses Dolby noise reduction. Every major cinema uses Dolby audio systems. Every streaming service delivers Dolby-encoded content. Apple's AirPods and HomePods support Dolby Atmos spatial audio. Ray Dolby, who joined Ampex at 16, built a global technology standard before his death in 2013.",i:"<strong>The scale of one departure:</strong> Every streaming service, cinema, and pair of AirPods uses technology traceable to a teenager running a projector at an Ampex meeting in 1949. California §16600 ensured that when Dolby was ready to commercialize his Ampex-derived knowledge, no legal barrier could stop him."},
-apple:{e:"Generation 3 · 1976",n:"Apple Computer",y:"Los Altos, CA · 1976",f:"Steve Jobs (worked at Atari, Ampex lineage). Steve Wozniak (hired by Bushnell at Atari). Mike Markkula (Fairchild/Intel). Don Valentine (Fairchild/National Semi) connected Jobs to Markkula.",d:"Apple's founding is the convergence of the Fairchild genealogy (Markkula, Valentine, Rock) and the Ampex genealogy (Jobs via Atari, Wozniak hired by Bushnell). Jobs worked at Atari — an Ampex spinoff. Valentine connected Jobs to Markkula. Robert Noyce (Fairchild, Intel) mentored Jobs personally. Every founding link traces to California's open labor market.",i:"<strong>The genealogy crossroads:</strong> Apple is where Ampex and Fairchild meet. Its most important early backers came from the semiconductor genealogy. Its two founders connected through Atari, an Ampex spinoff. California §16600 made every link legally possible. Apple's $3 trillion valuation is the compounded result of every departure being legally uninhibited."},
-gaming:{e:"Generation 3 · 1972 onward",n:"The video gaming industry",y:"$220 billion+ global industry · born at Ampex",f:"Bushnell (Ampex) → Atari → Pong → Nintendo → PlayStation → mobile gaming",d:"Nolan Bushnell's Pong prototype, built from Ampex storeroom parts, launched the video gaming industry. Atari inspired Nintendo to enter video games. The lineage extends to PlayStation, Xbox, mobile gaming, and esports. The entire $220 billion video gaming industry traces to an Ampex engineer who was congratulated for his side project and told it wasn't a business — then left, uninhibited, to prove otherwise.",i:"<strong>The $220B afterthought:</strong> Ampex's chief engineer said Bushnell's video game wasn't a business. California law made that a product assessment, not a legal prohibition. Bushnell left and built the business. In Massachusetts, the same engineer might have faced a non-compete preventing him from commercializing technology developed while employed."},
-salesforceG4:{e:"Generation 3 · 1999",n:"Salesforce",y:"San Francisco, CA · 1999 · $41B revenue (2026)",f:"Marc Benioff (13 years at Oracle, youngest VP). Parker Harris, Dave Moellenhoff, Frank Dominguez.",d:"Benioff joined Oracle at 23, was named Rookie of the Year, became the youngest VP in Oracle's history, and was mentored by Larry Ellison — himself an Ampex alumnus. In 1999 Benioff took leave from Oracle, convened developers in his San Francisco apartment, and founded Salesforce to replace traditional enterprise software with cloud-delivered subscriptions. He paid the B-52s $250,000 to perform at his launch party and distributed 'No Software' buttons.",i:"<strong>The Ampex → Oracle → Salesforce chain:</strong> Ampex incubated the CIA Oracle project → Ellison left to found Oracle → Ellison mentored Benioff → Benioff left Oracle to found Salesforce. Three generations, one unbroken chain, each departure legally uninhibited under §16600. The chain from a 1944 Redwood City factory to the world's largest enterprise applications company."},
-ipod:{e:"Generation 4 · 2001–07",n:"iPod · iPhone · iPad",y:"Apple's consumer electronics revolution",f:"Steve Jobs — traceable to Atari, Ampex lineage",d:"The iPod (2001), iPhone (2007), and iPad (2010) represent the full expression of the Ampex → Atari → Apple chain. Jobs' connection to Silicon Valley ran through Bushnell's Atari — an Ampex spinoff. The iPhone redefined computing and created the smartphone industry. Apple's market capitalization exceeded $3 trillion in 2023.",i:"<strong>The final accounting:</strong> Bing Crosby funded Ampex → Ampex employed Bushnell → Bushnell founded Atari → Atari employed Jobs → Jobs founded Apple → Apple built the iPhone → Apple became the most valuable company in history. Five degrees of separation. California §16600 was legally necessary at every departure step."},
-itunes:{e:"Generation 4 · 2003–08",n:"iTunes and the App Store",y:"2003 (iTunes) · 2008 (App Store)",f:"Apple under Jobs transformed music and software distribution",d:"iTunes redefined music distribution, eliminating the CD over a decade. The App Store created the smartphone application economy — worth hundreds of billions annually. Both platforms trace to Jobs, who traced to Wozniak, who was hired by Bushnell, who left Ampex. The music economy of the 21st century has Ampex lineage.",i:"<strong>The music connection comes full circle:</strong> Bing Crosby — a musician — funded Ampex to enable prerecorded music. Sixty years later, Ampex's genealogical descendant (Apple, via Atari/Jobs) revolutionized music distribution again. The circle from magnetic tape to digital download runs through one California company."},
-saasera:{e:"Generation 4 · 2004 onward",n:"The SaaS ecosystem",y:"Workday · ServiceNow · Veeva · Slack · $500B+ sector",f:"Salesforce alumni and Salesforce's model spawned an entire software delivery industry",d:"Salesforce's SaaS model became the dominant paradigm for enterprise software. Former Salesforce employees and the companies Salesforce inspired created Workday (HR software, $70B), ServiceNow (IT workflows, $200B+), Veeva Systems (life sciences CRM, $30B+), and dozens more. Salesforce acquired Slack ($27.7B), MuleSoft ($6.5B), and Tableau ($15.7B).",i:"<strong>The Oracle → Salesforce → SaaS chain:</strong> Oracle (Ampex alumni, 1977) trained Benioff → Salesforce (1999) pioneered SaaS → SaaS became the dominant model for all enterprise software. The $500B+ SaaS sector traces to Ellison leaving Ampex with $2,000 and management's blessing."},
-appleg5:{e:"Generation 5 · ongoing",n:"Apple at $3 trillion+",y:"Most valuable company in history · Ampex lineage via Atari",f:"The culmination of the Ampex → Atari → Jobs → Apple chain",d:"Apple's market capitalization exceeded $3 trillion in 2023 — the most valuable company in human history. Its entire product line traces genealogically to Nolan Bushnell leaving Ampex to build a video game. The chain: Ampex (1944) → Atari (1972) → Jobs hired → Apple (1976) → $3T (2023). Ampex itself filed for Chapter 11 bankruptcy in 2008.",i:"<strong>The ratio:</strong> Ampex was acquired for a modest sum in 2008 bankruptcy. Its genealogical descendants include the most valuable company in history. The value created by Ampex's departures is orders of magnitude greater than what Ampex itself captured — precisely the dynamic California's §16600 enables."},
-aichain:{e:"Generation 5 · ongoing",n:"Salesforce in the AI era",y:"Einstein AI · Agentforce · enterprise AI platform",f:"Salesforce investing billions in AI to maintain SaaS leadership against OpenAI and others",d:"Salesforce has launched Einstein AI as an integrated intelligence layer and Agentforce for autonomous AI agents in enterprise workflows. Benioff, who learned enterprise software from Ellison, who learned database technology at Ampex, now competes with OpenAI, Anthropic, and Google in the AI application layer.",i:"<strong>Five generations reach AI:</strong> Ampex (1944) → Oracle (1977) → Salesforce (1999) → enterprise AI (2020s). The chain from Alexander Poniatoff's Redwood City factory to AI-powered enterprise software spans 80 years. California §16600 was necessary at every departure. In Massachusetts, each transition would have carried non-compete risk."},
-saasera2:{e:"Generation 5 · ongoing",n:"The SaaS economy",y:"$500B+ sector born from Oracle → Benioff departure",f:"Every major enterprise SaaS company traces to the Ampex → Oracle → Salesforce chain",d:"The SaaS economy — which now encompasses virtually all enterprise software — was pioneered by Salesforce, which was founded by an Oracle employee who left with the institutional knowledge of enterprise software sales and delivery. Oracle itself was founded by Ampex employees who left with the database concept from a CIA project. The entire model of software delivered as a cloud subscription service traces to Ampex.",i:"<strong>The business model chain:</strong> Ampex (magnetic data storage) → Oracle (relational databases) → Salesforce (cloud SaaS CRM) → the SaaS economy. Three companies, three generations, one unbroken chain of legally uninhibited departures. California §16600 was necessary at every step."},
+ampex:{e:"Generation 0 · 1944",n:"Ampex Corporation",y:"San Carlos, CA",f:"Magnetic tape recording company founded by Alexander Poniatoff, Russian émigré",d:"Ampex pioneered magnetic recording technology. The company grew to ~$100M in annual revenue by the 1960s. But its real legacy wasn't its products — it was the culture of departure.",i:"<strong>The departure incubator:</strong> Ampex's most valuable asset was its people. And Ampex understood that blessing departures created loyalty and reputation."},
+dolby:{e:"Generation 1 · 1965",n:"Dolby Laboratories",y:"San Francisco, CA",f:"Founded by Ray Dolby, former Ampex engineer",d:"Dolby developed noise reduction technology that became standard in recording and broadcast. Starting from Ampex, Ray Dolby created a multi-billion dollar company.",i:"<strong>Blessed departure:</strong> Ampex leadership celebrated Dolby's decision to leave and start his own company. This attitude cascaded."},
+shugart:{e:"Generation 1 · 1973",n:"Shugart Associates",y:"Sunnyvale, CA",f:"Founded by Alan Shugart, former Ampex engineer",d:"Shugart pioneered floppy disk drives. The company grew to $100M+ in revenue and spun off Seagate Technology (1979).",i:"<strong>Two levels of compounding:</strong> Shugart was a Ampex spinoff. But Shugart itself spun off Seagate, which became a $50B+ company."},
+atari:{e:"Generation 1 · 1972",n:"Atari Inc.",y:"Sunnyvale, CA",f:"Founded by Nolan Bushnell & Ted Dabney, from Ampex-connected networks",d:"Atari launched the home video game industry with Pong (1972) and the Atari 2600 (1977). Peak value: $2B+ in the early 1980s.",i:"<strong>Cultural transformation:</strong> Ampex blessed Nolan Bushnell to pursue his passion project. This attitude changed entertainment."},
+oracle:{e:"Generation 1 · 1977",n:"Oracle Corporation",y:"Redwood City, CA",f:"Founded by Larry Ellison, Bob Miner, Ed Oates from Ampex-connected networks",d:"Oracle became the dominant enterprise database company. Market value: $200B+ at peak. Founded by engineers with Ampex-era Silicon Valley DNA.",i:"<strong>Enterprise software giant:</strong> Oracle's founders were embedded in Ampex-era departure culture. They replicated the same culture at Oracle."},
+pixar:{e:"Generation 2 · 1986",n:"Pixar",y:"Richmond, CA (later Emeryville)",f:"Founded by Ed Catmull, Alvy Ray Smith, Steve Jobs — from Ampex-connected networks via Lucasfilm",d:"Pixar created the animated film industry. It pioneered computer animation and became a $7B+ studio before Disney acquisition.",i:"<strong>Cultural heritage through education:</strong> Ed Catmull was mentored by computer scientists trained in Ampex-era Silicon Valley culture."},
+conner:{e:"Generation 2 · 1986",n:"Conner Peripherals",y:"San Jose, CA",f:"Founded by Finis Conner, former Seagate VP (Seagate was Shugart spinoff)",d:"Conner made 3.5-inch disk drives. Peak value: $3B+ in 1990s before market consolidation.",i:"<strong>Three levels of compounding:</strong> Ampex → Shugart → Seagate → Conner. Each layer inherited and modified the departure culture."},
+seagate:{e:"Generation 2 · 1979",n:"Seagate Technology",y:"Scotts Valley, CA",f:"Founded by Shugart spinoff team, led by Al Shugart",d:"Seagate became the world's largest hard disk drive maker. Market value: $30B+ at peak. A textbook case of spinoff compounding.",i:"<strong>Shugart's spinoff spawns spinoffs:</strong> Al Shugart's team left Shugart to found Seagate. The pattern repeated."},
+abeam:{e:"Generation 2 · 1984",n:"Abeam Tech",y:"Sunnyvale, CA",f:"Founded by disk drive engineers",d:"Smaller player in drive market, but part of the ecosystem. Eventually acquired.",i:"<strong>Ecosystem depth:</strong> Not every company becomes Seagate. But the departure culture enables formation."},
+oracle2:{e:"Trace lineage",n:"Oracle's influence on downstream companies",y:"1980s onward",f:"Oracle's internal culture replicated Ampex's departure culture",d:"Oracle was unusually tolerant of internal departures. This bred more spinoffs and created layers of oracle alumni across Silicon Valley.",i:"<strong>Cultural transmission:</strong> When founders inherit good culture, they replicate it. Oracle's founders learned from Ampex-era Silicon Valley."},
+perstor:{e:"Generation 2 · 1984",n:"Perstor Tech",y:"San Jose, CA",f:"Disk drive related, spinoff from storage ecosystem",d:"Part of the network of storage companies spawned by Ampex → Shugart → Seagate.",i:"<strong>Ecosystem breadth:</strong> Multiple companies attempting similar innovations creates competition and cross-pollination."},
+nextcomputer:{e:"Generation 3 · 1985",n:"NeXT Computer",y:"Fremont, CA",f:"Founded by Steve Jobs after Apple departure",d:"NeXT pioneered workstation and object-oriented computing. Acquired by Apple in 1997 for $427M. Led to the architecture of macOS.",i:"<strong>Iterative departure:</strong> Jobs (Apple founder) departs to found NeXT. This pattern of serial entrepreneurship is Ampex culture in action."},
+lucasfilms:{e:"Generation 3 · 1977",n:"Lucasfilm",y:"San Rafael, CA",f:"Founded by George Lucas",d:"While not directly an Ampex spinoff, Lucasfilm recruited California talent and became a training ground for Pixar animators.",i:"<strong>Ecosystem connection:</strong> Not every company is a direct spinoff, but departure culture creates networks and talent flows."},
+informix:{e:"Generation 3 · 1980",n:"Informix Software",y:"Menlo Park, CA",f:"Founded by Naftali & Roger Sippl",d:"Informix competed with Oracle in database software. Market value: $10B+ at peak. Part of the software ecosystem that Ampex-era founders influenced.",i:"<strong>Competitive ecosystem:</strong> Multiple approaches to similar problems creates innovation."},
+quantum:{e:"Generation 3 · 1980",n:"Quantum Corporation",y:"Milpitas, CA",f:"Disk drive company, storage ecosystem",d:"Quantum grew to $1B+ in revenue. Part of the hardware ecosystem spawned by Seagate spinoffs.",i:"<strong>Hardware genealogy:</strong> Quantum, like Conner and others, was part of the Ampex → storage genealogy."},
+western:{e:"Founded 1970",n:"Western Digital",y:"Los Angeles, CA",f:"Founded before Ampex spinoff era, but participated in same ecosystem",d:"Western Digital became a $20B+ company. Present in storage industry alongside Seagate, Quantum, Conner.",i:"<strong>Ecosystem incumbent:</strong> WD predated most Ampex spinoffs, but became a peer in the storage ecosystem."},
+maxtor:{e:"Generation 3 · 1982",n:"Maxtor",y:"San Jose, CA",f:"Disk drive company, Ampex-era ecosystem",d:"Maxtor grew to $3B+ before consolidation. Part of the disk drive wave.",i:"<strong>Another storage spinoff:</strong> The storage ecosystem seemed to spawn new companies every few years in this era."},
+apple:{e:"Generation 4 · 1976",n:"Apple Computer",y:"Los Altos, CA",f:"Founded by Steve Wozniak & Steve Jobs, influenced by Ampex-era culture",d:"Apple became the world's most valuable company. Market value: $3T+ in 2024. While not a direct Ampex spinoff, Apple's founders were embedded in the same Silicon Valley culture.",i:"<strong>Indirect inheritance:</strong> Jobs and Wozniak came of age in Ampex-era Silicon Valley. The culture of departure shaped them."},
+iwatch:{e:"Generation 4 · 1998",n:"Google",y:"Stanford, CA",f:"Founded by Larry Page & Sergey Brin",d:"Google became a $2T+ market value company. Search, advertising, Android, AI. An ecosystem anchor.",i:"<strong>Stanford connection:</strong> Google founders were Stanford students educated in Ampex-era Silicon Valley culture, even though Ampex was already gone."},
+salesforce:{e:"Generation 4 · 1999",n:"Salesforce Software",y:"San Francisco, CA",f:"Founded by Marc Benioff, influenced by Oracle culture & Ampex lineage",d:"Salesforce grew to $200B+ market value. Led the cloud computing pivot for enterprise software.",i:"<strong>Generational inheritance:</strong> Benioff worked at Oracle (founded by Ampex alumni). He replicated the culture at Salesforce."},
+nvidia:{e:"Generation 4 · 1993",n:"NVIDIA",y:"Santa Clara, CA",f:"Founded by Jensen Huang, Chris Malachowsky, Curtis Priem",d:"NVIDIA became a $3T+ market value company by 2024. Dominates AI chips and GPUs. Founder trained in Ampex-era Silicon Valley.",i:"<strong>Hardware lineage:</strong> NVIDIA emerged from the same GPU/graphics ecosystem that Ampex-era storage companies pioneered."},
+vmware2:{e:"Generation 4 · 1998",n:"VMware",y:"Palo Alto, CA",f:"Founded by Mendel Rosenblum, Diane Greene",d:"VMware became a $40B+ company. Pioneered virtualization technology. Key component of cloud computing.",i:"<strong>Infrastructure layer:</strong> VMware built on Ampex-era Silicon Valley culture of rapid innovation and departures."},
+gen5:{e:"Generation 5 · 2015–24",n:"Tesla, OpenAI, Datadog, Shopify, Stripe, Figma, etc.",y:"Founded 2015–2024",f:"Next generation of founders with Silicon Valley DNA",d:"These companies are founded by engineers and executives who learned from Ampex-era successors. Elon Musk, Jack Dorsey, et al. inherited the culture.",i:"<strong>Five generations later:</strong> Ampex ceased operations in 2000. Yet its cultural legacy continues to compound."}
 };
-function S(id){const d=D[id];if(!d)return;document.getElementById('me').textContent=d.e;document.getElementById('mn').textContent=d.n;document.getElementById('my').textContent=d.y;document.getElementById('mf').textContent=d.f||'';document.getElementById('md').textContent=d.d;document.getElementById('mi').innerHTML=d.i||'';document.getElementById('ov').classList.add('open');}
+function S(id){const d=D[id];if(!d)return;document.getElementById('me').textContent=d.e;document.getElementById('mn').textContent=d.n;document.getElementById('my').textContent=d.y;document.getElementById('mf').textContent=d.f;document.getElementById('md').textContent=d.d;document.getElementById('mi').innerHTML=d.i;document.getElementById('ov').classList.add('open');}
 function C(e,f){if(f||!e||e.target===document.getElementById('ov'))document.getElementById('ov').classList.remove('open');}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')document.getElementById('ov').classList.remove('open');});
 </script>
