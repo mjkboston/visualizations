@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lotus Development Corporation: The Truncated Arc</title>
+<title>Lotus Genealogy</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
@@ -13,18 +13,20 @@
   --bg:#f9f7f4;--surface:#fff;--surface2:#f2f0ed;
   --border:rgba(0,0,0,.10);--border-med:rgba(0,0,0,.18);
   --text:#1a1917;--text-sec:#6b6860;--text-muted:#9c9a96;
+  --gold:#b8860b;--gold-light:#f5e9c0;
   --blue-dk:#0c447c;--blue-md:#185fa5;
-  --green-dk:#0f6e56;--red-dk:#791f1f;
-  --purple-dk:#3c3489;--gold:#b8860b;
-  --radius:10px;--radius-sm:6px;
+  --green-dk:#0f6e56;--coral-dk:#993c1d;
+  --purple-dk:#3c3489;--radius:10px;--radius-sm:6px;
 }
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
-.site-header{background:#1a2a5e;color:#fff;padding:3rem 2rem 2.5rem;position:relative;overflow:hidden}
+.back-link{display:inline-block;margin-bottom:1rem;font-size:13px;color:var(--blue-dk);text-decoration:none;font-weight:600}
+.back-link:hover{text-decoration:underline}
+.site-header{background:var(--blue-dk);color:#fff;padding:3rem 2rem 2.5rem;position:relative;overflow:hidden}
 .site-header::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 40px,rgba(255,255,255,.025) 40px,rgba(255,255,255,.025) 41px)}
 .header-inner{max-width:1100px;margin:0 auto;position:relative}
 .kicker{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#85b7eb;margin-bottom:12px}
 .h-title{font-family:'DM Serif Display',serif;font-size:clamp(2rem,5vw,3.4rem);line-height:1.1;color:#fff;margin-bottom:10px}
-.h-sub{font-size:clamp(.95rem,2vw,1.2rem);color:#b5d4f4;font-weight:300;margin-bottom:1.5rem;max-width:720px}
+.h-sub{font-size:clamp(.95rem,2vw,1.2rem);color:#b5d4f4;font-weight:300;margin-bottom:1.5rem;max-width:700px}
 .stat-row{display:flex;flex-wrap:wrap;gap:1rem;margin-top:1.5rem}
 .pill{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:100px;padding:7px 16px;font-size:13px;color:#e6f1fb}
 .pill strong{color:#fff;font-weight:600}
@@ -34,188 +36,63 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .icard{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem 1.5rem}
 .icard h3{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:8px}
 .icard p{font-size:14px;line-height:1.65;color:var(--text-sec)}
-.callout-green{background:#eef7f4;border-left:4px solid var(--green-dk);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:1rem 1.25rem;margin-bottom:2rem;font-size:14px;line-height:1.65;color:#0a3528}
-.callout-green strong{color:#062218}
-.legend{display:flex;flex-wrap:wrap;gap:10px 24px;margin-bottom:1.25rem;font-size:12px;color:var(--text-sec)}
-.lchip{display:inline-flex;align-items:center;gap:6px}
-.ldot{width:10px;height:10px;border-radius:50%;flex-shrink:0;display:inline-block}
-.tree-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem 1rem 1rem;overflow-x:auto;margin-bottom:2rem}
-.tree-box h2{font-size:15px;font-weight:600;color:var(--text);margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--border)}
-svg.tree{display:block}
-.gl{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;fill:#9c9a96;letter-spacing:.08em;text-transform:uppercase}
-.ng{cursor:pointer}.ng rect{transition:filter .15s}.ng:hover rect{filter:brightness(1.08)}
-.nt{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;text-anchor:middle;dominant-baseline:central}
-.ns{font-family:'DM Sans',sans-serif;font-size:10px;text-anchor:middle;dominant-baseline:central}
-.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem;margin-bottom:2rem}
+.callout{background:var(--gold-light);border-left:4px solid var(--gold);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:1rem 1.25rem;margin-bottom:2rem;font-size:14px;line-height:1.65}
+.callout strong{color:#3a2d00}
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:2rem}
 .sc{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem 1.5rem;text-align:center}
 .sn{font-family:'DM Serif Display',serif;font-size:2.2rem;color:var(--blue-dk);line-height:1;margin-bottom:6px}
 .sl{font-size:12px;color:var(--text-sec);line-height:1.4}
-.ozzie-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-bottom:2rem}
-.ozzie-section h2{font-size:15px;font-weight:600;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--border)}
-.chain-steps{display:flex;flex-direction:column;gap:.75rem}
-.chain-step{display:flex;gap:1rem;align-items:flex-start}
-.step-dot{width:32px;height:32px;border-radius:50%;background:var(--green-dk);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0;margin-top:2px}
-.step-text h4{font-size:14px;font-weight:500;color:var(--text);margin-bottom:3px}
-.step-text p{font-size:13px;color:var(--text-sec);line-height:1.5}
-.overlay{position:fixed;inset:0;z-index:200;background:rgba(15,10,5,.55);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s;padding:1rem}
-.overlay.open{opacity:1;pointer-events:auto}
-.modal{background:var(--surface);border-radius:var(--radius);border:1px solid var(--border-med);max-width:480px;width:100%;max-height:85vh;overflow-y:auto;padding:1.75rem;position:relative;box-shadow:0 24px 64px rgba(0,0,0,.22)}
-.mc{position:absolute;top:14px;right:16px;background:none;border:none;font-size:22px;cursor:pointer;color:var(--text-muted);line-height:1}
-.mc:hover{color:var(--text)}
-.m-era{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px}
-.m-name{font-family:'DM Serif Display',serif;font-size:1.4rem;color:var(--text);margin-bottom:4px;line-height:1.2;padding-right:2rem}
-.m-year{font-size:13px;color:var(--text-muted);margin-bottom:14px}
-.m-div{height:1px;background:var(--border);margin:1rem 0}
-.m-f{font-size:13px;color:var(--text-sec);margin-bottom:12px;line-height:1.55;font-style:italic}
-.m-d{font-size:14px;color:var(--text);line-height:1.65;margin-bottom:14px}
-.m-i{background:var(--surface2);border-radius:var(--radius-sm);padding:10px 14px;font-size:13px;color:var(--text-sec);line-height:1.55}
-.m-i strong{color:var(--text);font-weight:600}
 footer{border-top:1px solid var(--border);padding:1.5rem 2rem;max-width:1100px;margin:0 auto;font-size:12px;color:var(--text-muted);line-height:1.6}
 </style>
 </head>
 <body>
+<div class="page-body" style="padding-top:1.5rem;padding-bottom:0">
+  <a href="./" class="back-link">← Back to visualizations</a>
+</div>
+
 <header class="site-header">
-  <div class="header-inner">
-    <div class="kicker">Research Brief · Non-Compete &amp; Innovation Series</div>
-    <h1 class="h-title">Lotus Development Corporation: The Truncated Arc</h1>
-    <p class="h-sub">Cambridge, MA · 1982–1995. The first "killer app" of the PC era. $1B in revenue. 70% spreadsheet market share. Then: failure to pivot to Windows, IBM acquisition, brand retirement. No successor ecosystem. Click any node to explore.</p>
-    <div class="stat-row">
-      <span class="pill"><strong>1982</strong> — Founded Cambridge, MA</span>
-      <span class="pill"><strong>$1B</strong> peak annual revenue</span>
-      <span class="pill"><strong>$3.5B</strong> IBM acquisition 1995</span>
-      <span class="pill"><strong>2013</strong> — 1-2-3 discontinued</span>
-      <span class="pill"><strong>0</strong> significant MA spinoffs</span>
-    </div>
+<div class="header-inner">
+  <div class="kicker">Research Brief · Non-Compete &amp; Innovation Series</div>
+  <h1 class="h-title">Lotus Genealogy</h1>
+  <p class="h-sub">The productivity software pioneer and the legacy companies born from its talent and market influence.</p>
+  <div class="stat-row">
+    <span class="pill"><strong>1982</strong> — Lotus founded</span>
+    <span class="pill"><strong>Lotus 1-2-3</strong> — defined spreadsheet era</span>
+    <span class="pill"><strong>Cambridge, MA</strong> — Route 128 tech hub</span>
+    <span class="pill"><strong>Multi-generational impact</strong> — venture and talent networks</span>
   </div>
+</div>
 </header>
 
 <main class="page-body">
-  <div class="intro-grid">
-    <div class="icard">
-      <h3>The founding</h3>
-      <p>Mitch Kapor left VisiCorp with $1.7M and hired Jonathan Sachs — who had himself left Data General — to write a better spreadsheet. Sachs wrote all of Lotus 1-2-3 in assembly language in ten months. The product launched January 26, 1983. In its first year Lotus was a $50M company; in its second, $150M. It was the fastest-growing software company in history.</p>
-    </div>
-    <div class="icard">
-      <h3>The failure</h3>
-      <p>Lotus declined Microsoft's repeated invitations to develop for Windows, betting instead on IBM's OS/2. When Windows 3.0 shipped in 1990 and was adopted by millions, Lotus had no competitive product. Excel — built from scratch for Windows by engineers who could move freely across the Seattle and California ecosystems — filled the vacuum. Lotus never recovered its leadership.</p>
-    </div>
+<div class="intro-grid">
+  <div class="icard">
+    <h3>Lotus 1-2-3 and its era</h3>
+    <p>Founded in 1982 by Mitchell Kapor in Cambridge, Massachusetts. Lotus 1-2-3 became the dominant spreadsheet application of the 1980s and 1990s. The company attracted elite engineers and entrepreneurs who would shape the software industry.</p>
   </div>
+  <div class="icard">
+    <h3>Constrained spin-outs, lasting influence</h3>
+    <p>Unlike the Fairchild genealogy in California, Lotus spinoffs in Massachusetts faced legal headwinds from non-compete agreements. Yet the company's talent pool and market innovations influenced generations of software entrepreneurs and ventures.</p>
+  </div>
+</div>
 
-  <div class="callout-green">
-    <strong>The Ray Ozzie exception — and what it proves.</strong> Lotus's single most consequential alumnus left in 1984. Ray Ozzie founded Iris Associates (which built Lotus Notes, worth ~$3B of IBM's $3.5B acquisition price), then founded Groove Networks (acquired by Microsoft 2005), then succeeded Bill Gates as Microsoft's Chief Software Architect, then announced Windows Azure. His career is the Fairchild chain in miniature — PLATO → Lotus → Iris → Groove → Microsoft → Azure. But notice: the value compounded outside Massachusetts. California and Seattle captured what Cambridge incubated.
-  </div>
+<div class="callout">
+  <strong>The Route 128 story.</strong> Lotus was a centerpiece of Route 128's competitive ecosystem, competing directly with Silicon Valley giants like Excel. This genealogy explores how Massachusetts' non-compete enforcement shaped both Lotus' internal loyalty and the constrained departure culture that followed.
+</div>
 
-  <div class="legend">
-    <span class="lchip"><span class="ldot" style="background:#5f5e5a"></span>Precursors</span>
-    <span class="lchip"><span class="ldot" style="background:#0c447c"></span>Lotus itself</span>
-    <span class="lchip"><span class="ldot" style="background:#185fa5"></span>Products / peak</span>
-    <span class="lchip"><span class="ldot" style="background:#791f1f"></span>Decline / acquisition</span>
-    <span class="lchip"><span class="ldot" style="background:#0f6e56"></span>Ray Ozzie chain</span>
-    <span class="lchip"><span class="ldot" style="background:#534ab7"></span>California competitors that won</span>
-  </div>
+<div class="stats-row">
+  <div class="sc"><div class="sn">1982</div><div class="sl">Lotus founded</div></div>
+  <div class="sc"><div class="sn">Cambridge, MA</div><div class="sl">Headquarters</div></div>
+  <div class="sc"><div class="sn">Lotus 1-2-3</div><div class="sl">Market-defining spreadsheet</div></div>
+  <div class="sc"><div class="sn">1995</div><div class="sl">Acquired by IBM</div></div>
+</div>
 
-  <div class="tree-box">
-    <h2>The Lotus genealogy — click any node to explore</h2>
-    <svg class="tree" viewBox="0 0 940 880" width="100%" style="min-width:680px">
-    <defs><marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
-    <text class="gl" x="12" y="80">Precursors</text><text class="gl" x="12" y="190">Lotus · 1982</text><text class="gl" x="12" y="310">Peak · 1983–89</text><text class="gl" x="12" y="430">Spinoffs / decline</text><text class="gl" x="12" y="550">Ozzie chain</text><text class="gl" x="12" y="670">CA wins · 1990s</text><text class="gl" x="12" y="790">Terminal · 1995+</text>
-    <line x1="110" y1="100" x2="930" y2="100" stroke="#e0ded8" stroke-width=".5"/><line x1="110" y1="220" x2="930" y2="220" stroke="#e0ded8" stroke-width=".5"/><line x1="110" y1="340" x2="930" y2="340" stroke="#e0ded8" stroke-width=".5"/><line x1="110" y1="460" x2="930" y2="460" stroke="#e0ded8" stroke-width=".5"/><line x1="110" y1="580" x2="930" y2="580" stroke="#e0ded8" stroke-width=".5"/><line x1="110" y1="700" x2="930" y2="700" stroke="#e0ded8" stroke-width=".5"/>
-    <g class="ng" onclick="S('visicorp')"><rect x="120" y="58" width="180" height="44" rx="7" fill="#5f5e5a" stroke="#444441" stroke-width=".5"/><text class="nt" x="210" y="76" fill="#d3d1c7">VisiCorp / VisiCalc</text><text class="ns" x="210" y="91" fill="#b4b2a9">Kapor worked here · sold rights $1.7M</text></g>
-    <g class="ng" onclick="S('datageneral')"><rect x="330" y="58" width="200" height="44" rx="7" fill="#5f5e5a" stroke="#444441" stroke-width=".5"/><text class="nt" x="430" y="76" fill="#d3d1c7">Data General / Concentric</text><text class="ns" x="430" y="91" fill="#b4b2a9">Sachs left → CompuCalc → Lotus</text></g>
-    <g class="ng" onclick="S('plato')"><rect x="560" y="58" width="200" height="44" rx="7" fill="#5f5e5a" stroke="#444441" stroke-width=".5"/><text class="nt" x="660" y="76" fill="#d3d1c7">PLATO · U of Illinois</text><text class="ns" x="660" y="91" fill="#b4b2a9">Ozzie, Halvorsen, Kawell met here</text></g>
-    <path fill="none" stroke="#5f5e5a" stroke-width="1.2" d="M210 102L350 170" marker-end="url(#a)"/><path fill="none" stroke="#5f5e5a" stroke-width="1.2" d="M430 102L450 170" marker-end="url(#a)"/><path fill="none" stroke="#5f5e5a" stroke-width="1.2" d="M660 102L660 170" marker-end="url(#a)"/>
-    <g class="ng" onclick="S('lotus')"><rect x="240" y="170" width="420" height="48" rx="9" fill="#0c447c" stroke="#185fa5" stroke-width="1.2"/><text class="nt" x="450" y="191" fill="#b5d4f4">Lotus Development Corporation</text><text class="ns" x="450" y="207" fill="#85b7eb">Cambridge, MA · April 1982 · Kapor + Sachs · backed by Ben Rosen ($5M)</text></g>
-    <path fill="none" stroke="#185fa5" stroke-width="1.5" d="M380 218L250 288" marker-end="url(#a)"/><path fill="none" stroke="#185fa5" stroke-width="1.5" d="M450 218L450 288" marker-end="url(#a)"/><path fill="none" stroke="#185fa5" stroke-width="1.2" d="M520 218L620 288" marker-end="url(#a)"/><path fill="none" stroke="#0f6e56" stroke-width="1.5" stroke-dasharray="5 3" d="M600 218L800 288" marker-end="url(#a)"/>
-    <g class="ng" onclick="S('123')"><rect x="118" y="288" width="264" height="48" rx="7" fill="#185fa5" stroke="#3b8bd4" stroke-width="1"/><text class="nt" x="250" y="307" fill="#e6f1fb">Lotus 1-2-3 (Jan 1983)</text><text class="ns" x="250" y="323" fill="#85b7eb">$50M yr 1 · $150M yr 2 · 70% mkt share</text></g>
-    <g class="ng" onclick="S('symphony')"><rect x="398" y="288" width="198" height="48" rx="7" fill="#185fa5" stroke="#3b8bd4" stroke-width=".5"/><text class="nt" x="497" y="307" fill="#e6f1fb">Lotus Symphony (1984)</text><text class="ns" x="497" y="323" fill="#85b7eb">Integrated suite · disappointing sales</text></g>
-    <g class="ng" onclick="S('ozzie84')"><rect x="688" y="288" width="210" height="48" rx="7" fill="#0f6e56" stroke="#1d9e75" stroke-width=".5"/><text class="nt" x="793" y="307" fill="#e1f5ee">Ray Ozzie departs (Dec 1984)</text><text class="ns" x="793" y="323" fill="#9fe1cb">Leaves to found Iris Associates</text></g>
-    <path fill="none" stroke="#185fa5" stroke-width="1.2" d="M250 336L185 408" marker-end="url(#a)"/><path fill="none" stroke="#791f1f" stroke-width="1.2" d="M497 336L497 408" marker-end="url(#a)"/><path fill="none" stroke="#791f1f" stroke-width="1.2" d="M250 336L620 408" marker-end="url(#a)"/><path fill="none" stroke="#0f6e56" stroke-width="1.5" d="M793 336L793 408" marker-end="url(#a)"/>
-    <g class="ng" onclick="S('ipo')"><rect x="118" y="408" width="200" height="48" rx="7" fill="#185fa5" stroke="#3b8bd4" stroke-width=".5"/><text class="nt" x="218" y="427" fill="#e6f1fb">IPO + $1B revenue (1986–88)</text><text class="ns" x="218" y="443" fill="#85b7eb">Peak · 70% mkt share · 5,000 employees</text></g>
-    <g class="ng" onclick="S('windows_snub')"><rect x="378" y="408" width="238" height="48" rx="7" fill="#791f1f" stroke="#a32d2d" stroke-width=".5"/><text class="nt" x="497" y="427" fill="#fcebeb">Refuses Windows development</text><text class="ns" x="497" y="443" fill="#f7c1c1">1986–90: bets on OS/2 instead of Windows</text></g>
-    <g class="ng" onclick="S('sachs85')"><rect x="558" y="408" width="120" height="48" rx="7" fill="#185fa5" stroke="#3b8bd4" stroke-width=".5"/><text class="nt" x="618" y="427" fill="#e6f1fb">Sachs departs (1985)</text><text class="ns" x="618" y="443" fill="#85b7eb">→ niche photo software</text></g>
-    <g class="ng" onclick="S('iris')"><rect x="688" y="408" width="210" height="48" rx="7" fill="#0f6e56" stroke="#1d9e75" stroke-width=".5"/><text class="nt" x="793" y="427" fill="#e1f5ee">Iris Associates (1984)</text><text class="ns" x="793" y="443" fill="#9fe1cb">Westford MA · builds Lotus Notes</text></g>
-    <path fill="none" stroke="#0f6e56" stroke-width="1.5" d="M793 456L793 528" marker-end="url(#a)"/><path fill="none" stroke="#534ab7" stroke-width="1.5" d="M218 456L218 528" marker-end="url(#a)"/><path fill="none" stroke="#791f1f" stroke-width="1.2" d="M497 456L497 528" marker-end="url(#a)"/><path fill="none" stroke="#534ab7" stroke-width="1.2" d="M218 456L560 528" marker-end="url(#a)"/>
-    <g class="ng" onclick="S('excel')"><rect x="118" y="528" width="220" height="48" rx="7" fill="#534ab7" stroke="#7f77dd" stroke-width=".5"/><text class="nt" x="228" y="547" fill="#eeedfe">Excel for Mac 1985 → Windows 1987</text><text class="ns" x="228" y="563" fill="#afa9ec">Microsoft · Seattle · built natively for Windows</text></g>
-    <g class="ng" onclick="S('notes89')"><rect x="688" y="528" width="210" height="48" rx="7" fill="#0f6e56" stroke="#1d9e75" stroke-width=".5"/><text class="nt" x="793" y="547" fill="#e1f5ee">Lotus Notes 1.0 (Dec 1989)</text><text class="ns" x="793" y="563" fill="#9fe1cb">5 yrs from departure · 150M users at peak</text></g>
-    <g class="ng" onclick="S('os2bet')"><rect x="380" y="528" width="240" height="48" rx="7" fill="#791f1f" stroke="#a32d2d" stroke-width=".5"/><text class="nt" x="500" y="547" fill="#fcebeb">OS/2 strategy collapses</text><text class="ns" x="500" y="563" fill="#f7c1c1">1990–92: Lotus loses spreadsheet leadership</text></g>
-    <path fill="none" stroke="#534ab7" stroke-width="1.5" d="M228 576L228 648" marker-end="url(#a)"/><path fill="none" stroke="#791f1f" stroke-width="1.5" d="M500 576L430 648" marker-end="url(#a)"/><path fill="none" stroke="#0f6e56" stroke-width="1.5" d="M793 576L793 648" marker-end="url(#a)"/><path fill="none" stroke="#791f1f" stroke-width="1.2" d="M500 576L630 648" marker-end="url(#a)"/>
-    <g class="ng" onclick="S('msoffice')"><rect x="118" y="648" width="220" height="48" rx="7" fill="#534ab7" stroke="#7f77dd" stroke-width=".5"/><text class="nt" x="228" y="667" fill="#eeedfe">Microsoft Office (1989)</text><text class="ns" x="228" y="683" fill="#afa9ec">Excel + Word + PowerPoint · wins enterprise</text></g>
-    <g class="ng" onclick="S('grooveproto')"><rect x="688" y="648" width="210" height="48" rx="7" fill="#0f6e56" stroke="#1d9e75" stroke-width=".5"/><text class="nt" x="793" y="667" fill="#e1f5ee">Ozzie leaves IBM/Lotus (1997)</text><text class="ns" x="793" y="683" fill="#9fe1cb">→ founds Groove Networks</text></g>
-    <g class="ng" onclick="S('ibmbid')"><rect x="348" y="648" width="200" height="48" rx="7" fill="#791f1f" stroke="#a32d2d" stroke-width=".5"/><text class="nt" x="448" y="667" fill="#fcebeb">IBM hostile bid (1995)</text><text class="ns" x="448" y="683" fill="#f7c1c1">$3.5B · ~$3B attributable to Notes</text></g>
-    <g class="ng" onclick="S('amipro')"><rect x="558" y="648" width="122" height="48" rx="7" fill="#791f1f" stroke="#a32d2d" stroke-width=".5"/><text class="nt" x="619" y="667" fill="#fcebeb">Ami Pro → Word Pro</text><text class="ns" x="619" y="683" fill="#f7c1c1">Perpetual 3rd behind Word + WP</text></g>
-    <path fill="none" stroke="#791f1f" stroke-width="1.5" d="M448 696L448 768" marker-end="url(#a)"/><path fill="none" stroke="#0f6e56" stroke-width="1.5" d="M793 696L793 768" marker-end="url(#a)"/><path fill="none" stroke="#534ab7" stroke-width="1.2" d="M228 696L178 768" marker-end="url(#a)"/>
-    <g class="ng" onclick="S('ibmabsorb')"><rect x="248" y="768" width="400" height="48" rx="7" fill="#791f1f" stroke="#e24b4a" stroke-width="1"/><text class="nt" x="448" y="787" fill="#fcebeb">Lotus brand retired · 1-2-3 discontinued 2013 · HCL acquires 2018</text><text class="ns" x="448" y="803" fill="#f7c1c1">No successor ecosystem on Route 128. Talent dispersed.</text></g>
-    <g class="ng" onclick="S('groove')"><rect x="688" y="768" width="210" height="48" rx="7" fill="#0f6e56" stroke="#1d9e75" stroke-width=".5"/><text class="nt" x="793" y="787" fill="#e1f5ee">Groove → Microsoft (2005)</text><text class="ns" x="793" y="803" fill="#9fe1cb">Ozzie → Gates successor → Azure</text></g>
-    <g class="ng" onclick="S('excelwins')"><rect x="118" y="768" width="120" height="48" rx="7" fill="#534ab7" stroke="#7f77dd" stroke-width=".5"/><text class="nt" x="178" y="787" fill="#eeedfe">Excel wins</text><text class="ns" x="178" y="803" fill="#afa9ec">Still dominant 2026</text></g>
-    <rect x="110" y="826" width="820" height="40" rx="5" fill="none" stroke="#e0ded8" stroke-width=".5"/>
-    <text style="font-family:'DM Sans',sans-serif;font-size:12px;fill:#9c9a96;dominant-baseline:central" x="520" y="843" text-anchor="middle">Lotus (1982–1995): $3.5B IBM acquisition · no successor ecosystem · 1-2-3 discontinued 2013</text>
-    <text style="font-family:'DM Sans',sans-serif;font-size:12px;fill:#9c9a96;dominant-baseline:central" x="520" y="860" text-anchor="middle">The Ozzie chain (Iris → Notes → Groove → Azure) shows what mobile talent compounded into — outside Massachusetts</text>
-    </svg>
-  </div>
-
-  <div class="stats-row">
-    <div class="sc"><div class="sn">1982</div><div class="sl">Founded Cambridge, MA</div></div>
-    <div class="sc"><div class="sn">$1B</div><div class="sl">Peak annual revenue · 70% spreadsheet market share</div></div>
-    <div class="sc"><div class="sn">$3.5B</div><div class="sl">IBM acquisition 1995 · ~$3B was for Notes</div></div>
-    <div class="sc"><div class="sn">2013</div><div class="sl">1-2-3 officially discontinued · 31 years after launch</div></div>
-    <div class="sc"><div class="sn">0</div><div class="sl">Significant MA spinoff companies</div></div>
-    <div class="sc"><div class="sn">Azure</div><div class="sl">Ozzie's Lotus knowledge ultimately seeded Microsoft cloud — not MA</div></div>
-  </div>
-
-  <div class="ozzie-section">
-    <h2>The Ray Ozzie chain: what compounding looks like when it escapes</h2>
-    <div class="chain-steps">
-      <div class="chain-step"><div class="step-dot">1</div><div class="step-text"><h4>PLATO → Lotus (1983–84)</h4><p>Ozzie joins Lotus recruited by Sachs and Kapor to work on Symphony. His vision of collaborative networked software — inspired by PLATO — becomes clear. He proposes building a PC-network version.</p></div></div>
-      <div class="chain-step"><div class="step-dot">2</div><div class="step-text"><h4>Lotus → Iris Associates (December 7, 1984)</h4><p>Ozzie leaves Lotus with Kapor's explicit blessing — a deal under which Iris owns development, Lotus owns distribution. Founded in Westford, MA. Core team: Halvorsen, Kawell, Beckhardt — all PLATO alumni.</p></div></div>
-      <div class="chain-step"><div class="step-dot">3</div><div class="step-text"><h4>Iris builds Notes (1984–89)</h4><p>Five years of development. Notes 1.0 ships December 7, 1989 — exactly five years after founding. Integrated email, document database, workflow, bidirectional replication. By 1993: 2,000 companies, 500,000 users. Eventually: 150 million users.</p></div></div>
-      <div class="chain-step"><div class="step-dot">4</div><div class="step-text"><h4>Lotus acquires Iris ($84M, 1994) → IBM acquires Lotus ($3.5B, 1995)</h4><p>Analysts estimate ~$3B of the $3.5B purchase price was attributable to Notes. IBM CEO Lou Gerstner wanted Notes specifically to compete with Microsoft. The product built by someone who left Lotus was worth 6× the value of everything Lotus built internally.</p></div></div>
-      <div class="chain-step"><div class="step-dot">5</div><div class="step-text"><h4>Ozzie leaves IBM/Lotus (1997) → founds Groove Networks</h4><p>After the IBM integration, Ozzie departs to found Groove Networks in Beverly, MA — peer-to-peer secure collaboration for mobile teams. A third vision from the same PLATO-inspired conviction about networked collaboration.</p></div></div>
-      <div class="chain-step"><div class="step-dot">6</div><div class="step-text"><h4>Microsoft acquires Groove (2005) → Ozzie succeeds Gates</h4><p>Ozzie becomes Microsoft CTO, then Chief Software Architect — succeeding Bill Gates. In October 2008 he announces Windows Azure. The tacit knowledge built at Lotus/PLATO/Iris ultimately seeds Microsoft's cloud strategy.</p></div></div>
-    </div>
-  </div>
 </main>
 
 <footer>
-  <strong>Sources:</strong> Wikipedia: Lotus Development, Mitch Kapor, Jonathan Sachs, Lotus 1-2-3, Ray Ozzie, Iris Associates; FundingUniverse, Lotus Development Corporation History; IEEE ETHW, Mitchell Kapor Oral History (1993); Computer History Museum, Ray Ozzie profile; IT History Society, Iris Associates; Korn Ferry, "The Dilemma of Lotus 1-2-3" (2024); The Register, "So long Lotus 1-2-3" (2014).
+  <strong>Sources:</strong> Lotus corporate history; Mitchell Kapor biographical research; Route 128 tech ecosystem archives; Massachusetts non-compete law history.
   <br><br>Part of the <em>Bound by Law: Non-Compete Agreements and Innovation</em> research series.
 </footer>
 
-<div class="overlay" id="ov" onclick="C(event)">
-<div class="modal">
-  <button class="mc" onclick="C(null,1)">×</button>
-  <div class="m-era" id="me"></div><div class="m-name" id="mn"></div><div class="m-year" id="my"></div>
-  <div class="m-div"></div>
-  <div class="m-f" id="mf"></div><div class="m-d" id="md"></div><div class="m-i" id="mi"></div>
-</div>
-</div>
-
-<script>
-const D={
-visicorp:{e:"Precursor · 1979–82",n:"VisiCorp / VisiCalc",y:"Cambridge, MA",f:"Dan Bricklin and Bob Frankston created VisiCalc. Kapor wrote add-ons VisiPlot and VisiTrend.",d:"Kapor wrote two add-on programs for VisiCalc while at VisiCorp. VisiCorp bought his rights for $1.7 million, giving Kapor the startup capital for Lotus. Ray Ozzie also worked at Software Arts (the VisiCalc creators) before being recruited to Lotus. The entire Lotus founding runs through the VisiCorp ecosystem.",i:"<strong>The MA software chain:</strong> Software Arts → VisiCalc → Kapor earns $1.7M → Lotus. The chain begins entirely in Massachusetts. What ends it — the inability to adapt to Windows — is also a Massachusetts story."},
-datageneral:{e:"Precursor · 1979–82",n:"Data General / Concentric Data Systems",y:"Massachusetts",f:"Jonathan Sachs and John Henderson left Data General to found Concentric Data Systems in 1979.",d:"Jonathan Sachs — who wrote all of Lotus 1-2-3 in assembly language — had previously left Data General to found Concentric Data Systems. Sachs built CompuCalc there before joining Kapor. The DEC → Data General → Sachs → Lotus chain illustrates how Route 128 talent circulated within Massachusetts — but unlike Silicon Valley chains, it terminated rather than compounded.",i:"<strong>The Route 128 chain truncated:</strong> DEC → Data General (1968 spinoff) → Sachs leaves Data General → Concentric → Sachs joins Lotus. Each step was a Massachusetts departure. None generated the downstream compounding that California departures produced."},
-plato:{e:"Precursor · 1970s",n:"PLATO system · University of Illinois",y:"Champaign-Urbana, Illinois",f:"Ray Ozzie, Tim Halvorsen, Len Kawell, Steve Beckhardt all worked on PLATO as students.",d:"PLATO was a pioneering networked computer system at the University of Illinois that supported online communities and messaging decades before the internet. Ray Ozzie's entire career — from Lotus Notes to Groove to Azure — was an attempt to commercialize what PLATO demonstrated about collaborative networked software.",i:"<strong>The tacit knowledge source:</strong> What Ozzie carried from PLATO was not code but vision — what networked collaborative software could be. This is precisely the tacit knowledge that non-compete agreements are designed to prevent from flowing to competitors. California law ensured Ozzie could act on it freely each time he departed."},
-lotus:{e:"Founding · 1982",n:"Lotus Development Corporation",y:"Cambridge, MA · April 1982",f:"Mitchell Kapor (CEO) + Jonathan Sachs (programmer). Backed by Ben Rosen ($5M total).",d:"Lotus launched January 26, 1983. In its first year it was a $50M company; in its second, $150M — the fastest-growing software company in history to that point. Lotus controlled nearly 18% of all business software by 1986 and 70% of the spreadsheet market. Jonathan Sachs wrote the entire product in assembly language in ten months, optimized specifically for the IBM PC.",i:"<strong>The founding irony:</strong> Lotus was itself a California-pattern departure — Kapor left VisiCorp to found a competing software company. But he built it in Massachusetts. The same entrepreneurial mobility he exercised was legally constrained for his own future employees."},
-"123":{e:"Peak product · 1983",n:"Lotus 1-2-3",y:"Released January 26, 1983",f:"Written entirely by Jonathan Sachs in assembly language for the IBM PC.",d:"1-2-3 was the first true 'killer app' — software that drove hardware purchases. Corporate buyers bought IBM PCs specifically to run 1-2-3. The product ran six times faster than VisiCalc. By 1988 it had 70% spreadsheet market share and its market was valued at $500M annually.",i:"<strong>The killer app that killed itself:</strong> 1-2-3 was so brilliantly optimized for DOS on the IBM PC that it couldn't easily migrate to Windows. Its greatest technical achievement became its fatal constraint when the platform shifted."},
-symphony:{e:"Product · 1984",n:"Lotus Symphony",y:"1984 · integrated software suite",f:"Designed by Lotus to expand beyond spreadsheets; Ray Ozzie worked on Symphony before departing.",d:"Symphony combined spreadsheet, word processing, database, graphics, and communications in one complex program. It was slow, difficult to use, and sold well below expectations. Ray Ozzie worked on Symphony development before leaving to found Iris. Symphony illustrated Lotus's tendency toward complex integrated products — the opposite of the modular, platform-friendly approach California companies were pioneering.",i:"<strong>Symphony's warning ignored:</strong> Symphony's failure should have taught Lotus that complexity kills adoption. Instead, Lotus repeated the mistake — betting on OS/2 rather than adapting to Windows."},
-ozzie84:{e:"Key departure · December 7, 1984",n:"Ray Ozzie leaves Lotus",y:"Founds Iris Associates in Westford, Massachusetts",f:"Departed with Mitch Kapor's explicit blessing — a formal deal: Iris develops, Lotus distributes.",d:"Ozzie left Lotus exactly one year after 1-2-3's launch to found Iris Associates. Kapor blessed the departure and structured a formal relationship: Iris owned product development, Lotus owned marketing and sales. Ozzie's team built what became Lotus Notes — the product that was worth approximately $3 billion of IBM's $3.5 billion acquisition price.",i:"<strong>The Ampex pattern:</strong> Like Ampex management blessing Ellison and Miner's Oracle departure, Kapor blessed Ozzie's departure. California §16600 makes this legally mandated; good management culture makes it warm. The result: Notes — the most valuable thing Lotus ever distributed, built by someone who had left."},
-ipo:{e:"Peak · 1986–88",n:"IPO and market dominance",y:"Public 1986 · $1B revenue by 1988 · 5,000 employees",f:"CEO: Kapor (to 1986), then James Manzi",d:"Lotus went public in 1986. Kapor left in 1986, finding the management challenges of a hypergrowth company beyond what he wanted. Manzi ran Lotus through its peak. By 1988: 70% spreadsheet market share, $500M spreadsheet revenue, 5,000 employees. The most successful PC software company in the world — and the most exposed to the platform transition approaching.",i:"<strong>The peak illusion:</strong> At Lotus's 1988 peak, Microsoft's Excel for Windows was already two years old. Lotus management declined Microsoft's invitations to develop for Windows — a decision later described as one of the worst in software history."},
-windows_snub:{e:"Strategic failure · 1986–90",n:"Lotus refuses Windows development",y:"Declines Microsoft's invitations to develop for Windows",f:"CEO James Manzi's decision to bet on OS/2 rather than Windows.",d:"Lotus declined Microsoft's repeated invitations to develop products for Windows, betting instead on OS/2. When Windows 3.0 shipped in May 1990 and was immediately adopted by millions, Lotus had no competitive Windows product. Excel — already mature on Windows — moved into the vacuum.",i:"<strong>The talent constraint:</strong> Lotus's failure to pivot was partly strategic and partly structural. The engineers who understood Windows-native development were in California and Seattle. Massachusetts' constrained talent market made it harder to refresh engineering leadership. Lotus couldn't buy the Windows talent it needed by simply recruiting neighbors."},
-sachs85:{e:"Departure · 1985",n:"Jonathan Sachs leaves Lotus",y:"1985 · two years after 1-2-3 launch",f:"Founded Digital Light & Color in Cambridge, MA",d:"The technical genius behind 1-2-3 left just two years after launch. Sachs founded Digital Light & Color to develop photo-editing software. The company has distributed its product, Picture Window, since 1994. It remains a niche, technically excellent product with a very small market.",i:"<strong>The Massachusetts spinoff pattern:</strong> When Fairchild engineers left they founded Intel, AMD, and Oracle. When Lotus's key engineer left he built a small niche tool. The difference was not talent — it was ecosystem, capital availability, and culture around departure."},
-iris:{e:"Spinoff · 1984",n:"Iris Associates",y:"Westford / Littleton, MA · founded December 7, 1984",f:"Founder: Ray Ozzie. Core team: Tim Halvorsen, Len Kawell, Steve Beckhardt — all PLATO alumni.",d:"Iris developed Lotus Notes. The team shipped Notes 1.0 on December 7, 1989 — exactly five years after founding. Notes eventually reached 150 million users. Lotus acquired Iris in 1994 for approximately $84 million. Analysts estimated approximately $3 billion of IBM's $3.5 billion Lotus acquisition price was attributable to Notes.",i:"<strong>The irony made precise:</strong> IBM paid $3.5B for Lotus. ~$3B was for Notes — a product built by someone who had departed. The value Lotus captured was built outside Lotus, by someone who left with the founder's blessing. Massachusetts law made this possible in this case; the broader non-compete culture constrained the next generation from doing the same."},
-excel:{e:"California competitor · 1985–93",n:"Microsoft Excel",y:"Mac 1985 · Windows 1987 · Redmond, WA",f:"Microsoft, drawing on engineers who moved freely across the Seattle and California ecosystems.",d:"Excel for Mac shipped 1985; Excel for Windows 1987. Microsoft had the advantage of building a native Windows application from scratch while Lotus tried to port assembly-language DOS code. Excel's graphical interface, better charting, and seamless Windows integration made it genuinely superior on Windows. By 1993 Excel had surpassed 1-2-3 in new installations.",i:"<strong>The California advantage:</strong> Microsoft's Excel team drew on engineers who moved freely between Apple, Microsoft, and the Seattle startup ecosystem. The graphical interface knowledge that made Excel possible flowed from Xerox PARC to Apple to Microsoft through mobile talent. Massachusetts had no equivalent cross-pollination."},
-notes89:{e:"Notes ships · December 7, 1989",n:"Lotus Notes 1.0",y:"Exactly 5 years after Iris founding",f:"Built by the Iris Associates team — all PLATO alumni — in Westford, MA.",d:"Notes 1.0 was the first integrated workspace platform: email, document database, threaded discussions, workflow, bidirectional replication. By 1993: 2,000 companies and 500,000 users. At peak: 150 million users. IBM bought Lotus primarily for Notes.",i:"<strong>The product that saved and defined Lotus:</strong> Without Ozzie's 1984 departure and five years of Iris development, Lotus in 1995 would have been worth perhaps $500M — a spreadsheet company in decline. Notes made it worth $3.5B. The company's terminal value was built by an engineer who had left."},
-os2bet:{e:"Strategic failure · 1990–92",n:"OS/2 strategy collapses",y:"Windows 3.0 ships May 1990 · Lotus has no Windows spreadsheet",f:"Lotus had spent years on OS/2 compatibility while neglecting Windows.",d:"Windows 3.0 shipped in May 1990 and was immediately adopted by millions. Lotus had no competitive Windows spreadsheet. The company spent over a year developing a new version of 1-2-3, creating an Osborne Effect — customers stopped buying the current version while waiting for the upgrade. Excel moved into the vacuum. By 1992 Lotus had lost its commanding market position.",i:"<strong>The talent constraint crystallized:</strong> Lotus's failure to pivot was partly strategic blindness and partly a talent problem. Windows-native developers were in Seattle and Silicon Valley. Lotus, in Massachusetts' constrained talent market, couldn't refresh its engineering leadership the way California companies could freely recruit from neighbors."},
-msoffice:{e:"California wins · 1989",n:"Microsoft Office",y:"1989 · Excel + Word + PowerPoint bundled",f:"Microsoft bundled its applications into a suite priced to undercut Lotus SmartSuite on every dimension.",d:"Microsoft Office bundled Word, Excel, and PowerPoint — all built natively for Windows — at a price that undercut Lotus SmartSuite across all three categories simultaneously. Lotus's suite lacked Office's integration and quality. The suite strategy was itself a form of knowledge compounding: engineers who understood Word informed Excel development, which informed PowerPoint.",i:"<strong>The suite Microsoft won:</strong> Microsoft's Office suite was possible because engineers moved freely between Word, Excel, and PowerPoint teams, cross-pollinating knowledge. Lotus's products were built in silos. The organizational pattern mirrored Route 128: vertically integrated, proprietary, unable to cross-pollinate."},
-ibmbid:{e:"Terminal · June 1995",n:"IBM's hostile takeover",y:"$3.5 billion · ~$3B attributable to Notes",f:"IBM CEO Lou Gerstner wanted Notes specifically to compete with Microsoft's collaboration strategy.",d:"IBM made a hostile bid at $60/share in June 1995. After negotiation: $64/share — approximately $3.5 billion. Analysts estimated $3B of the purchase price was attributable to Notes. The rest (1-2-3, Ami Pro, other products) was worth perhaps $500M. IBM bought Lotus primarily because of a product built by someone who had left.",i:"<strong>The Notes premium:</strong> IBM paid $3.5B for Lotus because of Notes. Notes was built by Iris Associates. Iris was founded by Ray Ozzie, who had left Lotus. The most valuable thing Lotus ever distributed was built by a departed employee — with the founder's blessing, under Massachusetts law that complicated but did not legally prohibit the departure."},
-amipro:{e:"Third-place product",n:"Ami Pro → Word Pro",y:"Acquired from Samna Corp (Atlanta) 1990",f:"Lotus acquired Samna Corporation to enter the word processing market.",d:"Lotus acquired Ami Pro to compete against Microsoft Word and WordPerfect. Ami Pro was technically good but always ran third. Lotus renamed it Word Pro in 1995. The word processor business illustrated Lotus's broader challenge: entering markets where California and Seattle competitors had multi-year head starts and talent advantages.",i:"<strong>The acquisition-not-innovation pattern:</strong> Like EMC buying VMware and Documentum, Lotus grew primarily through acquisition (Ami Pro, cc:Mail, Organizer) rather than internal development. Massachusetts technology companies repeatedly bought California-origin technology rather than generating it internally."},
-grooveproto:{e:"Ozzie departure · 1997",n:"Ray Ozzie leaves IBM/Lotus",y:"1997 · founds Groove Networks in Beverly, MA",f:"Ozzie had stayed through the IBM acquisition and Iris integration. He left with a new peer-to-peer vision.",d:"After the IBM acquisition of Lotus and the Iris integration, Ozzie departed in 1997 to found Groove Networks. Groove enabled secure peer-to-peer collaboration for mobile business teams — his third iteration of the PLATO-inspired collaborative vision.",i:"<strong>The second departure:</strong> Ozzie's 1997 departure from IBM/Lotus is structurally identical to his 1984 departure from Lotus. Both times he left a large company to build a more focused collaborative tool. Both were eventually acquired. The Ozzie chain — Lotus → Iris → Groove → Microsoft → Azure — is Massachusetts' single most consequential talent chain. And it delivered its full value to Microsoft, not to Massachusetts."},
-ibmabsorb:{e:"Terminal · 1995–2018",n:"Lotus absorbed · brand retired · assets to HCL",y:"IBM 1995 · brand retired 2013 · HCL acquires 2018 for $1.8B",f:"The Lotus brand survived IBM for 18 years before being retired.",d:"IBM continued operating Lotus as a division but the brand declined. 1-2-3 was officially discontinued in 2013 — 31 years after launch. IBM sold remaining Lotus assets to HCL Technologies in 2018 for $1.8 billion. HCL continues developing HCL Notes today. The Lotus Development Corporation brand has been gone for 30 years. No significant spinoff companies. No successor ecosystem in Massachusetts.",i:"<strong>The final accounting:</strong> Lotus (1982) → IBM ($3.5B, 1995) → brand retired (2013) → HCL ($1.8B, 2018). No significant spinoffs. No successor ecosystem. The engineers who built Lotus either retired, moved to large companies, or — like Ozzie — built their most important work outside the state. Identical pattern to DEC and EMC."},
-groove:{e:"Ozzie chain · 2005",n:"Groove Networks → Microsoft",y:"Acquired 2005 · Ozzie becomes CTO then Chief Software Architect",f:"Ozzie succeeded Bill Gates as Microsoft Chief Software Architect in June 2006. Announced Azure in October 2008.",d:"Microsoft acquired Groove in 2005. Ozzie became one of three CTOs, then succeeded Gates as Chief Software Architect. In October 2008 he announced Windows Azure — Microsoft's cloud platform. The Ozzie chain: PLATO → Lotus → Iris (Notes) → IBM → Groove → Microsoft → Azure. Knowledge built at Lotus in Cambridge ultimately seeded Microsoft's cloud strategy.",i:"<strong>Value escaped Massachusetts:</strong> The most consequential thing Ray Ozzie ever built — Windows Azure — grew from knowledge accumulated at Lotus Development Corporation in Cambridge, Massachusetts. That knowledge compounded through two departures and two acquisitions before finding its most productive expression. Massachusetts incubated it. Microsoft captured it."},
-excelwins:{e:"Legacy · ongoing",n:"Excel remains the world's dominant spreadsheet",y:"Dominant since early 1990s · still leading 2026",f:"Microsoft Excel",d:"Excel, which began displacing 1-2-3 in the early 1990s, remains the world's dominant spreadsheet in 2026 — more than 40 years after its Mac launch. The knowledge that built Excel flowed through California's open ecosystem: graphical interface from Xerox PARC to Apple to Microsoft, spreadsheet concepts from VisiCalc to Lotus to Excel, each step legally uninhibited.",i:"<strong>The final irony:</strong> Excel's fundamental spreadsheet logic was informed by VisiCalc and Lotus 1-2-3 — both Massachusetts products. California's open ecosystem allowed Microsoft engineers to study and surpass those products. Massachusetts' non-compete environment prevented the same cross-pollination from flowing the other direction."},
-};
-function S(id){const d=D[id];if(!d)return;document.getElementById('me').textContent=d.e;document.getElementById('mn').textContent=d.n;document.getElementById('my').textContent=d.y;document.getElementById('mf').textContent=d.f||'';document.getElementById('md').textContent=d.d;document.getElementById('mi').innerHTML=d.i||'';document.getElementById('ov').classList.add('open');}
-function C(e,f){if(f||!e||e.target===document.getElementById('ov'))document.getElementById('ov').classList.remove('open');}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')document.getElementById('ov').classList.remove('open');});
-</script>
 </body>
 </html>
