@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PayPal Genealogy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f9f7f4;--surface:#fff;--surface2:#f2f0ed;
+  --border:rgba(0,0,0,.10);--border-med:rgba(0,0,0,.18);
+  --text:#1a1917;--text-sec:#6b6860;--text-muted:#9c9a96;
+  --gold:#b8860b;--gold-light:#f5e9c0;
+  --blue-dk:#0c447c;--blue-md:#185fa5;
+  --green-dk:#0f6e56;--coral-dk:#993c1d;
+  --purple-dk:#3c3489;--radius:10px;--radius-sm:6px;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.back-link{display:inline-block;margin-bottom:1rem;font-size:13px;color:var(--blue-dk);text-decoration:none;font-weight:600}
+.back-link:hover{text-decoration:underline}
+.site-header{background:var(--blue-dk);color:#fff;padding:3rem 2rem 2.5rem;position:relative;overflow:hidden}
+.site-header::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 40px,rgba(255,255,255,.025) 40px,rgba(255,255,255,.025) 41px)}
+.header-inner{max-width:1100px;margin:0 auto;position:relative}
+.kicker{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#85b7eb;margin-bottom:12px}
+.h-title{font-family:'DM Serif Display',serif;font-size:clamp(2rem,5vw,3.4rem);line-height:1.1;color:#fff;margin-bottom:10px}
+.h-sub{font-size:clamp(.95rem,2vw,1.2rem);color:#b5d4f4;font-weight:300;margin-bottom:1.5rem;max-width:700px}
+.stat-row{display:flex;flex-wrap:wrap;gap:1rem;margin-top:1.5rem}
+.pill{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:100px;padding:7px 16px;font-size:13px;color:#e6f1fb}
+.pill strong{color:#fff;font-weight:600}
+.page-body{max-width:1100px;margin:0 auto;padding:2rem 1.5rem 4rem}
+.intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem}
+@media(max-width:640px){.intro-grid{grid-template-columns:1fr}}
+.icard{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem 1.5rem}
+.icard h3{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:8px}
+.icard p{font-size:14px;line-height:1.65;color:var(--text-sec)}
+.callout{background:var(--gold-light);border-left:4px solid var(--gold);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:1rem 1.25rem;margin-bottom:2rem;font-size:14px;line-height:1.65}
+.callout strong{color:#3a2d00}
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:2rem}
+.sc{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem 1.5rem;text-align:center}
+.sn{font-family:'DM Serif Display',serif;font-size:2.2rem;color:var(--blue-dk);line-height:1;margin-bottom:6px}
+.sl{font-size:12px;color:var(--text-sec);line-height:1.4}
+footer{border-top:1px solid var(--border);padding:1.5rem 2rem;max-width:1100px;margin:0 auto;font-size:12px;color:var(--text-muted);line-height:1.6}
+</style>
+</head>
+<body>
+<div class="page-body" style="padding-top:1.5rem;padding-bottom:0">
+  <a href="./" class="back-link">← Back to visualizations</a>
+</div>
+
+<header class="site-header">
+<div class="header-inner">
+  <div class="kicker">Research Brief · Non-Compete &amp; Innovation Series</div>
+  <h1 class="h-title">PayPal Genealogy</h1>
+  <p class="h-sub">Silicon Valley fintech pioneer and the sprawling network of founders who built the modern tech ecosystem.</p>
+  <div class="stat-row">
+    <span class="pill"><strong>1998</strong> — X.com/PayPal founded</span>
+    <span class="pill"><strong>Multi-generational</strong> founder network</span>
+    <span class="pill"><strong>Silicon Valley, CA</strong> — no non-compete constraints</span>
+    <span class="pill"><strong>$100B+</strong> — descendant company value</span>
+  </div>
+</div>
+</header>
+
+<main class="page-body">
+<div class="intro-grid">
+  <div class="icard">
+    <h3>The PayPal Mafia</h3>
+    <p>Founded in 1998 as X.com (merging with Confinity to become PayPal), the company pioneered digital payments and attracted an exceptional concentration of entrepreneurial talent. PayPal alumni went on to found or lead Tesla, SpaceX, LinkedIn, YouTube, Square, Stripe, Yelp, and dozens of other major companies.</p>
+  </div>
+  <div class="icard">
+    <h3>California's departure advantage</h3>
+    <p>Operating in California with its unenforceable non-compete law, PayPal executives celebrated departures rather than litigating them. This culture of blessing departures created the conditions for the most prolific founder network in modern tech history.</p>
+  </div>
+</div>
+
+<div class="callout">
+  <strong>The network effect.</strong> PayPal's genealogy demonstrates how California's legal environment doesn't just permit founder departures — it encourages them. The "PayPal Mafia" is perhaps the clearest case study in how non-compete law directly shapes entrepreneurial ecosystems and generational wealth creation.
+</div>
+
+<div class="stats-row">
+  <div class="sc"><div class="sn">1998</div><div class="sl">X.com/PayPal founded</div></div>
+  <div class="sc"><div class="sn">Palo Alto, CA</div><div class="sl">Headquarters</span></div>
+  <div class="sc"><div class="sn">2002</div><div class="sl">IPO/eBay acquisition</div></div>
+  <div class="sc"><div class="sn">$100B+</div><div class="sl">Value of alumni-founded companies</div></div>
+</div>
+
+</main>
+
+<footer>
+  <strong>Sources:</strong> PayPal corporate history; founder biographical research; Peter Thiel and colleagues interviews; "The PayPal Wars" by Eric Jackson; Silicon Valley venture ecosystem analysis.
+  <br><br>Part of the <em>Bound by Law: Non-Compete Agreements and Innovation</em> research series.
+</footer>
+
+</body>
+</html>
