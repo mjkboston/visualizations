@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Route 128's Internet Layer: The Networking Cluster</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f9f7f4;--surface:#fff;--surface2:#f2f0ed;
+  --border:rgba(0,0,0,.10);--border-med:rgba(0,0,0,.18);
+  --text:#1a1917;--text-sec:#6b6860;--text-muted:#9c9a96;
+  --blue-dk:#0c447c;--blue-md:#185fa5;
+  --coral-dk:#993c1d;--teal-dk:#0f6e56;
+  --purple-dk:#3c3489;--gray-dk:#444441;
+  --radius:10px;--radius-sm:6px;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.site-header{background:#142840;color:#fff;padding:3rem 2rem 2.5rem;position:relative;overflow:hidden}
+.site-header::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 40px,rgba(255,255,255,.02) 40px,rgba(255,255,255,.02) 41px)}
+.header-inner{max-width:1100px;margin:0 auto;position:relative}
+.kicker{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#85b7eb;margin-bottom:12px}
+.h-title{font-family:'DM Serif Display',serif;font-size:clamp(1.8rem,4.5vw,3.2rem);line-height:1.1;color:#fff;margin-bottom:10px}
+.h-sub{font-size:clamp(.9rem,2vw,1.15rem);color:#b5d4f4;font-weight:300;margin-bottom:1.5rem;max-width:720px}
+.stat-row{display:flex;flex-wrap:wrap;gap:.85rem;margin-top:1.25rem}
+.pill{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:100px;padding:6px 14px;font-size:13px;color:#e6f1fb}
+.pill strong{color:#fff;font-weight:600}
+.page-body{max-width:1100px;margin:0 auto;padding:2rem 1.5rem 4rem}
+.intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem}
+@media(max-width:640px){.intro-grid{grid-template-columns:1fr}}
+.icard{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem 1.5rem}
+.icard h3{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:8px}
+.icard p{font-size:14px;line-height:1.65;color:var(--text-sec)}
+.callout{background:#eef7f4;border-left:4px solid var(--teal-dk);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:1rem 1.25rem;margin-bottom:2rem;font-size:14px;line-height:1.65;color:#062218}
+.callout strong{color:#04342c}
+.legend{display:flex;flex-wrap:wrap;gap:10px 24px;margin-bottom:1.25rem;font-size:12px;color:var(--text-sec)}
+.lchip{display:inline-flex;align-items:center;gap:6px}
+.ldot{width:10px;height:10px;border-radius:50%;flex-shrink:0;display:inline-block}
+.tree-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem 1rem 1rem;overflow-x:auto;margin-bottom:2rem}
+.tree-box h2{font-size:15px;font-weight:600;color:var(--text);margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--border)}
+svg.tree{display:block}
+.gl{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;fill:#9c9a96;letter-spacing:.08em;text-transform:uppercase}
+.ng{cursor:pointer}.ng rect{transition:filter .15s}.ng:hover rect{filter:brightness(1.08)}
+.nt{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;text-anchor:middle;dominant-baseline:central}
+.ns{font-family:'DM Sans',sans-serif;font-size:10px;text-anchor:middle;dominant-baseline:central}
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem;margin-bottom:2rem}
+.sc{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem 1.5rem;text-align:center}
+.sn{font-family:'DM Serif Display',serif;font-size:2.2rem;color:var(--blue-dk);line-height:1;margin-bottom:6px}
+.sl{font-size:12px;color:var(--text-sec);line-height:1.4}
+.chain-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-bottom:2rem}
+.chain-section h2{font-size:15px;font-weight:600;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--border)}
+.chain-item{display:flex;gap:1rem;padding:.75rem 0;border-bottom:1px solid var(--border)}
+.chain-item:last-child{border-bottom:none}
+.chain-dot{width:30px;height:30px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff;margin-top:2px}
+.chain-text h4{font-size:14px;font-weight:500;color:var(--text);margin-bottom:3px}
+.chain-text p{font-size:13px;color:var(--text-sec);line-height:1.5}
+.overlay{position:fixed;inset:0;z-index:200;background:rgba(15,10,5,.55);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s;padding:1rem}
+.overlay.open{opacity:1;pointer-events:auto}
+.modal{background:var(--surface);border-radius:var(--radius);border:1px solid var(--border-med);max-width:480px;width:100%;max-height:85vh;overflow-y:auto;padding:1.75rem;position:relative;box-shadow:0 24px 64px rgba(0,0,0,.22)}
+.mc{position:absolute;top:14px;right:16px;background:none;border:none;font-size:22px;cursor:pointer;color:var(--text-muted);line-height:1}
+.mc:hover{color:var(--text)}
+.m-era{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px}
+.m-name{font-family:'DM Serif Display',serif;font-size:1.35rem;color:var(--text);margin-bottom:4px;line-height:1.2;padding-right:2rem}
+.m-year{font-size:13px;color:var(--text-muted);margin-bottom:14px}
+.m-div{height:1px;background:var(--border);margin:1rem 0}
+.m-f{font-size:13px;color:var(--text-sec);margin-bottom:12px;line-height:1.55;font-style:italic}
+.m-d{font-size:14px;color:var(--text);line-height:1.65;margin-bottom:14px}
+.m-i{background:var(--surface2);border-radius:var(--radius-sm);padding:10px 14px;font-size:13px;color:var(--text-sec);line-height:1.55}
+.m-i strong{color:var(--text);font-weight:600}
+footer{border-top:1px solid var(--border);padding:1.5rem 2rem;max-width:1100px;margin:0 auto;font-size:12px;color:var(--text-muted);line-height:1.6}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <div class="kicker">Research Brief · Non-Compete &amp; Innovation Series</div>
+    <h1 class="h-title">Route 128's Internet Layer: The Networking Cluster That Built the Web's Backbone — and Then Disappeared</h1>
+    <p class="h-sub">MIT/ARPANET (1969) through Starent/Cisco (2009). Massachusetts produced Proteon, Interlan, Wellfleet, Cabletron, Cascade, Bay Networks, Sycamore, and Starent — a cluster of world-class networking companies. All were acquired. None generated a successor ecosystem. Cisco, founded the same year as Wellfleet, is worth $240 billion and spawned Juniper, Palo Alto Networks, and dozens more.</p>
+    <div class="stat-row">
+      <span class="pill"><strong>1969</strong> — MIT ARPANET node · cluster root</span>
+      <span class="pill"><strong>~$25B</strong> total MA networking exits</span>
+      <span class="pill"><strong>$240B</strong> Cisco today (CA, same era)</span>
+      <span class="pill"><strong>$3.7B</strong> Cascade → Ascend (Deshpande chain)</span>
+      <span class="pill"><strong>0</strong> significant MA spinoffs remaining independent</span>
+    </div>
+  </div>
+</header>
+
+<main class="page-body">
+  <div class="intro-grid">
+    <div class="icard">
+      <h3>The cluster</h3>
+      <p>From MIT's ARPANET node in 1969 through Starent's $2.9B Cisco acquisition in 2009, Massachusetts produced a generation of networking companies that built real infrastructure — routers, switches, ATM gear, optical networks, mobile packet core. Proteon built the first commercial multi-protocol router. Wellfleet was Cisco's closest competitor. Cascade transformed telecoms. Sycamore pioneered optical networking. Starent built 4G mobile infrastructure.</p>
+    </div>
+    <div class="icard">
+      <h3>The pattern</h3>
+      <p>Every major Massachusetts networking company was eventually acquired. None generated a successor ecosystem. The knowledge that built Bay Networks dispersed into Nortel, which went bankrupt. The knowledge that built Cascade dispersed into Ascend, then Lucent, then Agere. Deshpande's Sycamore, which peaked at $18 billion, became Coriant, then Infinera. The chain compounded — and then terminated. In California, the equivalent chain is still running.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>Cabletron's history names the mechanism explicitly.</strong> When Cabletron moved from Massachusetts to New Hampshire in 1985, its founders discovered that "lower housing mortgages attracted well-trained, highly creative software and hardware engineers from the failing computer businesses situated along Route 128." DEC and Wang engineers — constrained by non-compete agreements from founding their own companies — relocated across the state border and went to work for Cabletron instead. The talent circulated within the ecosystem rather than spinning off into new ventures. This is the non-compete constraint made visible in a single sentence of corporate history.
+  </div>
+
+  <div class="legend">
+    <span class="lchip"><span class="ldot" style="background:#5f5e5a"></span>University roots</span>
+    <span class="lchip"><span class="ldot" style="background:#0c447c"></span>MA core cluster</span>
+    <span class="lchip"><span class="ldot" style="background:#185fa5"></span>MA gen 2 / merged</span>
+    <span class="lchip"><span class="ldot" style="background:#993c1d"></span>Acquired / terminated</span>
+    <span class="lchip"><span class="ldot" style="background:#0f6e56"></span>Deshpande serial founding chain</span>
+    <span class="lchip"><span class="ldot" style="background:#534ab7"></span>California (Cisco) — contrast</span>
+  </div>
+
+  <div class="tree-box">
+    <h2>Route 128 networking genealogy — click any node to explore</h2>
+    <svg class="tree" viewBox="0 0 940 900" width="100%" style="min-width:680px">
+    <defs><marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+    <text class="gl" x="12" y="80">Roots · 1969</text>
+    <text class="gl" x="12" y="188">Gen 1 · 1972–84</text>
+    <text class="gl" x="12" y="308">Gen 2 · 1983–90</text>
+    <text class="gl" x="12" y="428">Mergers · 1994</text>
+    <text class="gl" x="12" y="548">Acquisitions · 1997–98</text>
+    <text class="gl" x="12" y="668">Final exits</text>
+    <text class="gl" x="12" y="788">Legacy</text>
+    <line x1="108" y1="100" x2="930" y2="100" stroke="#e0ded8" stroke-width=".5"/>
+    <line x1="108" y1="220" x2="930" y2="220" stroke="#e0ded8" stroke-width=".5"/>
+    <line x1="108" y1="340" x2="930" y2="340" stroke="#e0ded8" stroke-width=".5"/>
+    <line x1="108" y1="460" x2="930" y2="460" stroke="#e0ded8" stroke-width=".5"/>
+    <line x1="108" y1="580" x2="930" y2="580" stroke="#e0ded8" stroke-width=".5"/>
+    <line x1="108" y1="700" x2="930" y2="700" stroke="#e0ded8" stroke-width=".5"/>
+
+    <!-- ROW 1 -->
+    <g class="ng" onclick="S('mit')"><rect x="118" y="60" width="186" height="44" rx="7" fill="#5f5e5a" stroke="#444441" stroke-width=".5"/><text class="nt" x="211" y="78" fill="#d3d1c7">MIT / ARPANET</text><text class="ns" x="211" y="94" fill="#b4b2a9">1969 · first node · BBN Cambridge</text></g>
+    <g class="ng" onclick="S('stanford_cisco')"><rect x="720" y="60" width="186" height="44" rx="7" fill="#5f5e5a" stroke="#444441" stroke-width=".5"/><text class="nt" x="813" y="78" fill="#d3d1c7">Stanford network</text><text class="ns" x="813" y="94" fill="#b4b2a9">Bosack + Lerner · 1969 context</text></g>
+
+    <path fill="none" stroke="#5f5e5a" stroke-width="1.2" d="M211 104L211 170" marker-end="url(#a)"/>
+    <path fill="none" stroke="#534ab7" stroke-width="1.2" d="M813 104L813 170" marker-end="url(#a)"/>
+
+    <!-- ROW 2 -->
+    <g class="ng" onclick="S('proteon')"><rect x="118" y="170" width="156" height="44" rx="7" fill="#185fa5" stroke="#3b8bd4" stroke-width=".5"/><text class="nt" x="196" y="188" fill="#e6f1fb">Proteon</text><text class="ns" x="196" y="204" fill="#85b7eb">Westborough 1972 · first router</text></g>
+    <g class="ng" onclick="S('interlan')"><rect x="294" y="170" width="148" height="44" rx="7" fill="#0c447c" stroke="#185fa5" stroke-width=".5"/><text class="nt" x="368" y="188" fill="#b5d4f4">Interlan</text><text class="ns" x="368" y="204" fill="#85b7eb">Bedford 1981 · Severino</text></g>
+    <g class="ng" onclick="S('cisco84')"><rect x="720" y="170" width="186" height="44" rx="7" fill="#534ab7" stroke="#7f77dd" stroke-width="1"/><text class="nt" x="813" y="188" fill="#eeedfe">Cisco Systems</text><text class="ns" x="813" y="204" fill="#afa9ec">CA Dec 1984 · Stanford exit · §16600</text></g>
+
+    <path fill="none" stroke="#185fa5" stroke-width="1.2" d="M196 214L196 290" marker-end="url(#a)"/>
+    <path fill="none" stroke="#0c447c" stroke-width="1.2" d="M368 214L260 290" marker-end="url(#a)"/>
+    <path fill="none" stroke="#0c447c" stroke-width="1.2" d="M368 214L410 290" marker-end="url(#a)"/>
+    <path fill="none" stroke="#534ab7" stroke-width="1.5" d="M813 214L813 290" marker-end="url(#a)"/>
+
+    <!-- ROW 3 -->
+    <g class="ng" onclick="S('wellfleet')"><rect x="118" y="288" width="164" height="44" rx="7" fill="#0c447c" stroke="#185fa5" stroke-width=".5"/><text class="nt" x="200" y="306" fill="#b5d4f4">Wellfleet</text><text class="ns" x="200" y="322" fill="#85b7eb">Bedford 1986 · 5 Interlan alums</text></g>
+    <g class="ng" onclick="S('cabletron')"><rect x="302" y="288" width="148" height="44" rx="7" fill="#0c447c" stroke="#185fa5" stroke-width=".5"/><text class="nt" x="376" y="306" fill="#b5d4f4">Cabletron</text><text class="ns" x="376" y="322" fill="#85b7eb">NH 1983 · Interlan alum</text></g>
+    <g class="ng" onclick="S('coral')"><rect x="466" y="288" width="132" height="44" rx="7" fill="#0f6e56" stroke="#1d9e75" stroke-width=".5"/><text class="nt" x="532" y="306" fill="#e1f5ee">Coral Networks</text><text class="ns" x="532" y="322" fill="#9fe1cb">1988 · Deshpande chain 1</text></g>
+    <g class="ng" onclick="S('cisco_growth')"><rect x="722" y="288" width="184" height="44" rx="7" fill="#534ab7" stroke="#7f77dd" stroke-width=".5"/><text class="nt" x="814" y="306" fill="#eeedfe">Cisco grows rapidly</text><text class="ns" x="814" y="322" fill="#afa9ec">IPO 1990 · recruits freely · §16600</text></g>
+
+    <path fill="none" stroke="#185fa5" stroke-width="1.5" d="M200 332L200 408" marker-end="url(#a)"/>
+    <path fill="none" stroke="#185fa5" stroke-width="1.2" d="M376 332L326 408" marker-end="url(#a)"/>
+    <path fill="none" stroke="#993c1d" stroke-width="1" stroke-dasharray="4 2" d="M376 332L476 408" marker-end="url(#a)"/>
+    <path fill="none" stroke="#0f6e56" stroke-width="1.5" d="M532 332L560 408" marker-end="url(#a)"/>
+    <path fill="none" stroke="#534ab7" stroke-width="1.5" d="M814 332L814 408" marker-end="url(#a)"/>
+
+    <!-- ROW 4 -->
+    <g class="ng" onclick="S('bay')"><rect x="118" y="408" width="228" height="44" rx="7" fill="#993c1d" stroke="#d85a30" stroke-width=".5"/><text class="nt" x="232" y="426" fill="#faece7">Bay Networks</text><text class="ns" x="232" y="442" fill="#f0997b">1994 Wellfleet+SynOptics · $2.7B</text></g>
+    <g class="ng" onclick="S('enterasys')"><rect x="364" y="408" width="132" height="44" rx="7" fill="#993c1d" stroke="#d85a30" stroke-width=".5"/><text class="nt" x="430" y="426" fill="#faece7">Enterasys</text><text class="ns" x="430" y="442" fill="#f0997b">Cabletron spinoff 2001</text></g>
+    <g class="ng" onclick="S('cascade')"><rect x="514" y="408" width="148" height="44" rx="7" fill="#0f6e56" stroke="#1d9e75" stroke-width=".5"/><text class="nt" x="588" y="426" fill="#e1f5ee">Cascade Comms</text><text class="ns" x="588" y="442" fill="#9fe1cb">Westford 1990 · Deshpande 2</text></g>
+    <g class="ng" onclick="S('cisco_acquisitions')"><rect x="722" y="408" width="184" height="44" rx="7" fill="#534ab7" stroke="#7f77dd" stroke-width=".5"/><text class="nt" x="814" y="426" fill="#eeedfe">Cisco acquisitions era</text><text class="ns" x="814" y="442" fill="#afa9ec">70+ acquisitions 1993–2001</text></g>
+
+    <path fill="none" stroke="#993c1d" stroke-width="1.5" d="M232 452L232 528" marker-end="url(#a)"/>
+    <path fill="none" stroke="#993c1d" stroke-width="1" d="M430 452L430 528" marker-end="url(#a)"/>
+    <path fill="none" stroke="#0f6e56" stroke-width="1.5" d="M588 452L588 528" marker-end="url(#a)"/>
+    <path fill="none" stroke="#534ab7" stroke-width="1.5" d="M814 452L814 528" marker-end="url(#a)"/>
+
+    <!-- ROW 5 -->
+    <g class="ng" onclick="S('nortel')"><rect x="118" y="528" width="224" height="44" rx="7" fill="#993c1d" stroke="#d85a30" stroke-width=".5"/><text class="nt" x="230" y="546" fill="#faece7">Nortel acquires Bay</text><text class="ns" x="230" y="562" fill="#f0997b">$9.1B 1998 → bankrupt 2009</text></g>
+    <g class="ng" onclick="S('extreme')"><rect x="360" y="528" width="148" height="44" rx="7" fill="#993c1d" stroke="#d85a30" stroke-width=".5"/><text class="nt" x="434" y="546" fill="#faece7">Extreme Networks</text><text class="ns" x="434" y="562" fill="#f0997b">acquires Enterasys 2013</text></g>
+    <g class="ng" onclick="S('sycamore')"><rect x="526" y="528" width="168" height="44" rx="7" fill="#0f6e56" stroke="#1d9e75" stroke-width=".5"/><text class="nt" x="610" y="546" fill="#e1f5ee">Sycamore Networks</text><text class="ns" x="610" y="562" fill="#9fe1cb">Chelmsford 1998 · $18B peak</text></g>
+    <g class="ng" onclick="S('juniper')"><rect x="722" y="528" width="184" height="44" rx="7" fill="#534ab7" stroke="#7f77dd" stroke-width=".5"/><text class="nt" x="814" y="546" fill="#eeedfe">Juniper Networks</text><text class="ns" x="814" y="562" fill="#afa9ec">CA 1996 · ex-Cisco engineers</text></g>
+
+    <path fill="none" stroke="#993c1d" stroke-width="1.5" d="M230 572L230 648" marker-end="url(#a)"/>
+    <path fill="none" stroke="#993c1d" stroke-width="1" d="M434 572L434 648" marker-end="url(#a)"/>
+    <path fill="none" stroke="#0f6e56" stroke-width="1.5" d="M610 572L610 648" marker-end="url(#a)"/>
+    <path fill="none" stroke="#534ab7" stroke-width="1.5" d="M814 572L814 648" marker-end="url(#a)"/>
+
+    <!-- ROW 6 -->
+    <g class="ng" onclick="S('nortel_bankrupt')"><rect x="118" y="648" width="224" height="44" rx="7" fill="#791f1f" stroke="#e24b4a" stroke-width="1"/><text class="nt" x="230" y="666" fill="#fcebeb">Nortel bankrupt 2009</text><text class="ns" x="230" y="682" fill="#f7c1c1">Patents $4.5B · no successor</text></g>
+    <g class="ng" onclick="S('extreme2')"><rect x="360" y="648" width="148" height="44" rx="7" fill="#993c1d" stroke="#d85a30" stroke-width=".5"/><text class="nt" x="434" y="666" fill="#faece7">Extreme Networks</text><text class="ns" x="434" y="682" fill="#f0997b">EXTR · niche · CA HQ</text></g>
+    <g class="ng" onclick="S('starent')"><rect x="526" y="648" width="168" height="44" rx="7" fill="#0f6e56" stroke="#1d9e75" stroke-width=".5"/><text class="nt" x="610" y="666" fill="#e1f5ee">Starent → Cisco</text><text class="ns" x="610" y="682" fill="#9fe1cb">Tewksbury 2000 · $2.9B 2009</text></g>
+    <g class="ng" onclick="S('cisco_today')"><rect x="722" y="648" width="184" height="44" rx="7" fill="#534ab7" stroke="#7f77dd" stroke-width=".5"/><text class="nt" x="814" y="666" fill="#eeedfe">Cisco today</text><text class="ns" x="814" y="682" fill="#afa9ec">$240B · Juniper · PAN · Aruba</text></g>
+
+    <path fill="none" stroke="#993c1d" stroke-width="1.5" d="M230 692L230 768" marker-end="url(#a)"/>
+    <path fill="none" stroke="#0f6e56" stroke-width="1.2" d="M610 692L500 768" marker-end="url(#a)"/>
+    <path fill="none" stroke="#534ab7" stroke-width="1.5" d="M814 692L750 768" marker-end="url(#a)"/>
+
+    <!-- ROW 7 -->
+    <g class="ng" onclick="S('legacy_ma')"><rect x="118" y="768" width="356" height="44" rx="7" fill="#791f1f" stroke="#e24b4a" stroke-width="1"/><text class="nt" x="296" y="786" fill="#fcebeb">MA cluster: acquired, bankrupt, or niche</text><text class="ns" x="296" y="802" fill="#f7c1c1">No successor ecosystem · 40 years · knowledge dispersed</text></g>
+    <g class="ng" onclick="S('legacy_ca')"><rect x="492" y="768" width="414" height="44" rx="7" fill="#534ab7" stroke="#7f77dd" stroke-width=".5"/><text class="nt" x="699" y="786" fill="#eeedfe">Cisco ecosystem: ongoing and compounding</text><text class="ns" x="699" y="802" fill="#afa9ec">Juniper · Aruba · Meraki · Palo Alto Networks ($100B+)</text></g>
+
+    <!-- Caption -->
+    <rect x="108" y="830" width="820" height="40" rx="5" fill="none" stroke="#e0ded8" stroke-width=".5"/>
+    <text style="font-family:'DM Sans',sans-serif;font-size:12px;fill:#9c9a96;dominant-baseline:central" x="518" y="845" text-anchor="middle">MA networking: ~$25B in exits · zero successor companies · all knowledge absorbed into acquirers</text>
+    <text style="font-family:'DM Sans',sans-serif;font-size:12px;fill:#9c9a96;dominant-baseline:central" x="518" y="862" text-anchor="middle">Cisco (CA, same era): $240B · Juniper ($10B+) · Palo Alto Networks ($100B+) · still compounding</text>
+    </svg>
+  </div>
+
+  <div class="stats-row">
+    <div class="sc"><div class="sn">1969</div><div class="sl">MIT ARPANET node — cluster's root</div></div>
+    <div class="sc"><div class="sn">~$25B</div><div class="sl">Total MA networking exits combined</div></div>
+    <div class="sc"><div class="sn">$240B</div><div class="sl">Cisco market cap today — same founding era</div></div>
+    <div class="sc"><div class="sn">3</div><div class="sl">Deshpande companies: Coral → Cascade ($3.7B) → Sycamore ($18B peak)</div></div>
+    <div class="sc"><div class="sn">0</div><div class="sl">Significant MA networking companies remaining independent</div></div>
+    <div class="sc"><div class="sn">§16600</div><div class="sl">CA law at every Cisco-ecosystem departure — MA did not have it</div></div>
+  </div>
+
+  <div class="chain-section">
+    <h2>The Deshpande chain — three companies, three exits, one serial founder</h2>
+    <div class="chain-item"><div class="chain-dot" style="background:#0f6e56">1</div><div class="chain-text"><h4>Coral Networks (1988) → sold to SynOptics for $15M</h4><p>Deshpande arrived in Massachusetts from Canada in 1984. Within four years he had co-founded Coral Networks, a router developer. He departed before its SynOptics sale and used the proceeds to fund the next venture.</p></div></div>
+    <div class="chain-item"><div class="chain-dot" style="background:#0f6e56">2</div><div class="chain-text"><h4>Cascade Communications (1990) → sold to Ascend for $3.7B</h4><p>Cascade built ATM and frame relay switches for telecommunications companies handling the internet's explosive data growth. Deshpande and CEO Dan Smith grew it to be the dominant ATM switching vendor. Cascade alumni went on to found multiple Boston-area telecom companies in the late 1990s — the cluster's best documented second-generation effect.</p></div></div>
+    <div class="chain-item"><div class="chain-dot" style="background:#0f6e56">3</div><div class="chain-text"><h4>Sycamore Networks (1998) → $18B peak valuation → Coriant → Infinera</h4><p>Deshpande and Smith immediately re-founded after the Cascade sale, building intelligent optical networking equipment. Sycamore went public in 1999, peaked at $18 billion, then collapsed with the dot-com bust. It was eventually merged into Coriant (2013) and then acquired by Infinera — a California company. The Deshpande chain terminated in Massachusetts even as it peaked there.</p></div></div>
+    <div class="chain-item"><div class="chain-dot" style="background:#0f6e56">4</div><div class="chain-text"><h4>Starent Networks (2000) → sold to Cisco for $2.9B</h4><p>Founded by Cascade/NetCore alums Ashraf Dahod and Anthony Schoener. Built IP-based mobile packet core for 3G/4G networks. Acquired by Cisco in 2009 — the last significant exit in the Massachusetts networking cluster. The technology went to California; the engineers went to work for Cisco.</p></div></div>
+  </div>
+</main>
+
+<footer>
+  <strong>Sources:</strong> Wikipedia: Wellfleet Communications, Bay Networks, Cabletron Systems, Proteon, Sycamore Networks, Cascade Communications, Starent Networks, Cisco Systems, Juniper Networks, Enterasys Networks; History of Computer Communications (historyofcomputercommunications.info): Wellfleet, Interlan, Cisco; Network World, "Hot shots from the past: Paul Severino" (May 2011); FundingUniverse: Cabletron Systems history; IEEE ETHW: Gururaj Deshpande; Immigrant Learning Center: Gururaj Deshpande profile; SEC Form 8-K: Cisco/Starent acquisition (October 2009).
+  <br><br>Part of the <em>Bound by Law: Non-Compete Agreements and Innovation</em> research series.
+</footer>
+
+<div class="overlay" id="ov" onclick="C(event)">
+<div class="modal">
+  <button class="mc" onclick="C(null,1)">×</button>
+  <div class="m-era" id="me"></div><div class="m-name" id="mn"></div><div class="m-year" id="my"></div>
+  <div class="m-div"></div>
+  <div class="m-f" id="mf"></div><div class="m-d" id="md"></div><div class="m-i" id="mi"></div>
+</div>
+</div>
+
+<script>
+const D={
+mit:{e:"Root · 1969",n:"MIT / ARPANET",y:"Cambridge, MA · October 29, 1969",f:"MIT's Lincoln Laboratory and Project MAC hosted the second ARPANET node; BBN Technologies (Cambridge) built the Interface Message Processors.",d:"MIT's role as an ARPANET node gave Massachusetts a head start in internet infrastructure research. The networking knowledge developed at MIT seeded Proteon (1972), whose founder Howard Salwen worked with MIT to build the first commercial router. Noel Chiappa at MIT wrote the multi-protocol router code that became the foundation for Proteon's p4200.",i:"<strong>The MIT foundation:</strong> Unlike Stanford's commercialization culture, MIT's networking research stayed closer to the academic sphere longer. The knowledge was available; the commercial urgency to exploit it was weaker. This reflects a broader pattern: world-class technical research, slower translation to commercial companies, and non-compete agreements that made departures to commercialize that research legally fraught."},
+stanford_cisco:{e:"Root · 1969 context",n:"Stanford University network",y:"Stanford, CA · Bosack and Lerner connect the campus",f:"Bosack managed the CS department network; Lerner managed the business school network.",d:"Bosack and Lerner built a multi-protocol router to connect Stanford's detached computer networks. When they sought to commercialize it, Stanford's OTL moved too slowly. Frustrated, they left December 1984 and founded Cisco in their living room. California §16600 meant their departure from Stanford employment carried no non-compete risk.",i:"<strong>The founding departure:</strong> Bosack and Lerner left Stanford employment to commercialize technology they had developed on the job. In Massachusetts, such a departure would have invited non-compete and trade secret scrutiny. In California, §16600 made it legally automatic. Cisco was funded by Sequoia in 1987 and went public in 1990."},
+proteon:{e:"Gen 1 · 1972",n:"Proteon, Inc.",y:"Westborough, MA · founded 1972 by Howard Salwen",f:"Founded as a communications consulting firm; built first commercial Token Ring and multi-protocol router in conjunction with MIT.",d:"Proteon released the first commercial Token Ring interface in 1981 and the first commercially available multi-protocol internet router — the p4200 — in 1986, based on MIT code by Noel Chiappa. Proteon went public in 1993 but struggled to compete with Cisco and was relaunched as OpenROUTE Networks before folding.",i:"<strong>The overlooked pioneer:</strong> Proteon holds a strong claim to the world's first commercial multi-protocol router — two years before Cisco's first product. Yet Cisco became $240B and Proteon became a footnote. The difference was not technical: it was the legal and cultural environment governing departure and talent mobility. California §16600 made every Cisco engineer departure legally automatic."},
+interlan:{e:"Gen 1 · 1981",n:"Interlan, Inc.",y:"Bedford, MA · founded May 1981 by Paul Severino",f:"Severino founded Interlan to sell Ethernet controller boards for minicomputer networks.",d:"Interlan was one of the pioneering Ethernet product companies in Massachusetts. Severino grew it rapidly but concluded it was under-capitalized and engineered its Micom acquisition for $65M in March 1985. He served briefly as Micom VP before leaving in September 1985. He took four Interlan colleagues to found Wellfleet in 1986. Separately, Craig Benson — a materials management specialist at Interlan — co-founded Cabletron in 1983.",i:"<strong>The Interlan diaspora:</strong> Interlan was the primary talent node for the Massachusetts networking cluster. At least two major companies grew directly from it: Wellfleet (Severino + four Interlan colleagues) and Cabletron (Benson, an Interlan alum). This is compounding — one company seeding the next generation. But the chain terminated within two generations. No third generation emerged."},
+cisco84:{e:"Founding · 1984",n:"Cisco Systems",y:"Menlo Park, CA · founded December 10, 1984",f:"Sandy Lerner + Len Bosack. First investor: Sequoia Capital (Don Valentine), 1987.",d:"Cisco was founded the same year Wellfleet's founders were planning their startup. Both clusters — Massachusetts and California — began the router era simultaneously. Within five years, the trajectory had already diverged: Cisco went public in 1990 and grew by hiring freely from universities, DEC, HP, and Sun. Engineers moved fluidly. Wellfleet competed well — but its Massachusetts talent pool was constrained by non-competes.",i:"<strong>The California counterpart:</strong> Cisco and Wellfleet were direct competitors in the late 1980s. Wellfleet reached 20% global router market share vs. Cisco's 50%. The products were comparable. The talent ecosystems were not. Cisco's California location meant it could recruit freely from anywhere in the Valley. Wellfleet's Massachusetts location meant key talent faced legal friction in moving between companies."},
+wellfleet:{e:"Gen 2 · 1986",n:"Wellfleet Communications",y:"Bedford, then Billerica, MA · founded June 1986",f:"Paul Severino + Bill Seifert + Steven Willis + Jennifer Lamonakis + David Rowe — all Interlan alumni.",d:"Wellfleet was founded by five Interlan colleagues. Severino spent months in a neutral consulting period before recruiting the founding team — navigating his post-Micom status carefully. Fortune named Wellfleet the fastest-growing company in America in 1992 and 1993. At its peak it held 20% of the global router market, second only to Cisco's 50%.",i:"<strong>The Interlan departure:</strong> Severino spent months in a liminal consulting period before recruiting his Wellfleet team — navigating the non-compete landscape carefully. California §16600 would have made the transition legally automatic. Cisco's founders left Stanford on December 10, 1984 and were selling routers within months."},
+cabletron:{e:"Gen 2 · 1983",n:"Cabletron Systems",y:"Ashland, MA garage → Rochester, NH · founded March 1983",f:"Robert Levine (sales rep) + Craig Benson (ex-Interlan materials manager).",d:"Cabletron moved to New Hampshire in 1985 for lower costs. Critically: 'lower housing mortgages attracted well-trained, highly creative software and hardware engineers from the failing computer businesses situated along Route 128.' Cabletron harvested DEC and Wang engineers who could not easily found their own companies due to non-competes. Cabletron grew to $1B in revenue but generated no significant spinoffs of its own.",i:"<strong>The DEC/Wang pipeline:</strong> This detail — Cabletron specifically recruited engineers from 'failing computer businesses situated along Route 128' — makes the non-compete constraint explicit in corporate history. Engineers constrained from founding competitors instead relocated to New Hampshire and took employment at Cabletron. The talent circulated within the ecosystem rather than spinning off into new ventures."},
+coral:{e:"Deshpande chain 1 · 1988",n:"Coral Networks",y:"Massachusetts · co-founded 1988 by Gururaj Deshpande",f:"Deshpande had come from Codex Corporation (Motorola modem subsidiary) in 1984. Coral built router technology.",d:"Deshpande arrived in Massachusetts in 1984, drawn by the concentration of networking companies and VC. Within four years he co-founded Coral Networks. He departed before its SynOptics sale in 1993 for $15M. That departure seeded the Cascade founding.",i:"<strong>Deshpande's chain begins:</strong> Deshpande is the Massachusetts networking cluster's most prolific serial founder — three companies, three exits, compounding value at each step. His pattern mirrors exactly what the Fairchild genealogy produced in California. In Massachusetts, this was exceptional. In California, it was standard."},
+cisco_growth:{e:"California · 1990",n:"Cisco grows",y:"IPO February 1990 · $500B peak market cap in 2000",f:"Cisco went public and began acquiring companies founded by its own departing engineers.",d:"Cisco's growth was powered by California's open talent market. Engineers moved freely between Sun, SGI, Apple, and Cisco. Cisco acquired 70+ companies during the 1990s, many founded by former employees who had departed freely under §16600. By 2000 Cisco was briefly the most valuable company in the world.",i:"<strong>The California talent flywheel:</strong> Cisco's growth was self-reinforcing. Engineers departed freely; founded startups; Cisco acquired the startups; engineers received Cisco stock and departed again. Massachusetts had no equivalent flywheel. Wellfleet's engineers, bound by non-competes, couldn't freely join Cisco or found adjacent companies."},
+bay:{e:"Merger · 1994",n:"Bay Networks",y:"Billerica MA + Santa Clara CA · formed July 6, 1994",f:"Merger of Wellfleet (MA, routers) + SynOptics (CA, Ethernet hubs). $2.7B deal.",d:"Bay Networks merged Wellfleet's routing expertise with SynOptics' Ethernet hub dominance. Named for both companies' locations: Boston Bay and San Francisco Bay. The merger was intended to create a Cisco challenger. Instead it struggled with integration challenges and was acquired by Nortel for $9.1B in 1998.",i:"<strong>The cross-country merger:</strong> Bay Networks illustrates a recurring pattern: Massachusetts technology companies merged with California companies to gain scale, but produced a less agile combined entity that was then acquired by an outside party. The Massachusetts networking cluster's most ambitious combination lasted four years before being absorbed."},
+enterasys:{e:"Spinoff · 2001",n:"Enterasys Networks",y:"Salem, NH · spun out of Cabletron 2001",f:"One of four divisions created when Cabletron dissolved itself in 2000.",d:"Cabletron's dissolution into four companies was unusual — more spinoff than acquisition. Enterasys kept the enterprise networking products. It was acquired by Extreme Networks in 2013. The Cabletron diaspora thus generated four successor entities — more than any other Massachusetts networking company — but none achieved significant independent scale.",i:"<strong>The Cabletron dissolution as partial compounding:</strong> Cabletron's breakup is the MA cluster's closest approximation to the Fairchild departure pattern — but these were corporate spinoffs, not entrepreneurial employee departures. They inherited products and culture, not the freedom and fresh capital that Fairchild-style departures generated. All four were eventually acquired."},
+cascade:{e:"Deshpande chain 2 · 1990",n:"Cascade Communications",y:"Westford, MA · founded 1990 by Gururaj Deshpande",f:"CEO: Dan Smith (Harvard MBA). Deshpande as founder and technical visionary.",d:"Cascade built ATM and frame relay switches for telecom companies handling exploding internet data traffic. Dan Smith ran daily operations. Cascade was acquired by Ascend Communications in 1997 for $3.7B. Wikipedia notes Cascade 'was notable for invigorating the telecommunications startup culture in Massachusetts in the mid-1990s. Cascade alumni were founders or key contributors to many other financially successful Boston area telecom companies in the late 1990s.'",i:"<strong>The Cascade alumni effect:</strong> Cascade is the MA networking cluster's best example of second-generation compounding. VP Mike Champa founded Omnia Communications and led Winphoria Networks. Other Cascade alumni founded or led several Boston-area telecom companies in the late 1990s. Deshpande and Smith used the $3.7B exit to immediately found Sycamore."},
+cisco_acquisitions:{e:"California · 1990s",n:"Cisco's acquisition era",y:"70+ acquisitions 1993–2001 · many founded by Cisco alumni",f:"Cisco acquired companies founded by its own former employees — the California flywheel in action.",d:"During the 1990s Cisco executed 70+ acquisitions — many of small companies founded by engineers who had previously worked at Cisco, Sun, 3Com, or other California networking firms. §16600 meant these engineers had founded their companies without non-compete restrictions. Cisco then acquired them at premium valuations.",i:"<strong>The California acquisition flywheel:</strong> Cisco's acquisition strategy was only possible because engineers could freely depart and found competitors. In Massachusetts, non-competes would have complicated many of these departures. The result: California had a dense ecosystem of Cisco-adjacent startups for Cisco to acquire; Massachusetts had a handful of independently founded companies acquired by outside entities."},
+nortel:{e:"Acquisition · 1998",n:"Nortel acquires Bay Networks",y:"$9.1 billion · June 1998",f:"Northern Telecom (Nortel) purchased Bay Networks to expand from telephony into internet networking.",d:"Nortel paid $9.1B for Bay Networks. The deal failed: Nortel's management culture was incompatible with Bay's engineering culture; the dot-com bust devastated revenues; an accounting scandal in 2004 accelerated decline. Nortel filed for bankruptcy in January 2009 — one of the largest bankruptcies in Canadian history.",i:"<strong>The terminal acquisition chain:</strong> MIT → Interlan → Wellfleet → Bay Networks ($2.7B) → Nortel ($9.1B) → bankruptcy (2009) → patents sold to Apple/Microsoft ($4.5B). Six steps, 40 years, all value ultimately dispersed without seeding a successor ecosystem."},
+extreme:{e:"Acquisition · 2013",n:"Extreme Networks acquires Enterasys",y:"2013 · Extreme Networks (EXTR) still public",f:"Extreme Networks was founded in 1996 by former 3Com employees — a California company.",d:"Extreme Networks acquired Enterasys in 2013. Still a public company with approximately $1B in annual revenue — a legitimate but modest outcome compared to Cisco's $57B or Juniper's $5B. The Enterasys/Extreme combination is the Massachusetts networking cluster's most complete survival story.",i:"<strong>Survival without compounding:</strong> Extreme Networks demonstrates that the Massachusetts cluster's technology was viable — it survived decades of consolidation. What didn't survive was the Massachusetts location, the independent corporate identity, or the ability to seed a successor generation. The technology competes; the ecosystem did not reproduce itself."},
+sycamore:{e:"Deshpande chain 3 · 1998",n:"Sycamore Networks",y:"Chelmsford, MA · founded February 1998",f:"Gururaj Deshpande + Daniel Smith — immediately after selling Cascade for $3.7B.",d:"Sycamore built intelligent optical networking equipment. It went public October 1999 at $38/share — the stock rose to $150 on day one. At its peak Sycamore was worth $18B, making Deshpande one of the world's wealthiest individuals. The dot-com bust and telecom spending collapse devastated revenues; the stock fell 99% from peak. Sycamore was eventually merged into Coriant (2013) then acquired by Infinera.",i:"<strong>The chain's apex:</strong> Coral ($15M) → Cascade ($3.7B) → Sycamore ($18B peak). Three companies, three generations, compounding value at each step. But notice what Sycamore did not produce: a fourth generation. The company never generated significant spinoffs. Its knowledge was absorbed into California companies. The chain terminated in Massachusetts even as it peaked there."},
+juniper:{e:"California · 1996",n:"Juniper Networks",y:"Sunnyvale, CA · founded 1996 by Pradeep Sindhu (ex-Xerox PARC)",f:"Pradeep Sindhu left Xerox PARC. Many early employees from Cisco and other CA networking companies.",d:"Juniper was founded to compete directly with Cisco in high-end routers. California §16600 meant Sindhu could leave Xerox PARC and found a Cisco competitor; that Cisco engineers could join Juniper without legal risk; that Juniper alumni could later found further companies. Juniper went public in 1999, now has a ~$10B market cap, and has generated alumni companies including Aruba Networks ($3B HP acquisition).",i:"<strong>The California second generation:</strong> Juniper is what the Massachusetts cluster never produced — a second-generation networking company of scale, founded by an engineer departing a research institution to compete with the dominant incumbent. Aruba Networks (ex-Juniper engineers) is the third generation. Each departure was legally automatic under §16600."},
+nortel_bankrupt:{e:"Terminal · January 2009",n:"Nortel bankruptcy",y:"Filed January 14, 2009 · patents sold $4.5B to Apple/Microsoft consortium",f:"Largest bankruptcy in Canadian history.",d:"Nortel's bankruptcy marked the definitive end of the Route 128 networking cluster's longest chain. The company had paid $9.1B for Bay Networks in 1998; the entire enterprise was worth less than that a decade later. Its most valuable remaining asset was its patent portfolio, sold for $4.5B to Apple, Microsoft, Ericsson, BlackBerry, and Sony.",i:"<strong>The final terminus:</strong> MIT (1969) → Interlan (1981) → Wellfleet (1986) → Bay Networks (1994) → Nortel (1998) → bankruptcy (2009) → patents to Apple/Microsoft. Forty years. The entire accumulated networking knowledge of Route 128's greatest cluster ended as a patent portfolio. No Massachusetts networking company emerged from the wreckage."},
+extreme2:{e:"Ongoing · modest",n:"Extreme Networks (EXTR)",y:"NASDAQ: EXTR · ~$1B annual revenue · San Jose, CA headquarters",f:"Still public; acquired Enterasys (Cabletron lineage) and Brocade data center networking.",d:"Extreme Networks is the Route 128 networking cluster's most complete survivor — still operating technology that traces to Cabletron and Enterasys. But it is headquartered in San Jose, California, not Massachusetts. Its $1B in revenue is respectable but modest compared to Cisco's $57B or Juniper's $5B.",i:"<strong>Survival without compounding:</strong> Extreme Networks demonstrates that the Massachusetts cluster's technology was viable. What didn't survive was the Massachusetts location, the independent corporate identity, or the ability to seed successors. The technology competes; the ecosystem did not reproduce itself."},
+starent:{e:"Final MA exit · 2009",n:"Starent Networks → Cisco",y:"Tewksbury, MA · founded 2000 · Cisco acquisition $2.9B 2009",f:"Co-founders: Ashraf Dahod (CEO, ex-NetCore/Tellabs) + Anthony Schoener (VP Eng, ex-3Com).",d:"Starent built IP-based mobile packet core infrastructure for 3G/4G networks. Its founders came from NetCore Systems (acquired by Tellabs 1999) and 3Com. It grew to $254M in revenue with 100+ deployments in 45 countries before Cisco acquired it for $2.9B. The technology became Cisco's Mobile Internet Technology Group.",i:"<strong>The last significant MA networking exit:</strong> Starent is the last major independent networking company with Massachusetts roots. Founded 2000, public 2007, acquired 2009. Its technology went to California; the engineers went to work for Cisco. Massachusetts got the exit premium; California got the ongoing innovation."},
+cisco_today:{e:"California · ongoing",n:"Cisco Systems today",y:"San Jose, CA · NYSE: CSCO · ~$240B market cap (2026)",f:"Revenue $57B (2025) · 86,200 employees · spawned Juniper, Aruba, Meraki, Palo Alto Networks and dozens more",d:"Cisco today is the dominant networking company in the world, with $57B in annual revenue. It has spawned a dense ecosystem of alumni companies: Juniper Networks (~$10B), Aruba Networks (HP $3B), Palo Alto Networks ($100B+, founded by ex-Cisco engineers including Nir Zuk), Meraki ($1.2B Cisco acquisition — Cisco buying a company its own alumni founded). California §16600 enabled every departure in this ecosystem.",i:"<strong>The California compounding in networking:</strong> Cisco's alumni ecosystem represents the networking equivalent of the Fairchild genealogy. Founded 1984, Cisco has generated at least three generations of successor companies. Massachusetts, which had comparable technical talent (Proteon built the first commercial multi-protocol router), produced zero equivalent second-generation companies."},
+legacy_ma:{e:"Legacy",n:"Massachusetts networking cluster: the terminated chain",y:"1969–2009: 40 years, ~$25B exits, zero surviving independent companies",f:"Complete chain: MIT → Proteon → Interlan → Wellfleet + Cabletron + Cascade → Bay + Enterasys + Sycamore + Starent → all acquired",d:"The Massachusetts networking cluster built genuinely world-class technology across four decades. Proteon built the first commercial multi-protocol router. Wellfleet competed with Cisco. Cascade transformed ATM networking. Sycamore pioneered optical networking. Starent built mobile packet core. Each company was technically excellent. None generated a successor ecosystem. All were acquired; the knowledge dispersed.",i:"<strong>The pattern holds:</strong> Non-compete agreements, a thinner VC ecosystem, and the absence of California's legal mobility culture meant Massachusetts networking talent circulated within the cluster rather than spinning off into new generations. Cabletron recruited Route 128 minicomputer engineers because those engineers couldn't found their own companies. The chain compounded within itself — and then terminated."},
+legacy_ca:{e:"California legacy · ongoing",n:"Cisco ecosystem: ongoing and compounding",y:"1984–present: 40+ years · $240B+ Cisco · multi-billion alumni companies still active",f:"Cisco (1984) → Juniper (1996) → Aruba (2002, HP $3B) → Palo Alto Networks (2005, $100B+) → Meraki (2006, Cisco $1.2B) → ongoing",d:"Cisco's California ecosystem has compounded for four decades. Engineers departed freely to found Juniper, which competes and was acquired for $10B. Juniper alumni founded Aruba Networks. Cisco engineers founded Palo Alto Networks, now worth over $100B. Cisco acquired Meraki — founded by MIT alumni who chose San Francisco over Boston. Each departure was legally automatic under §16600.",i:"<strong>The compounding that Massachusetts didn't produce:</strong> Palo Alto Networks was co-founded by Nir Zuk — ex-Check Point and NetScreen engineer. NetScreen was acquired by Juniper. Juniper was founded by a Xerox PARC engineer who recruited Cisco veterans. The chain: Stanford → Cisco → Juniper → Palo Alto Networks ($100B+). Three California departures, three generations, $100B+ in value. The Massachusetts equivalent: MIT → Proteon → Wellfleet → Bay Networks → Nortel → bankruptcy. That is the non-compete argument."},
+};
+function S(id){const d=D[id];if(!d)return;document.getElementById('me').textContent=d.e;document.getElementById('mn').textContent=d.n;document.getElementById('my').textContent=d.y;document.getElementById('mf').textContent=d.f||'';document.getElementById('md').textContent=d.d;document.getElementById('mi').innerHTML=d.i||'';document.getElementById('ov').classList.add('open');}
+function C(e,f){if(f||!e||e.target===document.getElementById('ov'))document.getElementById('ov').classList.remove('open');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.getElementById('ov').classList.remove('open');});
+</script>
+</body>
+</html>
