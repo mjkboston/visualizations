@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Cisco Genealogy: 40 Years of California §16600 Compounding</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f9f7f4;--surface:#fff;--surface2:#f2f0ed;
+  --border:rgba(0,0,0,.10);--border-med:rgba(0,0,0,.18);
+  --text:#1a1917;--text-sec:#6b6860;--text-muted:#9c9a96;
+  --purple:#534ab7;--blue-dk:#0c447c;--blue-md:#185fa5;
+  --teal-dk:#0f6e56;--coral-dk:#993c1d;
+  --amber:#b87d00;--red-dk:#791f1f;
+  --radius:10px;--radius-sm:6px;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.site-header{background:#2a1d5c;color:#fff;padding:3rem 2rem 2.5rem;position:relative;overflow:hidden}
+.site-header::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 40px,rgba(255,255,255,.02) 40px,rgba(255,255,255,.02) 41px)}
+.header-inner{max-width:1100px;margin:0 auto;position:relative}
+.kicker{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#afa9ec;margin-bottom:12px}
+.h-title{font-family:'DM Serif Display',serif;font-size:clamp(1.8rem,4.5vw,3.2rem);line-height:1.1;color:#fff;margin-bottom:10px}
+.h-sub{font-size:clamp(.9rem,2vw,1.15rem);color:#cebbf6;font-weight:300;margin-bottom:1.5rem;max-width:720px}
+.stat-row{display:flex;flex-wrap:wrap;gap:.85rem;margin-top:1.25rem}
+.pill{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:100px;padding:6px 14px;font-size:13px;color:#eeedfe}
+.pill strong{color:#fff;font-weight:600}
+.page-body{max-width:1100px;margin:0 auto;padding:2rem 1.5rem 4rem}
+.intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem}
+@media(max-width:640px){.intro-grid{grid-template-columns:1fr}}
+.icard{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem 1.5rem}
+.icard h3{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:8px}
+.icard p{font-size:14px;line-height:1.65;color:var(--text-sec)}
+.callout{background:#eeedfe;border-left:4px solid var(--purple);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:1rem 1.25rem;margin-bottom:2rem;font-size:14px;line-height:1.65;color:#2a1d5c}
+.callout strong{color:#1a0e3c}
+.legend{display:flex;flex-wrap:wrap;gap:10px 24px;margin-bottom:1.25rem;font-size:12px;color:var(--text-sec)}
+.lchip{display:inline-flex;align-items:center;gap:6px}
+.ldot{width:10px;height:10px;border-radius:50%;flex-shrink:0;display:inline-block}
+.tree-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem 1rem 1rem;overflow-x:auto;margin-bottom:2rem}
+.tree-box h2{font-size:15px;font-weight:600;color:var(--text);margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--border)}
+svg.tree{display:block}
+.gl{font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;fill:#9c9a96;letter-spacing:.08em;text-transform:uppercase}
+.ng{cursor:pointer}.ng rect{transition:filter .15s}.ng:hover rect{filter:brightness(1.08)}
+.nt{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;text-anchor:middle;dominant-baseline:central}
+.ns{font-family:'DM Sans',sans-serif;font-size:9px;text-anchor:middle;dominant-baseline:central}
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin-bottom:2rem}
+.sc{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem 1.5rem;text-align:center}
+.sn{font-family:'DM Serif Display',serif;font-size:2rem;color:var(--purple);line-height:1;margin-bottom:6px}
+.sl{font-size:12px;color:var(--text-sec);line-height:1.4}
+.chain-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-bottom:2rem}
+.chain-section h2{font-size:15px;font-weight:600;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--border)}
+.chain-item{display:flex;gap:1rem;padding:.75rem 0;border-bottom:1px solid var(--border)}
+.chain-item:last-child{border-bottom:none}
+.chain-dot{width:30px;height:30px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff;margin-top:2px}
+.chain-text h4{font-size:14px;font-weight:500;color:var(--text);margin-bottom:3px}
+.chain-text p{font-size:13px;color:var(--text-sec);line-height:1.5}
+.overlay{position:fixed;inset:0;z-index:200;background:rgba(15,10,5,.55);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s;padding:1rem}
+.overlay.open{opacity:1;pointer-events:auto}
+.modal{background:var(--surface);border-radius:var(--radius);border:1px solid var(--border-med);max-width:480px;width:100%;max-height:85vh;overflow-y:auto;padding:1.75rem;position:relative;box-shadow:0 24px 64px rgba(0,0,0,.22)}
+.mc{position:absolute;top:14px;right:16px;background:none;border:none;font-size:22px;cursor:pointer;color:var(--text-muted);line-height:1}
+.mc:hover{color:var(--text)}
+.m-era{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px}
+.m-name{font-family:'DM Serif Display',serif;font-size:1.35rem;color:var(--text);margin-bottom:4px;line-height:1.2;padding-right:2rem}
+.m-year{font-size:13px;color:var(--text-muted);margin-bottom:14px}
+.m-div{height:1px;background:var(--border);margin:1rem 0}
+.m-f{font-size:13px;color:var(--text-sec);margin-bottom:12px;line-height:1.55;font-style:italic}
+.m-d{font-size:14px;color:var(--text);line-height:1.65;margin-bottom:14px}
+.m-i{background:var(--surface2);border-radius:var(--radius-sm);padding:10px 14px;font-size:13px;color:var(--text-sec);line-height:1.55}
+.m-i strong{color:var(--text);font-weight:600}
+footer{border-top:1px solid var(--border);padding:1.5rem 2rem;max-width:1100px;margin:0 auto;font-size:12px;color:var(--text-muted);line-height:1.6}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <div class="kicker">Research Brief · Non-Compete &amp; Innovation Series</div>
+    <h1 class="h-title">The Cisco Genealogy: 40 Years of California §16600 Compounding</h1>
+    <p class="h-sub">Stanford (1984) → Cisco → Juniper → Aruba → Mist → HPE. Cisco → Palo Alto Networks ($100B+). Cisco → Meraki → Samsara ($20B). Former Cisco CEO John Chambers founded Nile (2018) to compete directly with Cisco. Every departure legally automatic under California §16600. Click any node to explore.</p>
+    <div class="stat-row">
+      <span class="pill"><strong>1984</strong> — Cisco founded, Menlo Park CA</span>
+      <span class="pill"><strong>4 generations</strong> documented</span>
+      <span class="pill"><strong>$100B+</strong> Palo Alto Networks</span>
+      <span class="pill"><strong>$20B</strong> Samsara — Meraki founders' second company</span>
+      <span class="pill"><strong>§16600</strong> — every departure legally automatic</span>
+    </div>
+  </div>
+</header>
+
+<main class="page-body">
+  <div class="intro-grid">
+    <div class="icard">
+      <h3>The mechanism</h3>
+      <p>Cisco engineers depart freely under California §16600, found competing companies, grow them, and Cisco either acquires them (Sourcefire $2.7B, Meraki $1.2B, Splunk $28B) or competes against them (Juniper, Palo Alto Networks, Aruba, Nile). Each departure seeds the next generation. Each acquisition brings talent back into Cisco, which then departs again. The flywheel never stops.</p>
+    </div>
+    <div class="icard">
+      <h3>The Massachusetts contrast</h3>
+      <p>The Route 128 networking cluster (Proteon, Interlan, Wellfleet, Cabletron, Cascade, Bay Networks, Sycamore, Starent) operated in the same era, in the same industry, with comparable talent. But Massachusetts non-compete law meant each departure required navigation rather than automatic legal freedom. The chain terminated; the California chain compounds still.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>The CEO who competed with his own company.</strong> In 2018, John Chambers — who had run Cisco for 20 years — departed and co-founded Nile, a startup competing directly with Cisco in enterprise networking. He said: "We're building something that our prior company was not building." California §16600 made this legally automatic. In Massachusetts, a departing CEO founding a direct competitor would face non-compete scrutiny, require garden leave payment, or need an explicit contractual waiver. In California, no such barrier existed. Chambers raised $300M+ and is actively competing with his former company.
+  </div>
+
+  <div class="legend">
+    <span class="lchip"><span class="ldot" style="background:#5f5e5a"></span>Precursors</span>
+    <span class="lchip"><span class="ldot" style="background:#534ab7"></span>Cisco itself</span>
+    <span class="lchip"><span class="ldot" style="background:#185fa5"></span>Gen 1 direct departures</span>
+    <span class="lchip"><span class="ldot" style="background:#0f6e56"></span>Gen 2</span>
+    <span class="lchip"><span class="ldot" style="background:#993c1d"></span>Gen 3</span>
+    <span class="lchip"><span class="ldot" style="background:#b87d00"></span>Gen 4 / AI era</span>
+    <span class="lchip"><span class="ldot" style="background:#791f1f"></span>Acquisitions back into Cisco or ecosystem</span>
+  </div>
+
+  <div class="tree-box">
+    <h2>Cisco genealogy — four generations — click any node to explore</h2>
+    <svg class="tree" viewBox="0 0 960 920" width="100%" style="min-width:700px">
+    <defs><marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+    <text class="gl" x="12" y="56">Precursors</text>
+    <text class="gl" x="12" y="148">Cisco · 1984</text>
+    <text class="gl" x="12" y="268">Gen 1 · 1996–2018</text>
+    <text class="gl" x="12" y="398">Gen 2 · 2002–17</text>
+    <text class="gl" x="12" y="528">Gen 3 · 2014–22</text>
+    <text class="gl" x="12" y="658">Gen 4 / AI era</text>
+    <text class="gl" x="12" y="788">§16600 thread</text>
+    <line x1="108" y1="70" x2="950" y2="70" stroke="#e0ded8" stroke-width=".5"/>
+    <line x1="108" y1="170" x2="950" y2="170" stroke="#e0ded8" stroke-width=".5"/>
+    <line x1="108" y1="280" x2="950" y2="280" stroke="#e0ded8" stroke-width=".5"/>
+    <line x1="108" y1="410" x2="950" y2="410" stroke="#e0ded8" stroke-width=".5"/>
+    <line x1="108" y1="540" x2="950" y2="540" stroke="#e0ded8" stroke-width=".5"/>
+    <line x1="108" y1="670" x2="950" y2="670" stroke="#e0ded8" stroke-width=".5"/>
+
+    <!-- PRECURSORS -->
+    <g class="ng" onclick="S('stanford')"><rect x="118" y="36" width="170" height="36" rx="6" fill="#5f5e5a" stroke="#444441" stroke-width=".5"/><text class="nt" x="203" y="50" fill="#d3d1c7">Stanford University</text><text class="ns" x="203" y="63" fill="#b4b2a9">Bosack + Lerner · 1984 departure</text></g>
+    <g class="ng" onclick="S('xparc')"><rect x="310" y="36" width="170" height="36" rx="6" fill="#5f5e5a" stroke="#444441" stroke-width=".5"/><text class="nt" x="395" y="50" fill="#d3d1c7">Xerox PARC</text><text class="ns" x="395" y="63" fill="#b4b2a9">Ethernet · networking roots · §16600</text></g>
+    <g class="ng" onclick="S('sequoia_early')"><rect x="502" y="36" width="170" height="36" rx="6" fill="#5f5e5a" stroke="#444441" stroke-width=".5"/><text class="nt" x="587" y="50" fill="#d3d1c7">Sequoia Capital</text><text class="ns" x="587" y="63" fill="#b4b2a9">Valentine · Fairchild → Cisco investor 1987</text></g>
+    <path fill="none" stroke="#5f5e5a" stroke-width="1.2" d="M203 72L360 148" marker-end="url(#a)"/>
+    <path fill="none" stroke="#5f5e5a" stroke-width="1.2" d="M395 72L450 148" marker-end="url(#a)"/>
+    <path fill="none" stroke="#5f5e5a" stroke-width="1.2" d="M587 72L540 148" marker-end="url(#a)"/>
+
+    <!-- CISCO -->
+    <g class="ng" onclick="S('cisco')"><rect x="250" y="122" width="400" height="50" rx="8" fill="#534ab7" stroke="#7f77dd" stroke-width="1.2"/><text class="nt" x="450" y="141" fill="#eeedfe">Cisco Systems</text><text class="ns" x="450" y="157" fill="#afa9ec">San Jose CA · Dec 1984 · IPO 1990 · peak $500B · $57B revenue · $240B today · §16600 at every departure</text></g>
+
+    <!-- Gen 1 connectors -->
+    <path fill="none" stroke="#534ab7" stroke-width="1.5" d="M310 172L190 260" marker-end="url(#a)"/>
+    <path fill="none" stroke="#534ab7" stroke-width="1.5" d="M350 172L340 260" marker-end="url(#a)"/>
+    <path fill="none" stroke="#534ab7" stroke-width="1.5" d="M400 172L470 260" marker-end="url(#a)"/>
+    <path fill="none" stroke="#534ab7" stroke-width="1.5" d="M480 172L620 260" marker-end="url(#a)"/>
+    <path fill="none" stroke="#534ab7" stroke-width="1.2" d="M550 172L780 260" marker-end="url(#a)"/>
+
+    <!-- GEN 1 -->
+    <g class="ng" onclick="S('juniper')"><rect x="118" y="260" width="148" height="44" rx="7" fill="#185fa5" stroke="#3b8bd4" stroke-width=".5"/><text class="nt" x="192" y="278" fill="#e6f1fb">Juniper Networks</text><text class="ns" x="192" y="294" fill="#85b7eb">1996 · Sindhu (PARC) · $14B HPE 2025</text></g>
+    <g class="ng" onclick="S('sourcefire')"><rect x="280" y="260" width="148" height="44" rx="7" fill="#185fa5" stroke="#3b8bd4" stroke-width=".5"/><text class="nt" x="354" y="278" fill="#e6f1fb">Sourcefire</text><text class="ns" x="354" y="294" fill="#85b7eb">2001 · Roesch · Cisco $2.7B 2013</text></g>
+    <g class="ng" onclick="S('pan')"><rect x="442" y="260" width="160" height="44" rx="7" fill="#185fa5" stroke="#3b8bd4" stroke-width="1"/><text class="nt" x="522" y="278" fill="#e6f1fb">Palo Alto Networks</text><text class="ns" x="522" y="294" fill="#85b7eb">2005 · Zuk (ex-Juniper) · PANW $100B+</text></g>
+    <g class="ng" onclick="S('meraki')"><rect x="618" y="260" width="148" height="44" rx="7" fill="#185fa5" stroke="#3b8bd4" stroke-width=".5"/><text class="nt" x="692" y="278" fill="#e6f1fb">Meraki</text><text class="ns" x="692" y="294" fill="#85b7eb">2006 · Biswas · Cisco $1.2B 2012</text></g>
+    <g class="ng" onclick="S('nile')"><rect x="780" y="260" width="148" height="44" rx="7" fill="#185fa5" stroke="#3b8bd4" stroke-width=".5"/><text class="nt" x="854" y="278" fill="#e6f1fb">Nile</text><text class="ns" x="854" y="294" fill="#85b7eb">2018 · Chambers+Patel ex-Cisco CEO · $300M</text></g>
+
+    <!-- Gen 1 → Gen 2 -->
+    <path fill="none" stroke="#0f6e56" stroke-width="1.5" d="M192 304L192 390" marker-end="url(#a)"/>
+    <path fill="none" stroke="#0f6e56" stroke-width="1.2" d="M192 304L354 390" marker-end="url(#a)"/>
+    <path fill="none" stroke="#791f1f" stroke-width="1" stroke-dasharray="4 2" d="M354 304L500 390" marker-end="url(#a)"/>
+    <path fill="none" stroke="#0f6e56" stroke-width="1.2" d="M522 304L630 390" marker-end="url(#a)"/>
+    <path fill="none" stroke="#791f1f" stroke-width="1" stroke-dasharray="4 2" d="M692 304L760 390" marker-end="url(#a)"/>
+
+    <!-- GEN 2 -->
+    <g class="ng" onclick="S('aruba')"><rect x="118" y="390" width="140" height="44" rx="7" fill="#0f6e56" stroke="#1d9e75" stroke-width=".5"/><text class="nt" x="188" y="408" fill="#e1f5ee">Aruba Networks</text><text class="ns" x="188" y="424" fill="#9fe1cb">2002 · Melkote (ex-Cisco) · HP $3B</text></g>
+    <g class="ng" onclick="S('fungible')"><rect x="272" y="390" width="140" height="44" rx="7" fill="#0f6e56" stroke="#1d9e75" stroke-width=".5"/><text class="nt" x="342" y="408" fill="#e1f5ee">Fungible</text><text class="ns" x="342" y="424" fill="#9fe1cb">2015 · Sindhu (ex-Juniper) · Microsoft</text></g>
+    <g class="ng" onclick="S('illumio')"><rect x="426" y="390" width="140" height="44" rx="7" fill="#0f6e56" stroke="#1d9e75" stroke-width=".5"/><text class="nt" x="496" y="408" fill="#e1f5ee">Illumio</text><text class="ns" x="496" y="424" fill="#9fe1cb">2013 · ex-Cisco+Juniper · $2.75B val</text></g>
+    <g class="ng" onclick="S('cisco_acq')"><rect x="580" y="390" width="148" height="44" rx="7" fill="#791f1f" stroke="#a32d2d" stroke-width=".5"/><text class="nt" x="654" y="408" fill="#fcebeb">Sourcefire → Cisco</text><text class="ns" x="654" y="424" fill="#f7c1c1">$2.7B 2013 · Snort / Firepower lives</text></g>
+    <g class="ng" onclick="S('meraki_acq')"><rect x="742" y="390" width="148" height="44" rx="7" fill="#791f1f" stroke="#a32d2d" stroke-width=".5"/><text class="nt" x="816" y="408" fill="#fcebeb">Meraki → Cisco</text><text class="ns" x="816" y="424" fill="#f7c1c1">$1.2B 2012 · founders depart → Samsara</text></g>
+
+    <!-- Gen 2 → Gen 3 -->
+    <path fill="none" stroke="#993c1d" stroke-width="1.2" d="M188 434L210 520" marker-end="url(#a)"/>
+    <path fill="none" stroke="#993c1d" stroke-width="1.2" d="M342 434L380 520" marker-end="url(#a)"/>
+    <path fill="none" stroke="#993c1d" stroke-width="1.2" d="M496 434L560 520" marker-end="url(#a)"/>
+    <path fill="none" stroke="#0f6e56" stroke-width="1.2" d="M816 434L720 520" marker-end="url(#a)"/>
+
+    <!-- GEN 3 -->
+    <g class="ng" onclick="S('mist')"><rect x="118" y="520" width="160" height="44" rx="7" fill="#993c1d" stroke="#d85a30" stroke-width=".5"/><text class="nt" x="198" y="538" fill="#faece7">Mist Systems</text><text class="ns" x="198" y="554" fill="#f0997b">2014 · ex-Cisco (Aruba team) · Juniper $405M</text></g>
+    <g class="ng" onclick="S('samsara')"><rect x="294" y="520" width="160" height="44" rx="7" fill="#993c1d" stroke="#d85a30" stroke-width=".5"/><text class="nt" x="374" y="538" fill="#faece7">Samsara</text><text class="ns" x="374" y="554" fill="#f0997b">2015 · Biswas+Bicket (ex-Meraki) · NYSE: IOT</text></g>
+    <g class="ng" onclick="S('pensando')"><rect x="470" y="520" width="148" height="44" rx="7" fill="#993c1d" stroke="#d85a30" stroke-width=".5"/><text class="nt" x="544" y="538" fill="#faece7">Pensando Systems</text><text class="ns" x="544" y="554" fill="#f0997b">2017 · Mazzola (ex-Cisco) · AMD $1.9B</text></g>
+    <g class="ng" onclick="S('mist2')"><rect x="634" y="520" width="160" height="44" rx="7" fill="#791f1f" stroke="#a32d2d" stroke-width=".5"/><text class="nt" x="714" y="538" fill="#fcebeb">Mist → Juniper</text><text class="ns" x="714" y="554" fill="#f7c1c1">$405M 2019 · AI-driven Wi-Fi platform</text></g>
+
+    <!-- Gen 3 → Gen 4 -->
+    <path fill="none" stroke="#b87d00" stroke-width="1.2" d="M198 564L220 648" marker-end="url(#a)"/>
+    <path fill="none" stroke="#b87d00" stroke-width="1.5" d="M374 564L430 648" marker-end="url(#a)"/>
+    <path fill="none" stroke="#b87d00" stroke-width="1.2" d="M522 304L590 648" marker-end="url(#a)"/>
+    <path fill="none" stroke="#b87d00" stroke-width="1.5" d="M450 172L760 648" marker-end="url(#a)"/>
+
+    <!-- GEN 4 -->
+    <g class="ng" onclick="S('juniper_hpe')"><rect x="118" y="648" width="168" height="44" rx="7" fill="#854f0b" stroke="#ef9f27" stroke-width=".5"/><text class="nt" x="202" y="666" fill="#faeeda">Juniper → HPE</text><text class="ns" x="202" y="682" fill="#fac775">$14B July 2025 · AI networking</text></g>
+    <g class="ng" onclick="S('samsara_scale')"><rect x="302" y="648" width="168" height="44" rx="7" fill="#854f0b" stroke="#ef9f27" stroke-width=".5"/><text class="nt" x="386" y="666" fill="#faeeda">Samsara at scale</text><text class="ns" x="386" y="682" fill="#fac775">NYSE: IOT · $937M rev · $20B mkt cap</text></g>
+    <g class="ng" onclick="S('pan_ai')"><rect x="486" y="648" width="168" height="44" rx="7" fill="#854f0b" stroke="#ef9f27" stroke-width=".5"/><text class="nt" x="570" y="666" fill="#faeeda">PAN AI platform</text><text class="ns" x="570" y="682" fill="#fac775">Cortex · Prisma · $9.2B rev · $100B+</text></g>
+    <g class="ng" onclick="S('cisco_ai')"><rect x="670" y="648" width="200" height="44" rx="7" fill="#854f0b" stroke="#ef9f27" stroke-width=".5"/><text class="nt" x="770" y="666" fill="#faeeda">Cisco Splunk / AI era</text><text class="ns" x="770" y="682" fill="#fac775">$28B Splunk 2024 · $57B rev · $240B</text></g>
+
+    <!-- Gen 4 → §16600 -->
+    <path fill="none" stroke="#0f6e56" stroke-width="1.5" d="M450 692L450 768" marker-end="url(#a)"/>
+
+    <!-- §16600 thread -->
+    <g class="ng" onclick="S('law_thread')"><rect x="118" y="768" width="752" height="48" rx="8" fill="#0f6e56" stroke="#1d9e75" stroke-width="1.2"/><text class="nt" x="494" y="787" fill="#e1f5ee">California §16600: every departure in this tree was legally automatic</text><text class="ns" x="494" y="803" fill="#9fe1cb">No non-compete could prevent any founding · no garden leave required · no litigation risk · in effect since 1872</text></g>
+
+    <!-- Caption -->
+    <rect x="108" y="832" width="762" height="40" rx="5" fill="none" stroke="#e0ded8" stroke-width=".5"/>
+    <text style="font-family:'DM Sans',sans-serif;font-size:12px;fill:#9c9a96;dominant-baseline:central" x="489" y="847" text-anchor="middle">Cisco (1984) → Juniper → Aruba → Mist → $14B HPE · Cisco → Meraki → Samsara ($20B) · Cisco → PAN ($100B+)</text>
+    <text style="font-family:'DM Sans',sans-serif;font-size:12px;fill:#9c9a96;dominant-baseline:central" x="489" y="864" text-anchor="middle">Cisco CEO Chambers departs 2015 → founds Nile 2018 to compete with Cisco · California §16600 at every step</text>
+    </svg>
+  </div>
+
+  <div class="stats-row">
+    <div class="sc"><div class="sn">4</div><div class="sl">Generations documented in this tree</div></div>
+    <div class="sc"><div class="sn">$100B+</div><div class="sl">Palo Alto Networks — one alumni departure chain</div></div>
+    <div class="sc"><div class="sn">$14B</div><div class="sl">Juniper → HPE (2025)</div></div>
+    <div class="sc"><div class="sn">$20B</div><div class="sl">Samsara — Meraki founders' second company</div></div>
+    <div class="sc"><div class="sn">$1.9B</div><div class="sl">Pensando → AMD (ex-Cisco Mazzola team)</div></div>
+    <div class="sc"><div class="sn">§16600</div><div class="sl">Every departure legally automatic since 1872</div></div>
+  </div>
+
+  <div class="chain-section">
+    <h2>Key chains in the Cisco genealogy</h2>
+    <div class="chain-item"><div class="chain-dot" style="background:#534ab7">1</div><div class="chain-text"><h4>Cisco → Juniper → Fungible → Microsoft</h4><p>Pradeep Sindhu left Xerox PARC (not Cisco directly) to found Juniper (1996) as a direct Cisco competitor. After Juniper's IPO and growth, Sindhu left to found Fungible (2015, data processing units), acquired by Microsoft. Three California departures, three companies, each legally automatic under §16600.</p></div></div>
+    <div class="chain-item"><div class="chain-dot" style="background:#534ab7">2</div><div class="chain-text"><h4>Cisco → Meraki ($1.2B) → Samsara (NYSE: IOT, $20B)</h4><p>Biswas and Bicket founded Meraki from MIT research — choosing San Francisco over Boston. Cisco acquired for $1.2B (2012). Founders departed to found Samsara (2015), which went public at $20B market cap. This is the Cisco flywheel at its most complete: departure → founding → acquisition → departure → founding → IPO.</p></div></div>
+    <div class="chain-item"><div class="chain-dot" style="background:#534ab7">3</div><div class="chain-text"><h4>Cisco → Aruba ($3B) → Mist → Juniper ($405M) → HPE</h4><p>Melkote (ex-Cisco, ex-Alteon) founded Aruba (2002), acquired by HP ($3B, 2015). Ex-Cisco/Aruba engineers including Hajela (who had led Cisco's Meraki acquisition) founded Mist Systems (2014), acquired by Juniper ($405M, 2019), now part of HPE's $14B Juniper acquisition. The chain: Cisco → Aruba → Mist → Juniper → HPE.</p></div></div>
+    <div class="chain-item"><div class="chain-dot" style="background:#534ab7">4</div><div class="chain-text"><h4>Cisco → Palo Alto Networks ($100B+)</h4><p>Nir Zuk (Check Point → NetScreen → Juniper after NetScreen $4B acquisition) founded PAN in 2005 with Rajiv Batra (ex-Juniper VP Engineering). Every step was legally automatic. PAN is now the world's largest standalone cybersecurity company at $9.2B in revenue and $100B+ market cap — founded by engineers departing California employers to compete with those employers.</p></div></div>
+    <div class="chain-item"><div class="chain-dot" style="background:#534ab7">5</div><div class="chain-text"><h4>Cisco CEO → Nile (competing with Cisco)</h4><p>John Chambers ran Cisco for 20 years. After retirement, he co-founded Nile (2018) with Pankaj Patel (ex-Cisco CDO) to compete with Cisco in enterprise networking. California §16600 made this legally automatic — no non-compete, no garden leave, no litigation risk. Nile has raised $300M+ and is actively competing with Cisco. The CEO who built Cisco is now its competitor.</p></div></div>
+  </div>
+</main>
+
+<footer>
+  <strong>Sources:</strong> Wikipedia: Cisco Systems, Juniper Networks, Palo Alto Networks, Aruba Networks, Samsara, Mist Systems, Fungible Inc., Pensando Systems, Nile (company), Sourcefire, Meraki; Sequoia Capital, "Palo Alto Networks story — Nir Zuk and Nikesh Arora" (2025); IEEE Leonard Bosack biography; Network World, "Aruba Wireless Networks: a startup to watch" (2003); CNBC, "Cisco ex-CEO John Chambers founding Nile" (September 2022); SiliconAngle, "Former Cisco executives launch Nile" (2022); Alejandro Cremades, "Ex-Cisco Execs sell Mist to Juniper" (2021); TechCrunch, "Cisco acquires Meraki for $1.2B" (2012).
+  <br><br>Part of the <em>Bound by Law: Non-Compete Agreements and Innovation</em> research series.
+</footer>
+
+<div class="overlay" id="ov" onclick="C(event)">
+<div class="modal">
+  <button class="mc" onclick="C(null,1)">×</button>
+  <div class="m-era" id="me"></div><div class="m-name" id="mn"></div><div class="m-year" id="my"></div>
+  <div class="m-div"></div>
+  <div class="m-f" id="mf"></div><div class="m-d" id="md"></div><div class="m-i" id="mi"></div>
+</div>
+</div>
+
+<script>
+const D={
+stanford:{e:"Precursor · 1984",n:"Stanford University",y:"Palo Alto, CA · Terman's commercialization legacy",f:"Len Bosack (CS department) + Sandy Lerner (Business School) connected Stanford's two networks with a multi-protocol router.",d:"Bosack and Lerner left Stanford in December 1984 to commercialize their router — California §16600 made their departure from university employment to found a commercial company legally automatic.",i:"<strong>The Stanford origin:</strong> Like every major Silicon Valley genealogy (Fairchild, Ampex, PayPal), the Cisco tree roots in Stanford's commercialization culture. Fred Terman's deliberate cultivation of university-to-industry pipelines was the institutional context Bosack and Lerner acted within."},
+xparc:{e:"Precursor · 1970s",n:"Xerox PARC",y:"Palo Alto, CA · Alto · Ethernet · GUI",f:"PARC engineers created Ethernet (Metcalfe, 1973), the GUI, and many foundational networking concepts.",d:"PARC's Ethernet research provided the technical substrate for Cisco's router work. PARC alumni (including Andy Bechtolsheim at Sun) contributed to the ecosystem Cisco emerged from. PAN co-founder Nir Zuk served as CTO at NetScreen, which had Juniper/PARC-lineage engineers.",i:"<strong>The PARC diaspora:</strong> Xerox PARC's inability to commercialize its inventions produced the most famous series of California departures: Jobs/Apple (GUI), Metcalfe/3Com (Ethernet), Warnock/Adobe (PostScript), and indirectly Bosack/Cisco. §16600 made each departure legally automatic."},
+sequoia_early:{e:"Precursor · 1987",n:"Sequoia Capital",y:"Menlo Park, CA · Don Valentine invested 1987",f:"Don Valentine — former Fairchild Semiconductor sales VP, Sequoia founder (1972). Also backed Atari, Apple, Juniper, Meraki, Aruba, Palo Alto Networks.",d:"Valentine connected the Fairchild genealogy to the Cisco genealogy. Sequoia funded four generations of the Cisco ecosystem: Cisco → Juniper → Meraki → Aruba → PAN. The same VC firm funding four generations was only possible because §16600 made each founding legally uninhibited.",i:"<strong>The Sequoia thread through four generations:</strong> Valentine's Sequoia invested in Cisco (1987), Juniper (early), Meraki (pre-Cisco), Aruba, and Palo Alto Networks. Each investment was a bet on founders who had departed previous employers freely under §16600. Massachusetts had no equivalent VC-plus-mobility self-reinforcing ecosystem."},
+cisco:{e:"Founding · 1984",n:"Cisco Systems",y:"Menlo Park → San Jose, CA · founded December 10, 1984",f:"Sandy Lerner + Len Bosack. VC: Sequoia (1987). CEO John Morgridge then John Chambers (1995–2015). Chuck Robbins (2015–present).",d:"Cisco IPO'd in 1990 and under Chambers became the world's most valuable company ($500B peak, 2000). Today: $57B revenue, $240B market cap. Throughout its history, engineers departed freely under §16600 to found competitors and adjacent companies — and Cisco acquired many of them.",i:"<strong>The flywheel:</strong> Engineers join Cisco → learn → depart freely → found startups → Cisco acquires them. The cycle was self-reinforcing. §16600 was the legal foundation making every departure in this cycle legally automatic and non-litigable. Massachusetts had no equivalent mechanism."},
+juniper:{e:"Gen 1 · 1996",n:"Juniper Networks",y:"Sunnyvale, CA · founded February 1996 · acquired HPE $14B July 2025",f:"Founder: Pradeep Sindhu (ex-Xerox PARC). CEO: Scott Kriens. Kleiner Perkins + Sequoia. Many early engineers from Cisco and PARC.",d:"Sindhu left Xerox PARC to build high-performance routing silicon to challenge Cisco in the carrier market. §16600 made his departure to found a direct Cisco competitor legally automatic. Juniper went public in 1999 and captured ~30% of Cisco's service provider router market. HPE acquired Juniper for $14B in July 2025.",i:"<strong>The first generation:</strong> Juniper is the Cisco ecosystem's most significant Gen 1 company. Sindhu's PARC departure (not Cisco directly) illustrates how §16600 operates across the ecosystem — any California employer departure to found any competing company is legally automatic. Juniper then seeded its own alumni: Sindhu founded Fungible (Microsoft acquisition) and ex-Juniper/Cisco engineers founded Mist Systems (Juniper $405M)."},
+sourcefire:{e:"Gen 1 · 2001",n:"Sourcefire",y:"Founded 2001 · Cisco acquisition $2.7B July 2013",f:"Founder: Martin Roesch (creator of Snort open-source IDS). Cisco acquired to bring Snort into its security portfolio.",d:"Roesch created Snort — the most widely deployed intrusion detection system — as open source, then founded Sourcefire to commercialize it. Cisco acquired Sourcefire for $2.7B in 2013, bringing the Snort technology (now Cisco Firepower NGIPS) into Cisco's security portfolio. This is the Cisco acquisition flywheel: founder builds something better than Cisco → Cisco acquires.",i:"<strong>Cisco acquiring its ecosystem:</strong> Sourcefire illustrates how the California ecosystem self-reinforces through acquisition. Engineers build adjacent companies; Cisco acquires them. The acquired engineers often depart again to found the next generation. §16600 makes each departure legally automatic."},
+pan:{e:"Gen 1 · 2005",n:"Palo Alto Networks",y:"Santa Clara, CA · founded March 2005 · NASDAQ: PANW · $100B+",f:"Founder: Nir Zuk (ex-Check Point, ex-NetScreen CTO — Juniper acquired NetScreen 2004). Co-founder: Rajiv Batra (ex-Juniper VP Eng). Sequoia + Greylock.",d:"Zuk's career: Check Point (stateful inspection pioneer) → NetScreen (CTO) → Juniper (acquired NetScreen for $4B 2004) → PAN (founded 2005). His co-founder Batra came from Juniper VP Engineering. PAN went public in 2012 and is now the world's largest standalone cybersecurity company at $9.2B revenue (2025) and $100B+ market cap.",i:"<strong>The chain behind PAN:</strong> Check Point → NetScreen → Juniper ($4B acquisition) → Palo Alto Networks. Every step legally automatic under §16600. PAN under CEO Nikesh Arora has become the defining enterprise security company of the AI era — founded by engineers departing California employers to compete with those employers."},
+meraki:{e:"Gen 1 · 2006",n:"Meraki",y:"Mountain View, CA · founded 2006 · Cisco acquisition $1.2B December 2012",f:"Founders: Sanjit Biswas (MIT/Stanford) + John Bicket (MIT CSAIL Roofnet project). MIT origins; chose San Francisco over Boston.",d:"Meraki grew from MIT's Roofnet mesh networking research project. Biswas and Bicket chose San Francisco over Boston — accessing California's ecosystem rather than Boston's. Cisco acquired Meraki for $1.2B in 2012. After the integration, the founders departed to found Samsara in 2015.",i:"<strong>MIT founders choosing California:</strong> Meraki's founders were MIT alumni who chose San Francisco over Boston, illustrating the California gravity documented throughout this series. Boston had the research (MIT Roofnet); California had the ecosystem. The 2018 Massachusetts Non-Compete Act came six years after Meraki was already generating value for California."},
+nile:{e:"Gen 1 · 2018",n:"Nile",y:"San Jose, CA · founded 2018 · $300M+ raised",f:"Co-founders: John Chambers (ex-Cisco CEO, 20 years) + Pankaj Patel (ex-Cisco Chief Development Officer).",d:"Nile is perhaps the most remarkable node in the Cisco genealogy: the former CEO of Cisco — who ran the company for 20 years — departed and founded a startup to compete directly with his former employer in enterprise networking. Chambers said: 'We're building something that our prior company was not building.' §16600 made this legally automatic.",i:"<strong>The CEO who competed with his own company:</strong> In Massachusetts, a CEO departing to found a direct competitor would face non-compete exposure requiring garden leave payment or explicit waiver. In California, §16600 made Chambers' departure from Cisco CEO to Cisco competitor legally immediate and uncontestable. Nile has raised $300M+ and is actively competing with Cisco."},
+aruba:{e:"Gen 2 · 2002",n:"Aruba Networks",y:"Sunnyvale, CA · founded February 2002 · HP acquisition $3B 2015",f:"Founders: Keerti Melkote (ex-Cisco, ex-Alteon) + Pankaj Manglik (ex-Cisco, ex-Alteon). Sequoia + Matrix Partners.",d:"Melkote and Manglik had experience at Cisco and Alteon WebSystems. They founded Aruba to build enterprise Wi-Fi solutions more secure and manageable than Cisco's. Aruba went public in 2007 and was acquired by HP for $3B in 2015. It now generates $3.6B annually as HPE Aruba Networking.",i:"<strong>Cisco alumni building the wireless future:</strong> Melkote and Manglik took their Cisco experience and built a direct Cisco competitor in enterprise Wi-Fi. §16600 made this legally automatic. The California ecosystem flywheel completing another rotation: Cisco → Aruba ($3B HP) → Mist (Cisco wireless execs, Juniper $405M) → HPE."},
+fungible:{e:"Gen 2 · 2015",n:"Fungible, Inc.",y:"Santa Clara, CA · founded 2015 · Microsoft acquisition 2023",f:"Founders: Pradeep Sindhu (Juniper co-founder, ex-PARC) + Bertrand Serlet (ex-Apple SVP Software Engineering).",d:"After Juniper, Sindhu founded Fungible to develop Data Processing Units (DPUs) for data center performance improvement. Microsoft acquired Fungible in 2023. This is Sindhu's second major company after Juniper — a direct parallel to the Deshpande chain in Massachusetts, but operating in California's legally uninhibited environment.",i:"<strong>The serial founder chain:</strong> Xerox PARC → Juniper ($14B HPE) → Fungible (Microsoft). Three California departures, three companies, all legally automatic under §16600. Sindhu's Fungible mirrors Deshpande's Sycamore — a second major company from the proceeds of the first — except Sindhu's chain stays in California and keeps compounding."},
+illumio:{e:"Gen 2 · 2013",n:"Illumio",y:"Sunnyvale, CA · founded 2013 · $2.75B valuation · $900M+ raised",f:"Founders: Andrew Rubin (ex-Cisco, ex-Juniper) + PJ Kirner (ex-Cisco). Sequoia Capital led Series A.",d:"Illumio was founded by former Cisco and Juniper engineers to build adaptive micro-segmentation security. The company has raised over $900M and achieved a $2.75B valuation. Cisco's own security portfolio competes with Illumio — ex-Cisco engineers building a better version of what Cisco is selling.",i:"<strong>Ex-Cisco engineers competing with Cisco:</strong> Illumio illustrates how the California ecosystem generates self-competition: Cisco engineers depart to build better versions of what Cisco is building. Cisco must then either acquire them or compete harder. Both outcomes improve the ecosystem. §16600 ensured Rubin and Kirner could found it without restriction."},
+cisco_acq:{e:"Acquisition · 2013",n:"Sourcefire → Cisco",y:"$2.7 billion · July 2013",f:"Snort intrusion detection technology becomes Cisco Firepower NGIPS.",d:"Cisco's $2.7B Sourcefire acquisition is the California ecosystem flywheel completing: a founder builds something better than Cisco → Cisco acquires it. The technology lives on inside Cisco and the acquired engineers either stay or depart to found new companies. Each cycle adds value to the ecosystem.",i:"<strong>The acquisition flywheel completes:</strong> Cisco's 70+ acquisitions in the 1990s–2000s were only possible because §16600 enabled engineers to depart and found companies without restriction. In Massachusetts, the same engineers would have needed to navigate non-compete agreements — slowing or preventing the formations that Cisco then acquired."},
+meraki_acq:{e:"Acquisition · 2012",n:"Meraki → Cisco",y:"$1.2 billion · December 2012",f:"MIT alumni had chosen SF over Boston; Cisco acquired and founders eventually departed to found Samsara.",d:"After the Meraki acquisition, Biswas and Bicket led the integration growing Cisco Meraki's revenue 100%+. After their earn-out, they departed to found Samsara in 2015 — applying hardware-software-cloud insight to physical operations. The Massachusetts counterfactual: if Meraki had been in Boston, post-acquisition departure to found Samsara would have required navigating non-compete agreements.",i:"<strong>Departure after acquisition:</strong> MIT alumni found Meraki (San Francisco, not Boston) → Cisco acquires $1.2B → founders grow it → founders depart → found Samsara → NYSE: IOT, $20B. The hinge: Meraki's founders chose San Francisco. In California, every step was legally automatic."},
+mist:{e:"Gen 3 · 2014",n:"Mist Systems",y:"San Francisco, CA · founded 2014 · Juniper acquisition $405M March 2019",f:"Co-founders: Sujai Hajela (ex-Cisco SVP — ran Cisco's wireless group and led the Meraki acquisition) + Bob Friday (ex-Cisco). Sequoia backed.",d:"Hajela had been SVP of Product Management at Cisco's Enterprise Networking Group and led Cisco's acquisition of Meraki. He left Cisco to co-found Mist with the vision of AI-driven wireless networking. Mist was acquired by Juniper for $405M in 2019. Hajela wrote: 'The Mist co-founders turned Cisco's wireless and edge networking products into a multi-billion dollar business — we look forward to doing the same at Juniper.'",i:"<strong>The meta-irony:</strong> Hajela led Cisco's acquisition of Meraki — then left Cisco to found a Meraki-style company (Mist) that competed with Cisco and was acquired by Cisco's main competitor (Juniper). The person who managed a Cisco acquisition departed to create an acquisition target for Cisco's rival. §16600 made every step legally trivial."},
+samsara:{e:"Gen 3 · 2015",n:"Samsara",y:"San Francisco, CA · founded 2015 · NYSE: IOT · $20B market cap",f:"Founders: Sanjit Biswas + John Bicket — MIT alumni who co-founded and sold Meraki to Cisco for $1.2B.",d:"After the Meraki integration, Biswas and Bicket founded Samsara — IoT platform for physical operations (transportation, construction, energy, utilities). Samsara went public December 2021 and has grown to $937M annual revenue with a $20B market cap.",i:"<strong>The second company effect:</strong> MIT research → Meraki (San Francisco) → Cisco $1.2B → Samsara NYSE:IOT $20B. The choice to locate in San Francisco rather than Boston was the hinge. Post-acquisition departure in Boston would have required navigating non-compete agreements. In California, every step was legally automatic."},
+pensando:{e:"Gen 3 · 2017",n:"Pensando Systems",y:"Milpitas, CA · founded 2017 · AMD acquisition $1.9B 2022",f:"Founders: Mario Mazzola + Prem Jain + Luca Cafiero + Devendra Bhatt — all ex-Cisco. Participated in Cisco spin-in strategy: Andiamo (2004), Nuova (2008), Insieme ($863M 2013).",d:"After three Cisco spin-ins totaling $2.38B in Cisco investment, all four founders departed to found Pensando independently — distributed computing infrastructure (DPUs/smart NICs). AMD acquired Pensando for $1.9B in 2022.",i:"<strong>The spin-in → spin-out cycle:</strong> Mazzola and team participated in three Cisco spin-ins, then departed to found an independent company that AMD acquired. Cycle: Cisco resources → spin-in → Cisco acquires → engineers depart → independent company → AMD $1.9B. §16600 made every departure legally automatic."},
+mist2:{e:"Gen 3 acquisition · 2019",n:"Mist → Juniper Networks",y:"$405 million · March 2019",f:"Juniper CEO Rami Rahim recognized Mist's AI-driven approach as the future of enterprise networking.",d:"Juniper's Mist acquisition is the ecosystem's most elegant second-generation acquisition: ex-Cisco engineers (who had led Cisco wireless) founded Mist competing with Cisco; Cisco's main competitor (Juniper) acquired it. The chain: Cisco → Meraki (Hajela as Cisco SVP) → Mist (Hajela departs to found) → Juniper $405M.",i:"<strong>Knowledge compounding across companies:</strong> Hajela's career: Cisco SVP wireless → leads Meraki acquisition → departs Cisco → founds Mist (competing with Cisco and Meraki) → Juniper acquires $405M. §16600 made every step legally automatic. Accumulated knowledge compounds; legal environment never impedes."},
+juniper_hpe:{e:"Gen 4 · July 2025",n:"Juniper → HPE",y:"$14 billion · July 2, 2025",f:"HPE acquires Juniper to build out its networking portfolio alongside Aruba.",d:"HPE now owns both Juniper ($14B) and Aruba ($3B) — two companies founded by engineers who competed with Cisco. The combined HPE networking business (Juniper + Aruba) is California networking genealogy's most significant consolidation, all enabled by §16600 at every founding.",i:"<strong>The genealogy converges at HPE:</strong> HPE owns Juniper ($14B) + Aruba ($3B) + Mist (Juniper $405M) — three companies from the Cisco alumni ecosystem. The California networking tree is now partially housed at HPE, with Cisco ($240B) and Palo Alto Networks ($100B+) still independent. The ecosystem spans multiple companies across generations."},
+samsara_scale:{e:"Gen 4 · ongoing",n:"Samsara at scale",y:"NYSE: IOT · $937M revenue (2024) · $20B market cap",f:"The MIT research → Meraki → Cisco → Samsara chain reaches maturity",d:"Samsara's $20B market cap represents one of the most successful second-founder stories in technology. Biswas and Bicket applied what they learned building Meraki's hardware-software-cloud platform to physical operations — a larger and less digitized market than enterprise networking.",i:"<strong>The full chain:</strong> MIT CSAIL Roofnet → Meraki (San Francisco, not Boston) → Cisco $1.2B → Samsara NYSE:IOT $20B. The hinge: MIT founders chose San Francisco. Massachusetts had the research; California had the ecosystem that compounded it."},
+pan_ai:{e:"Gen 4 · ongoing",n:"Palo Alto Networks — AI security platform",y:"NASDAQ: PANW · $9.2B revenue (2025) · $100B+ market cap",f:"CEO Nikesh Arora (2018–present) · platformization strategy · 30+ acquisitions",d:"Under Nikesh Arora, PAN executed a 'platformization' strategy consolidating disparate cybersecurity tools into a unified AI-driven platform. Cortex AI and Prisma Cloud are the defining enterprise security platforms of the AI era. PAN is now the world's largest standalone cybersecurity company.",i:"<strong>The third generation reaches AI:</strong> Check Point → NetScreen → Juniper → Palo Alto Networks → AI platform ($100B+). Four California departures, each legally automatic under §16600. The chain from stateful inspection firewall development to the defining AI security platform spans 30 years."},
+cisco_ai:{e:"Gen 4 · ongoing",n:"Cisco in the AI era",y:"$57B revenue · $240B market cap · Splunk $28B acquisition 2024",f:"CEO Chuck Robbins · $28B Splunk acquisition 2024 · largest in Cisco history.",d:"Cisco's $28B Splunk acquisition continues the pattern defining its growth: acquire adjacent companies built by departing engineers or independent founders. AI has made security observability central to Cisco's strategy. The flywheel never stops.",i:"<strong>The flywheel never stops:</strong> Cisco's Splunk acquisition continues the 40-year pattern: companies built by engineers in California's open talent market → Cisco acquires → acquired engineers depart → found new companies → cycle repeats. §16600 is the legal foundation making every rotation legally automatic."},
+law_thread:{e:"The legal foundation",n:"California §16600",y:"In effect since 1872 · every departure in this tree was legally automatic",f:"§16600: 'every contract by which anyone is restrained from engaging in a lawful profession, trade, or business of any kind is to that extent void.'",d:"Every departure in this tree — Bosack/Lerner from Stanford, Sindhu from PARC, Zuk from Juniper, Melkote from Cisco, Hajela from Cisco, Biswas/Bicket from Cisco/Meraki, Mazzola from Cisco, Chambers from Cisco — was legally automatic under §16600. No non-compete could have prevented any of these departures.",i:"<strong>The legal foundation of the entire tree:</strong> Massachusetts did not have an equivalent provision until the 2018 Non-Compete Act — and even then, the Act regulated rather than banned non-competes. §16600 has been in effect since 1872. The 150-year gap in legal protection for employee mobility explains why Massachusetts' networking cluster terminated while California's continues to compound."},
+};
+function S(id){const d=D[id];if(!d)return;document.getElementById('me').textContent=d.e;document.getElementById('mn').textContent=d.n;document.getElementById('my').textContent=d.y;document.getElementById('mf').textContent=d.f||'';document.getElementById('md').textContent=d.d;document.getElementById('mi').innerHTML=d.i||'';document.getElementById('ov').classList.add('open');}
+function C(e,f){if(f||!e||e.target===document.getElementById('ov'))document.getElementById('ov').classList.remove('open');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.getElementById('ov').classList.remove('open');});
+</script>
+</body>
+</html>
