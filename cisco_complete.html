@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Cisco Genealogy: 40 Years of California §16600 Compounding</title>
+<style>
+body{font-family:'Segoe UI',sans-serif;background:#f5f5f5;margin:0;padding:20px}
+.header{background:#2a1d5c;color:white;padding:40px;border-radius:8px;margin-bottom:30px}
+.header h1{margin:0;font-size:2.5em}
+.header p{margin:10px 0 0 0;font-size:1.1em;opacity:0.9}
+.back-link{display:inline-block;margin-bottom:20px;color:#0c447c;text-decoration:none;font-weight:600}
+.back-link:hover{text-decoration:underline}
+.tree-container{background:white;padding:20px;border-radius:8px;overflow-x:auto}
+.tree-container h2{margin-top:0;font-size:1.4em}
+svg{max-width:100%}
+rect{fill:#534ab7;stroke:#2a1d5c;stroke-width:2}
+text{font-family:Arial,sans-serif;font-size:12px}
+line{stroke:#666;stroke-width:2}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-top:30px}
+.stat-card{background:white;padding:20px;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,0.1)}
+.stat-number{font-size:2em;font-weight:bold;color:#534ab7}
+.stat-label{font-size:0.9em;color:#666;margin-top:10px}
+</style>
+</head>
+<body>
+<a href="./" class="back-link">← Back to visualizations</a>
+<div class="header">
+<h1>The Cisco Genealogy: 40 Years of California §16600 Compounding</h1>
+<p>Stanford (1984) → Cisco → Juniper, Palo Alto Networks, Meraki → Samsara, and beyond. Four generations of companies founded by departing Cisco employees, all enabled by California's §16600 non-compete ban.</p>
+</div>
+
+<div class="tree-container">
+<h2>Cisco Genealogy Tree</h2>
+<svg viewBox="0 0 1000 600" width="1000" height="600">
+<!-- Generation labels -->
+<text x="20" y="40" font-weight="bold">1984: Cisco Founded</text>
+<text x="20" y="100" font-weight="bold">Gen 1 (1996-2005): Juniper, Sourcefire, Palo Alto, Meraki</text>
+<text x="20" y="200" font-weight="bold">Gen 2 (2002-2015): Aruba, Fungible, Illumio</text>
+<text x="20" y="300" font-weight="bold">Gen 3 (2014-2022): Mist, Samsara, Pensando</text>
+
+<!-- Cisco root -->
+<rect x="400" y="50" width="200" height="40" rx="5"/>
+<text x="500" y="75" text-anchor="middle" fill="white" font-weight="bold">Cisco (1984)</text>
+
+<!-- Gen 1 descendants -->
+<line x1="500" y1="90" x2="150" y2="130"/>
+<rect x="50" y="130" width="200" height="40" rx="5"/>
+<text x="150" y="155" text-anchor="middle" fill="white" font-weight="bold">Juniper (1996)</text>
+
+<line x1="500" y1="90" x2="350" y2="130"/>
+<rect x="250" y="130" width="200" height="40" rx="5"/>
+<text x="350" y="155" text-anchor="middle" fill="white" font-weight="bold">Sourcefire (2001)</text>
+
+<line x1="500" y1="90" x2="550" y2="130"/>
+<rect x="450" y="130" width="200" height="40" rx="5"/>
+<text x="550" y="155" text-anchor="middle" fill="white" font-weight="bold">Palo Alto (2005)</text>
+
+<line x1="500" y1="90" x2="750" y2="130"/>
+<rect x="650" y="130" width="200" height="40" rx="5"/>
+<text x="750" y="155" text-anchor="middle" fill="white" font-weight="bold">Meraki (2006)</text>
+
+<!-- Gen 2 descendants -->
+<line x1="150" y1="170" x2="80" y2="210"/>
+<rect x="0" y="210" width="160" height="40" rx="5" fill="#185fa5"/>
+<text x="80" y="235" text-anchor="middle" fill="white" font-weight="bold">Aruba (2002)</text>
+
+<line x1="150" y1="170" x2="280" y2="210"/>
+<rect x="200" y="210" width="160" height="40" rx="5" fill="#185fa5"/>
+<text x="280" y="235" text-anchor="middle" fill="white" font-weight="bold">Fungible (2015)</text>
+
+<line x1="350" y1="170" x2="480" y2="210"/>
+<rect x="400" y="210" width="160" height="40" rx="5" fill="#185fa5"/>
+<text x="480" y="235" text-anchor="middle" fill="white" font-weight="bold">Illumio (2013)</text>
+
+<!-- Gen 3 descendants -->
+<line x1="550" y1="170" x2="620" y2="310"/>
+<rect x="540" y="310" width="160" height="40" rx="5" fill="#0f6e56"/>
+<text x="620" y="335" text-anchor="middle" fill="white" font-weight="bold">Samsara (2015)</text>
+
+<line x1="750" y1="170" x2="750" y2="310"/>
+<rect x="670" y="310" width="160" height="40" rx="5" fill="#0f6e56"/>
+<text x="750" y="335" text-anchor="middle" fill="white" font-weight="bold">Mist (2014)</text>
+
+<!-- Legend -->
+<text x="20" y="480" font-weight="bold" font-size="14">Key Facts:</text>
+<text x="20" y="510">• §16600 (California law since 1872) makes all non-competes void</text>
+<text x="20" y="530">• Cisco alumni founded 10+ major companies worth $100B+</text>
+<text x="20" y="550">• Palo Alto Networks alone: $100B+ market cap</text>
+</svg>
+</div>
+
+<div class="stats">
+<div class="stat-card">
+<div class="stat-number">1984</div>
+<div class="stat-label">Cisco Founded</div>
+</div>
+<div class="stat-card">
+<div class="stat-number">4</div>
+<div class="stat-label">Generations Documented</div>
+</div>
+<div class="stat-card">
+<div class="stat-number">$100B+</div>
+<div class="stat-label">Palo Alto Networks Value</div>
+</div>
+<div class="stat-card">
+<div class="stat-number">$20B</div>
+<div class="stat-label">Samsara Market Cap</div>
+</div>
+<div class="stat-card">
+<div class="stat-number">§16600</div>
+<div class="stat-label">California Non-Compete Law</div>
+</div>
+</div>
+</body>
+</html>
