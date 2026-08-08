@@ -3,230 +3,183 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lotus Development Corporation: The Truncated Arc</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<title>Lotus Development: The Truncated Arc</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#f9f7f4;--surface:#fff;--surface2:#f2f0ed;
-  --border:rgba(0,0,0,.10);--border-med:rgba(0,0,0,.18);
-  --text:#1a1917;--text-sec:#6b6860;--text-muted:#9c9a96;
-  --blue-dk:#0c447c;--blue-md:#185fa5;
-  --green-dk:#0f6e56;--red-dk:#791f1f;
-  --purple-dk:#3c3489;--gold:#b8860b;
-  --radius:10px;--radius-sm:6px;
-}
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
-/* back-link styles */
-.back-link{display:inline-block;margin-bottom:1rem;font-size:13px;color:var(--blue-dk);text-decoration:none;font-weight:600}
+body{font-family:'Segoe UI',sans-serif;background:#f5f5f5;color:#333;min-height:100vh;padding:20px}
+.back-link{display:inline-block;margin-bottom:20px;color:#0c447c;text-decoration:none;font-weight:600;font-size:14px}
 .back-link:hover{text-decoration:underline}
-.site-header{background:#1a2a5e;color:#fff;padding:3rem 2rem 2.5rem;position:relative;overflow:hidden}
-.site-header::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 40px,rgba(255,255,255,.025) 40px,rgba(255,255,255,.025) 41px)}
-.header-inner{max-width:1100px;margin:0 auto;position:relative}
-.kicker{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#85b7eb;margin-bottom:12px}
-.h-title{font-family:'DM Serif Display',serif;font-size:clamp(2rem,5vw,3.4rem);line-height:1.1;color:#fff;margin-bottom:10px}
-.h-sub{font-size:clamp(.95rem,2vw,1.2rem);color:#b5d4f4;font-weight:300;margin-bottom:1.5rem;max-width:720px}
-.stat-row{display:flex;flex-wrap:wrap;gap:1rem;margin-top:1.5rem}
-.pill{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:100px;padding:7px 16px;font-size:13px;color:#e6f1fb}
-.pill strong{color:#fff;font-weight:600}
-.page-body{max-width:1100px;margin:0 auto;padding:2rem 1.5rem 4rem}
-.intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem}
-@media(max-width:640px){.intro-grid{grid-template-columns:1fr}}
-.icard{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem 1.5rem}
-.icard h3{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:8px}
-.icard p{font-size:14px;line-height:1.65;color:var(--text-sec)}
-.callout-green{background:#eef7f4;border-left:4px solid var(--green-dk);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:1rem 1.25rem;margin-bottom:2rem;font-size:14px;line-height:1.65;[...]
-.callout-green strong{color:#062218}
-.legend{display:flex;flex-wrap:wrap;gap:10px 24px;margin-bottom:1.25rem;font-size:12px;color:var(--text-sec)}
-.lchip{display:inline-flex;align-items:center;gap:6px}
-.ldot{width:10px;height:10px;border-radius:50%;flex-shrink:0;display:inline-block}
-.tree-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem 1rem 1rem;overflow-x:auto;margin-bottom:2rem}
-.tree-box h2{font-size:15px;font-weight:600;color:var(--text);margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--border)}
-svg.tree{display:block}
-.gl{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;fill:#9c9a96;letter-spacing:.08em;text-transform:uppercase}
-.ng{cursor:pointer}.ng rect{transition:filter .15s}.ng:hover rect{filter:brightness(1.08)}
-.nt{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;text-anchor:middle;dominant-baseline:central}
-.ns{font-family:'DM Sans',sans-serif;font-size:10px;text-anchor:middle;dominant-baseline:central}
-.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem;margin-bottom:2rem}
-.sc{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem 1.5rem;text-align:center}
-.sn{font-family:'DM Serif Display',serif;font-size:2.2rem;color:var(--blue-dk);line-height:1;margin-bottom:6px}
-.sl{font-size:12px;color:var(--text-sec);line-height:1.4}
-.ozzie-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-bottom:2rem}
-.ozzie-section h2{font-size:15px;font-weight:600;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--border)}
-.chain-steps{display:flex;flex-direction:column;gap:.75rem}
-.chain-step{display:flex;gap:1rem;align-items:flex-start}
-.step-dot{width:32px;height:32px;border-radius:50%;background:var(--green-dk);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0;margin-[...]
-.step-text h4{font-size:14px;font-weight:500;color:var(--text);margin-bottom:3px}
-.step-text p{font-size:13px;color:var(--text-sec);line-height:1.5}
-.overlay{position:fixed;inset:0;z-index:200;background:rgba(15,10,5,.55);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s;padding:1rem}
-.overlay.open{opacity:1;pointer-events:auto}
-.modal{background:var(--surface);border-radius:var(--radius);border:1px solid var(--border-med);max-width:480px;width:100%;max-height:85vh;overflow-y:auto;padding:1.75rem;position:relative;box-sha[...]
-.mc{position:absolute;top:14px;right:16px;background:none;border:none;font-size:22px;cursor:pointer;color:var(--text-muted);line-height:1}
-.mc:hover{color:var(--text)}
-.m-era{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px}
-.m-name{font-family:'DM Serif Display',serif;font-size:1.4rem;color:var(--text);margin-bottom:4px;line-height:1.2;padding-right:2rem}
-.m-year{font-size:13px;color:var(--text-muted);margin-bottom:14px}
-.m-div{height:1px;background:var(--border);margin:1rem 0}
-.m-f{font-size:13px;color:var(--text-sec);margin-bottom:12px;line-height:1.55;font-style:italic}
-.m-d{font-size:14px;color:var(--text);line-height:1.65;margin-bottom:14px}
-.m-i{background:var(--surface2);border-radius:var(--radius-sm);padding:10px 14px;font-size:13px;color:var(--text-sec);line-height:1.55}
-.m-i strong{color:var(--text);font-weight:600}
-footer{border-top:1px solid var(--border);padding:1.5rem 2rem;max-width:1100px;margin:0 auto;font-size:12px;color:var(--text-muted);line-height:1.6}
+.header{background:#1a2a5e;color:white;padding:40px;border-radius:8px;margin-bottom:30px}
+.header h1{margin:0 0 15px 0;font-size:2.5em;font-weight:700}
+.header p{margin:0 0 20px 0;font-size:1.05em;line-height:1.6;opacity:0.95}
+.pills{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
+.pill{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:100px;padding:8px 14px;font-size:13px;color:#e6f1fb}
+.pill strong{color:#fff}
+.container{max-width:1100px;margin:0 auto}
+.tree-container{background:white;padding:30px;border-radius:8px;margin-bottom:30px;box-shadow:0 2px 4px rgba(0,0,0,0.1)}
+.tree-container h2{margin-top:0;font-size:1.5em;margin-bottom:20px;color:#333}
+svg{max-width:100%;display:block}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px;margin-bottom:30px}
+.stat-card{background:white;padding:20px;border-radius:8px;text-align:center;box-shadow:0 2px 4px rgba(0,0,0,0.1)}
+.stat-number{font-size:2em;font-weight:bold;color:#1a2a5e;line-height:1}
+.stat-label{font-size:0.9em;color:#666;margin-top:8px}
+.analysis-container{background:white;padding:30px;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,0.1)}
+.analysis-container h2{margin-top:0;font-size:1.5em;margin-bottom:20px;color:#333}
+.analysis-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.analysis-card{border-left:4px solid #1a2a5e;padding:15px;background:#f9f9f9;border-radius:4px}
+.analysis-card h3{margin-top:0;font-size:1.1em;color:#1a2a5e}
+.analysis-card p{font-size:0.95em;line-height:1.6;color:#555}
+.warning-box{background:#fef3cd;border-left:4px solid #856404;padding:15px;border-radius:4px;margin-bottom:20px}
+.warning-box strong{color:#856404}
 </style>
 </head>
 <body>
-<div class="page-body" style="padding-top:1.5rem;padding-bottom:0">
-  <a href="./" class="back-link">← Back to visualizations</a>
-</div>
+<div class="container">
+<a href="./" class="back-link">← Back to visualizations</a>
 
-<header class="site-header">
-  <div class="header-inner">
-    <div class="kicker">Research Brief · Non-Compete &amp; Innovation Series</div>
-    <h1 class="h-title">Lotus Development Corporation: The Truncated Arc</h1>
-    <p class="h-sub">Cambridge, MA · 1982–1995. The first "killer app" of the PC era. $1B in revenue. 70% spreadsheet market share. Then: failure to pivot to Windows, IBM acquisition, brand ret[...]
-    <div class="stat-row">
-      <span class="pill"><strong>1982</strong> — Founded Cambridge, MA</span>
-      <span class="pill"><strong>$1B</strong> peak annual revenue</span>
-      <span class="pill"><strong>$3.5B</strong> IBM acquisition 1995</span>
-      <span class="pill"><strong>2013</strong> — 1-2-3 discontinued</span>
-      <span class="pill"><strong>0</strong> significant MA spinoffs</span>
-    </div>
-  </div>
-</header>
-
-<main class="page-body">
-  <div class="intro-grid">
-    <div class="icard">
-      <h3>The founding</h3>
-      <p>Mitch Kapor left VisiCorp with $1.7M and hired Jonathan Sachs — who had himself left Data General — to write a better spreadsheet. Sachs wrote all of Lotus 1-2-3 in assembly language [...]
-    </div>
-    <div class="icard">
-      <h3>The failure</h3>
-      <p>Lotus declined Microsoft's repeated invitations to develop for Windows, betting instead on IBM's OS/2. When Windows 3.0 shipped in 1990 and was adopted by millions, Lotus had no competit[...]
-    </div>
-  </div>
-
-  <div class="callout-green">
-    <strong>The Ray Ozzie exception — and what it proves.</strong> Lotus's single most consequential alumnus left in 1984. Ray Ozzie founded Iris Associates (which built Lotus Notes, worth ~$3B[...]
-  </div>
-
-  <div class="legend">
-    <span class="lchip"><span class="ldot" style="background:#5f5e5a"></span>Precursors</span>
-    <span class="lchip"><span class="ldot" style="background:#0c447c"></span>Lotus itself</span>
-    <span class="lchip"><span class="ldot" style="background:#185fa5"></span>Products / peak</span>
-    <span class="lchip"><span class="ldot" style="background:#791f1f"></span>Decline / acquisition</span>
-    <span class="lchip"><span class="ldot" style="background:#0f6e56"></span>Ray Ozzie chain</span>
-    <span class="lchip"><span class="ldot" style="background:#534ab7"></span>California competitors that won</span>
-  </div>
-
-  <div class="tree-box">
-    <h2>The Lotus genealogy — click any node to explore</h2>
-    <svg class="tree" viewBox="0 0 940 880" width="100%" style="min-width:680px">
-    <defs><marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width[...]
-    <text class="gl" x="12" y="80">Precursors</text><text class="gl" x="12" y="190">Lotus · 1982</text><text class="gl" x="12" y="310">Peak · 1983–89</text><text class="gl" x="12" y="430">Spi[...]
-    <line x1="110" y1="100" x2="930" y2="100" stroke="#e0ded8" stroke-width=".5"/><line x1="110" y1="220" x2="930" y2="220" stroke="#e0ded8" stroke-width=".5"/><line x1="110" y1="340" x2="930" y2[...]
-    <g class="ng" onclick="S('visicorp')"><rect x="120" y="58" width="180" height="44" rx="7" fill="#5f5e5a" stroke="#444441" stroke-width=".5"/><text class="nt" x="210" y="76" fill="#d3d1c7">Vis[...]
-    <g class="ng" onclick="S('datageneral')"><rect x="330" y="58" width="200" height="44" rx="7" fill="#5f5e5a" stroke="#444441" stroke-width=".5"/><text class="nt" x="430" y="76" fill="#d3d1c7">[...]
-    <g class="ng" onclick="S('plato')"><rect x="560" y="58" width="200" height="44" rx="7" fill="#5f5e5a" stroke="#444441" stroke-width=".5"/><text class="nt" x="660" y="76" fill="#d3d1c7">PLATO [...]
-    <path fill="none" stroke="#5f5e5a" stroke-width="1.2" d="M210 102L350 170" marker-end="url(#a)"/><path fill="none" stroke="#5f5e5a" stroke-width="1.2" d="M430 102L450 170" marker-end="url(#a)[...]
-    <g class="ng" onclick="S('lotus')"><rect x="240" y="170" width="420" height="48" rx="9" fill="#0c447c" stroke="#185fa5" stroke-width="1.2"/><text class="nt" x="450" y="191" fill="#b5d4f4">Lot[...]
-    <path fill="none" stroke="#185fa5" stroke-width="1.5" d="M380 218L250 288" marker-end="url(#a)"/><path fill="none" stroke="#185fa5" stroke-width="1.5" d="M450 218L450 288" marker-end="url(#a)[...]
-    <g class="ng" onclick="S('123')"><rect x="118" y="288" width="264" height="48" rx="7" fill="#185fa5" stroke="#3b8bd4" stroke-width="1"/><text class="nt" x="250" y="307" fill="#e6f1fb">Lotus 1[...]
-    <g class="ng" onclick="S('symphony')"><rect x="398" y="288" width="198" height="48" rx="7" fill="#185fa5" stroke="#3b8bd4" stroke-width=".5"/><text class="nt" x="497" y="307" fill="#e6f1fb">L[...]
-    <g class="ng" onclick="S('ozzie84')"><rect x="688" y="288" width="210" height="48" rx="7" fill="#0f6e56" stroke="#1d9e75" stroke-width=".5"/><text class="nt" x="793" y="307" fill="#e1f5ee">Ra[...]
-    <path fill="none" stroke="#185fa5" stroke-width="1.2" d="M250 336L185 408" marker-end="url(#a)"/><path fill="none" stroke="#791f1f" stroke-width="1.2" d="M497 336L497 408" marker-end="url(#a)[...]
-    <g class="ng" onclick="S('ipo')"><rect x="118" y="408" width="200" height="48" rx="7" fill="#185fa5" stroke="#3b8bd4" stroke-width=".5"/><text class="nt" x="218" y="427" fill="#e6f1fb">IPO + [...]
-    <g class="ng" onclick="S('windows_snub')"><rect x="378" y="408" width="238" height="48" rx="7" fill="#791f1f" stroke="#a32d2d" stroke-width=".5"/><text class="nt" x="497" y="427" fill="#fcebe[...]
-    <g class="ng" onclick="S('sachs85')"><rect x="558" y="408" width="120" height="48" rx="7" fill="#185fa5" stroke="#3b8bd4" stroke-width=".5"/><text class="nt" x="618" y="427" fill="#e6f1fb">Sa[...]
-    <g class="ng" onclick="S('iris')"><rect x="688" y="408" width="210" height="48" rx="7" fill="#0f6e56" stroke="#1d9e75" stroke-width=".5"/><text class="nt" x="793" y="427" fill="#e1f5ee">Iris [...]
-    <path fill="none" stroke="#0f6e56" stroke-width="1.5" d="M793 456L793 528" marker-end="url(#a)"/><path fill="none" stroke="#534ab7" stroke-width="1.5" d="M218 456L218 528" marker-end="url(#a)[...]
-    <g class="ng" onclick="S('excel')"><rect x="118" y="528" width="220" height="48" rx="7" fill="#534ab7" stroke="#7f77dd" stroke-width=".5"/><text class="nt" x="228" y="547" fill="#eeedfe">Exce[...]
-    <g class="ng" onclick="S('notes89')"><rect x="688" y="528" width="210" height="48" rx="7" fill="#0f6e56" stroke="#1d9e75" stroke-width=".5"/><text class="nt" x="793" y="547" fill="#e1f5ee">Lo[...]
-    <g class="ng" onclick="S('os2bet')"><rect x="380" y="528" width="240" height="48" rx="7" fill="#791f1f" stroke="#a32d2d" stroke-width=".5"/><text class="nt" x="500" y="547" fill="#fcebeb">OS/[...]
-    <path fill="none" stroke="#534ab7" stroke-width="1.5" d="M228 576L228 648" marker-end="url(#a)"/><path fill="none" stroke="#791f1f" stroke-width="1.5" d="M500 576L430 648" marker-end="url(#a)[...]
-    <g class="ng" onclick="S('msoffice')"><rect x="118" y="648" width="220" height="48" rx="7" fill="#534ab7" stroke="#7f77dd" stroke-width=".5"/><text class="nt" x="228" y="667" fill="#eeedfe">M[...]
-    <g class="ng" onclick="S('grooveproto')"><rect x="688" y="648" width="210" height="48" rx="7" fill="#0f6e56" stroke="#1d9e75" stroke-width=".5"/><text class="nt" x="793" y="667" fill="#e1f5ee[...]
-    <g class="ng" onclick="S('ibmbid')"><rect x="348" y="648" width="200" height="48" rx="7" fill="#791f1f" stroke="#a32d2d" stroke-width=".5"/><text class="nt" x="448" y="667" fill="#fcebeb">IBM[...]
-    <path fill="none" stroke="#791f1f" stroke-width="1.5" d="M448 696L448 768" marker-end="url(#a)"/><path fill="none" stroke="#0f6e56" stroke-width="1.5" d="M793 696L793 768" marker-end="url(#a)[...]
-    <g class="ng" onclick="S('ibmabsorb')"><rect x="248" y="768" width="400" height="48" rx="7" fill="#791f1f" stroke="#e24b4a" stroke-width="1"/><text class="nt" x="448" y="787" fill="#fcebeb">L[...]
-    <g class="ng" onclick="S('groove')"><rect x="688" y="768" width="210" height="48" rx="7" fill="#0f6e56" stroke="#1d9e75" stroke-width=".5"/><text class="nt" x="793" y="787" fill="#e1f5ee">Gro[...]
-    <g class="ng" onclick="S('excelwins')"><rect x="118" y="768" width="120" height="48" rx="7" fill="#534ab7" stroke="#7f77dd" stroke-width=".5"/><text class="nt" x="178" y="787" fill="#eeedfe">[...]
-    <rect x="110" y="826" width="820" height="40" rx="5" fill="none" stroke="#e0ded8" stroke-width=".5"/>
-    <text style="font-family:'DM Sans',sans-serif;font-size:12px;fill:#9c9a96;dominant-baseline:central" x="520" y="843" text-anchor="middle">Lotus (1982–1995): $3.5B IBM acquisition · no succ[...]</text>
-    <text style="font-family:'DM Sans',sans-serif;font-size:12px;fill:#9c9a96;dominant-baseline:central" x="520" y="860" text-anchor="middle">The Ozzie chain (Iris → Notes → Groove → Azure)[...]</text>
-    </svg>
-  </div>
-
-  <div class="stats-row">
-    <div class="sc"><div class="sn">1982</div><div class="sl">Founded Cambridge, MA</div></div>
-    <div class="sc"><div class="sn">$1B</div><div class="sl">Peak annual revenue · 70% spreadsheet market share</div></div>
-    <div class="sc"><div class="sn">$3.5B</div><div class="sl">IBM acquisition 1995 · ~$3B was for Notes</div></div>
-    <div class="sc"><div class="sn">2013</div><div class="sl">1-2-3 officially discontinued · 31 years after launch</div></div>
-    <div class="sc"><div class="sn">0</div><div class="sl">Significant MA spinoff companies</div></div>
-    <div class="sc"><div class="sn">Azure</div><div class="sl">Ozzie's Lotus knowledge ultimately seeded Microsoft cloud — not MA</div></div>
-  </div>
-
-  <div class="ozzie-section">
-    <h2>The Ray Ozzie chain: what compounding looks like when it escapes</h2>
-    <div class="chain-steps">
-      <div class="chain-step"><div class="chain-dot" style="background:#b8860b">1</div><div class="chain-text">
-        <h4>PLATO → Lotus (1983–84)</h4><p>Ozzie joins Lotus recruited by Sachs and Kapor to work on Symphony. His vi[...]
-      <div class="chain-step"><div class="chain-dot" style="background:#d4a574">2</div><div class="chain-text">
-        <h4>Lotus → Iris Associates (December 7, 1984)</h4><p>Ozzie leaves Lotus with Mitch Kapor's explicit blessing — a d[...]
-      <div class="chain-step"><div class="chain-dot" style="background:#e6d4b0">3</div><div class="chain-text">
-        <h4>Iris builds Notes (1984–89)</h4><p>Five years of development. Notes 1.0 ships December 7, 1989 — exactly [...]
-      <div class="chain-step"><div class="chain-dot" style="background:#f5e9c0">4</div><div class="chain-text">
-        <h4>Lotus acquires Iris ($84M, 1994) → IBM acquires Lotus ($3.5B, 1995)</h4><p>Analysts estimate ~$3B of the $3[...]
-      <div class="chain-step"><div class="chain-dot" style="background:#fdf9f3">5</div><div class="chain-text">
-        <h4>Ozzie leaves IBM/Lotus (1997) → founds Groove Networks</h4><p>After the IBM integration, Ozzie departs to f[...]
-      </div>
-    </div>
-  </div>
-</main>
-
-<footer>
-  <strong>Sources:</strong> Wikipedia: Lotus Development, Mitch Kapor, Jonathan Sachs, Lotus 1-2-3, Ray Ozzie, Iris Associates; FundingUniverse, Lotus Development Corporation History; IEEE ETHW, [...]
-  <br><br>Part of the <em>Bound by Law: Non-Compete Agreements and Innovation</em> research series.
-</footer>
-
-<div class="overlay" id="ov" onclick="C(event)">
-<div class="modal">
-  <button class="mc" onclick="C(null,1)">×</button>
-  <div class="m-era" id="me"></div><div class="m-name" id="mn"></div><div class="m-year" id="my"></div>
-  <div class="m-div"></div>
-  <div class="m-f" id="mf"></div><div class="m-d" id="md"></div><div class="m-i" id="mi"></div>
+<div class="header">
+<h1>Lotus Development: The Truncated Arc</h1>
+<p>Cambridge, MA · 1982–1995. The first "killer app" of the PC era. $1B in annual revenue. 70% spreadsheet market share. Then: failure to pivot to Windows, IBM acquisition, and brand retirement. Zero significant spinoffs.</p>
+<div class="pills">
+<span class="pill"><strong>1982</strong> — Founded Cambridge, MA</span>
+<span class="pill"><strong>$1B</strong> peak annual revenue</span>
+<span class="pill"><strong>$3.5B</strong> IBM acquisition 1995</span>
+<span class="pill"><strong>2013</strong> — 1-2-3 discontinued</span>
+<span class="pill"><strong>0</strong> significant MA spinoffs</span>
 </div>
 </div>
 
-<script>
-const D={
-visicorp:{e:"Precursor · 1979–82",n:"VisiCorp / VisiCalc",y:"Cambridge, MA",f:"Dan Bricklin and Bob Frankston created VisiCalc. Kapor wrote add-ons VisiPlot and VisiTrend.",d:"Kapor wrote two [...]
-datageneral:{e:"Precursor · 1979–82",n:"Data General / Concentric Data Systems",y:"Massachusetts",f:"Jonathan Sachs and John Henderson left Data General to found Concentric Data Systems in 197[...]
-plato:{e:"Precursor · 1970s",n:"PLATO system · University of Illinois",y:"Champaign-Urbana, Illinois",f:"Ray Ozzie, Tim Halvorsen, Len Kawell, Steve Beckhardt all worked on PLATO as students.",d:"PLATO introduced networking and message boards that later inspired groupware[...]
-lotus:{e:"Founding · 1982",n:"Lotus Development Corporation",y:"Cambridge, MA · April 1982",f:"Mitchell Kapor (CEO) + Jonathan Sachs (programmer). Backed by Ben Rosen ($5M total).",d:"Lotus lau[...]
-"123":{e:"Peak product · 1983",n:"Lotus 1-2-3",y:"Released January 26, 1983",f:"Written entirely by Jonathan Sachs in assembly language for the IBM PC.",d:"1-2-3 was the first true 'killer app' [...]
-symphony:{e:"Product · 1984",n:"Lotus Symphony",y:"1984 — integrated software suite",f:"Designed by Lotus to expand beyond spreadsheets; Ray Ozzie worked on Symphony before departing.",d:"Symph[...]
-ozzie84:{e:"Key departure · December 7, 1984",n:"Ray Ozzie leaves Lotus",y:"Founds Iris Associates in Westford, Massachusetts",f:"Departed with Mitch Kapor's explicit blessing — a formal deal:[...]
-ipo:{e:"Peak · 1986–88",n:"IPO and market dominance",y:"Public 1986 · $1B revenue by 1988",f:"CEO: Kapor (to 1986), then James Manzi",d:"Lotus went public in 1986. Kapor le[...]
-windows_snub:{e:"Strategic failure · 1986–90",n:"Lotus refuses Windows development",y:"Declines Microsoft's invitations to develop for Windows",f:"CEO James Manzi's decision to bet on OS/2 rat[...]
-sachs85:{e:"Departure · 1985",n:"Jonathan Sachs leaves Lotus",y:"1985 · two years after 1-2-3 launch",f:"Founded Digital Light & Color in Cambridge, MA",d:"The technical genius behind 1-2-3 lef[...]
-iris:{e:"Spinoff · 1984",n:"Iris Associates",y:"Westford / Littleton, MA · founded December 7, 1984",f:"Founder: Ray Ozzie. Core team: Tim Halvorsen, Len Kawell, Steve Beckhardt — all PLATO a[...]
-excel:{e:"California competitor · 1985–93",n:"Microsoft Excel",y:"Mac 1985 · Windows 1987 · Redmond, WA",f:"Microsoft, drawing on engineers who moved freely across the Seattle and California[...]
-notes89:{e:"Notes ships · December 7, 1989",n:"Lotus Notes 1.0",y:"Exactly 5 years after Iris founding",f:"Built by the Iris Associates team — all PLATO alumni — in Westford, MA.",d:"Notes 1[...]
-os2bet:{e:"Strategic failure · 1990–92",n:"OS/2 strategy collapses",y:"Windows 3.0 ships May 1990 · Lotus has no Windows spreadsheet",f:"Lotus had spent years on OS/2 compatibility while negl[...]
-msoffice:{e:"California wins · 1989",n:"Microsoft Office",y:"1989 · Excel + Word + PowerPoint bundled",f:"Microsoft bundled its applications into a suite priced to undercut Lotus SmartSuite on[...]
-ibmbid:{e:"Terminal · June 1995",n:"IBM's hostile takeover",y:"$3.5 billion · ~$3B attributable to Notes",f:"IBM CEO Lou Gerstner wanted Notes specifically to compete with Microsoft's collabora[...]
-amipro:{e:"Third-place product",n:"Ami Pro → Word Pro",y:"Acquired from Samna Corp (Atlanta) 1990",f:"Lotus acquired Samna Corporation to enter the word processing market.",d:"Lotus acquired Am[...]
-grooveproto:{e:"Ozzie departure · 1997",n:"Ray Ozzie leaves IBM/Lotus",y:"1997 · founds Groove Networks in Beverly, MA",f:"Ozzie had stayed through the IBM acquisition and Iris integration. He ...",
-ibmabsorb:{e:"Terminal · 1995–2018",n:"Lotus absorbed · brand retired · assets to HCL",y:"IBM 1995 · brand retired 2013 · HCL acquires 2018 for $1.8B",f:"The Lotus brand survived IBM for 1...",
-groove:{e:"Ozzie chain · 2005",n:"Groove Networks → Microsoft",y:"Acquired 2005 · Ozzie becomes CTO then Chief Software Architect",f:"Ozzie succeeded Bill Gates as Microsoft Chief Software Ar[...]
-excelwins:{e:"Legacy · ongoing",n:"Excel remains the world's dominant spreadsheet",y:"Dominant since early 1990s · still leading 2026",f:"Microsoft Excel",d:"Excel, which began displacing 1-2-3[...]
-};
-function S(id){const d=D[id];if(!d)return;document.getElementById('me').textContent=d.e;document.getElementById('mn').textContent=d.n;document.getElementById('my').textContent=d.y;document.getEle[...]
-function C(e,f){if(f||!e||e.target===document.getElementById('ov'))document.getElementById('ov').classList.remove('open');}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')document.getElementById('ov').classList.remove('open');});
-</script>
+<div class="stats">
+<div class="stat-card">
+<div class="stat-number">1982</div>
+<div class="stat-label">Lotus Founded</div>
+</div>
+<div class="stat-card">
+<div class="stat-number">$1B</div>
+<div class="stat-label">Peak Annual Revenue</div>
+</div>
+<div class="stat-card">
+<div class="stat-number">$3.5B</div>
+<div class="stat-label">IBM Acquisition (1995)</div>
+</div>
+<div class="stat-card">
+<div class="stat-number">70%</div>
+<div class="stat-label">Market Share (1-2-3)</div>
+</div>
+<div class="stat-card">
+<div class="stat-number">0</div>
+<div class="stat-label">Major Spinoffs</div>
+</div>
+</div>
+
+<div class="tree-container">
+<h2>Lotus Development Timeline</h2>
+<svg viewBox="0 0 1000 450" width="100%" height="450">
+<!-- Timeline backbone -->
+<line x1="50" y1="200" x2="950" y2="200" stroke="#ddd" stroke-width="2"/>
+
+<!-- 1982: Foundation -->
+<circle cx="100" cy="200" r="6" fill="#1a2a5e"/>
+<rect x="30" y="100" width="140" height="80" rx="4" fill="white" stroke="#1a2a5e" stroke-width="1"/>
+<text x="100" y="125" text-anchor="middle" font-weight="bold" font-size="12">1982: Lotus Founded</text>
+<text x="100" y="145" text-anchor="middle" font-size="11">Mitch Kapor, Jonathan Sachs</text>
+<text x="100" y="160" text-anchor="middle" font-size="10">Cambridge, MA</text>
+<line x1="100" y1="190" x2="100" y2="100" stroke="#999" stroke-width="1" stroke-dasharray="3,3"/>
+
+<!-- 1983: 1-2-3 Launch -->
+<circle cx="200" cy="200" r="6" fill="#185fa5"/>
+<rect x="140" y="100" width="120" height="80" rx="4" fill="white" stroke="#185fa5" stroke-width="1"/>
+<text x="200" y="125" text-anchor="middle" font-weight="bold" font-size="12">1983: 1-2-3</text>
+<text x="200" y="145" text-anchor="middle" font-size="11">Revolutionary spreadsheet</text>
+<text x="200" y="160" text-anchor="middle" font-size="10">IBM PC exclusive</text>
+<line x1="200" y1="190" x2="200" y2="100" stroke="#999" stroke-width="1" stroke-dasharray="3,3"/>
+
+<!-- 1985: Peak Market Share -->
+<circle cx="350" cy="200" r="6" fill="#185fa5"/>
+<rect x="290" y="100" width="120" height="80" rx="4" fill="white" stroke="#185fa5" stroke-width="1"/>
+<text x="350" y="125" text-anchor="middle" font-weight="bold" font-size="12">1985: Peak</text>
+<text x="350" y="145" text-anchor="middle" font-size="11">70% market share</text>
+<text x="350" y="160" text-anchor="middle" font-size="10">$1B in revenue</text>
+<line x1="350" y1="190" x2="350" y2="100" stroke="#999" stroke-width="1" stroke-dasharray="3,3"/>
+
+<!-- 1990: Windows Challenge -->
+<circle cx="550" cy="200" r="6" fill="#993c1d"/>
+<rect x="490" y="100" width="120" height="80" rx="4" fill="white" stroke="#993c1d" stroke-width="1"/>
+<text x="550" y="125" text-anchor="middle" font-weight="bold" font-size="12">1990: Crisis</text>
+<text x="550" y="145" text-anchor="middle" font-size="11">Windows 3.0 released</text>
+<text x="550" y="160" text-anchor="middle" font-size="10">Excel gains share</text>
+<line x1="550" y1="190" x2="550" y2="100" stroke="#999" stroke-width="1" stroke-dasharray="3,3"/>
+
+<!-- 1995: IBM Acquisition -->
+<circle cx="750" cy="200" r="6" fill="#791f1f"/>
+<rect x="690" y="100" width="120" height="80" rx="4" fill="white" stroke="#791f1f" stroke-width="1"/>
+<text x="750" y="125" text-anchor="middle" font-weight="bold" font-size="12">1995: Acquired</text>
+<text x="750" y="145" text-anchor="middle" font-size="11">IBM buys for $3.5B</text>
+<text x="750" y="160" text-anchor="middle" font-size="10">Integration begins</text>
+<line x1="750" y1="190" x2="750" y2="100" stroke="#999" stroke-width="1" stroke-dasharray="3,3"/>
+
+<!-- 2013: End of Life -->
+<circle cx="900" cy="200" r="6" fill="#999"/>
+<rect x="840" y="100" width="120" height="80" rx="4" fill="#f0f0f0" stroke="#999" stroke-width="1"/>
+<text x="900" y="125" text-anchor="middle" font-weight="bold" font-size="12">2013: Discontinued</text>
+<text x="900" y="145" text-anchor="middle" font-size="11">1-2-3 discontinued</text>
+<text x="900" y="160" text-anchor="middle" font-size="10">31 years of history</text>
+<line x1="900" y1="190" x2="900" y2="100" stroke="#999" stroke-width="1" stroke-dasharray="3,3"/>
+
+<!-- Bottom annotations -->
+<text x="100" y="270" text-anchor="middle" font-size="11" fill="#666">Founded by</text>
+<text x="100" y="285" text-anchor="middle" font-size="11" fill="#666">Mitch Kapor</text>
+
+<text x="550" y="270" text-anchor="middle" font-size="11" fill="#666">Failed to adapt</text>
+<text x="550" y="285" text-anchor="middle" font-size="11" fill="#666">to Windows</text>
+
+<text x="750" y="270" text-anchor="middle" font-size="11" fill="#666">IBM acquired,</text>
+<text x="750" y="285" text-anchor="middle" font-size="11" fill="#666">lost momentum</text>
+
+<text x="900" y="270" text-anchor="middle" font-size="11" fill="#666">Zero spinoff</text>
+<text x="900" y="285" text-anchor="middle" font-size="11" fill="#666">ecosystem</text>
+
+<!-- Context: MA Non-Compete Law -->
+<text x="50" y="360" font-weight="bold" font-size="12" fill="#333">Massachusetts Non-Compete Law:</text>
+<text x="50" y="380" font-size="11" fill="#555">• Lotus era (1982-1995): Enforced non-competes common in MA</text>
+<text x="50" y="395" font-size="11" fill="#555">• Unlike California's § 16600, MA enforced non-competes under reasonable circumstances</text>
+<text x="50" y="410" font-size="11" fill="#555">• Result: Knowledge stayed in place. No spinoff genealogy. Compare to Fairchild or Cisco.</text>
+</svg>
+</div>
+
+<div class="warning-box">
+<strong>⚠️ The Contrast with Silicon Valley:</strong> Lotus Development was Massachusetts' equivalent to Fairchild or Cisco—a market-defining company in the PC era. Yet it generated zero major spinoffs. The difference? Massachusetts enforced non-competes; California (§ 16600) did not. Knowledge that could have created 10 generations of companies dispersed into Nortel, IBM, and disappeared.
+</div>
+
+<div class="analysis-container">
+<h2>Why Lotus Didn't Spawn Spinoffs</h2>
+<div class="analysis-grid">
+<div class="analysis-card">
+<h3>Timing Problem</h3>
+<p><strong>Founded 1982, acquired 1995 (13 years).</strong> By the time employees could have spun out (mid-1990s), the market had shifted to Windows. Excel dominated spreadsheets. The window to capitalize on Lotus expertise was narrow.</p>
+</div>
+<div class="analysis-card">
+<h3>Non-Compete Enforcement</h3>
+<p><strong>MA courts enforced non-competes.</strong> Lotus employees couldn't easily leave and start competing ventures in Boston. Contrast this with Stanford/Fairchild/Cisco alumni who faced zero restriction under California law. Knowledge stayed locked inside IBM.</p>
+</div>
+<div class="analysis-card">
+<h3>IBM Acquisition Trap</h3>
+<p><strong>IBM was a slow-moving giant.</strong> Unlike PayPal/eBay (where culture clash drove exits), IBM simply absorbed Lotus. Talented employees faced long decision cycles, hierarchy, and declining relevance—but few had external options due to non-competes.</p>
+</div>
+<div class="analysis-card">
+<h3>Technology Shift</h3>
+<p><strong>Spreadsheet era ended.</strong> By the late 1990s, web-based applications and databases were ascendant. Lotus 1-2-3 expertise became dated. Unlike Cisco (networking remained central), Lotus had no adjacent growth market.</p>
+</div>
+<div class="analysis-card">
+<h3>No Founder Ecosystem</h3>
+<p><strong>Mitch Kapor left early.</strong> Kapor founded EFI and later Lotus Foundation work. But he never became a serial founder network like Thiel, Musk, or Hoffman. No "Lotus Mafia" culture emerged.</p>
+</div>
+<div class="analysis-card">
+<h3>Brain Drain to CA</h3>
+<p><strong>Talented employees eventually left Boston entirely.</strong> Some ended up in Silicon Valley where they contributed to other ecosystems. But they didn't create a "Lotus genealogy" in Boston.</p>
+</div>
+</div>
+</div>
+</div>
 </body>
 </html>
