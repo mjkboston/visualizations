@@ -18,6 +18,9 @@
   --purple-dk:#3c3489;--radius:10px;--radius-sm:6px;
 }
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.site-toplink{max-width:1100px;margin:0 auto;padding:1rem 1.5rem 0}
+.site-toplink a{display:inline-block;color:var(--blue-dk);text-decoration:none;font-weight:600;font-size:14px;border-bottom:1px solid currentColor;padding-bottom:2px}
+.site-toplink a:hover{opacity:.8}
 .site-header{background:#0d1a3a;color:#fff;padding:3rem 2rem 2.5rem;position:relative;overflow:hidden}
 .site-header::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 40px,rgba(255,255,255,.02) 40px,rgba(255,255,255,.02) 41px)}
 .header-inner{max-width:1100px;margin:0 auto;position:relative}
@@ -75,6 +78,7 @@ footer{border-top:1px solid var(--border);padding:1.5rem 2rem;max-width:1100px;m
 </style>
 </head>
 <body>
+<div class="site-toplink"><a href="./index.html">← Back to visualizations</a></div>
 <header class="site-header">
   <div class="header-inner">
     <div class="kicker">Research Brief · Non-Compete &amp; Innovation Series</div>
